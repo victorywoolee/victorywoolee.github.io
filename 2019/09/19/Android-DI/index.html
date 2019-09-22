@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>[Android] DI - Dagger2 | VictoryWoo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Android,DI,Dagger2">
+    
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
+    <meta name="description" content="해당 글은 DI와 관련된 공부 및 정리 글이며 추후에 내용이 추가될 가능성이 있습니다. DI Dependency Inject이라고 하면 의존성 주입을 의미한다. 구성요소 간의 의존 관계를 소스 코드 내부가 아닌 외부 설정 파일 등을 통해 정의되게 하는 디자인 패턴이다. 크게 3가지 유형으로 나누어 볼 수 있다.   생성자 주입 Setter를 통한 주입 In">
+<meta name="keywords" content="Android,DI,Dagger2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android] DI - Dagger2">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/09/19/Android-DI/index.html">
+<meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="해당 글은 DI와 관련된 공부 및 정리 글이며 추후에 내용이 추가될 가능성이 있습니다. DI Dependency Inject이라고 하면 의존성 주입을 의미한다. 구성요소 간의 의존 관계를 소스 코드 내부가 아닌 외부 설정 파일 등을 통해 정의되게 하는 디자인 패턴이다. 크게 3가지 유형으로 나누어 볼 수 있다.   생성자 주입 Setter를 통한 주입 In">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://victorywoolee/image/daggerFlow.png">
+<meta property="og:updated_time" content="2019-09-21T05:33:53.856Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android] DI - Dagger2">
+<meta name="twitter:description" content="해당 글은 DI와 관련된 공부 및 정리 글이며 추후에 내용이 추가될 가능성이 있습니다. DI Dependency Inject이라고 하면 의존성 주입을 의미한다. 구성요소 간의 의존 관계를 소스 코드 내부가 아닌 외부 설정 파일 등을 통해 정의되게 하는 디자인 패턴이다. 크게 3가지 유형으로 나누어 볼 수 있다.   생성자 주입 Setter를 통한 주입 In">
+<meta name="twitter:image" content="http://victorywoolee/image/daggerFlow.png">
+    
+
+    
+        <link rel="alternate" href="/" title="VictoryWoo" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">VictoryWoo&#39;s Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Android/">Android</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clean-Code/">Clean Code</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ETC/">ETC</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Android/">Android</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Android-DI" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [Android] DI - Dagger2
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/09/19/Android-DI/" class="article-date">
+            <time datetime="2019-09-19T11:46:46.000Z" itemprop="datePublished">2019-09-19</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/DI/">DI</a>, <a class="tag-link" href="/tags/Dagger2/">Dagger2</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>해당 글은 DI와 관련된 공부 및 정리 글이며 추후에 내용이 추가될 가능성이 있습니다.</p>
+<h2 id="DI"><a href="#DI" class="headerlink" title="DI"></a>DI</h2><ul>
+<li>Dependency Inject이라고 하면 의존성 주입을 의미한다.</li>
+<li>구성요소 간의 의존 관계를 소스 코드 내부가 아닌 외부 설정 파일 등을 통해 정의되게 하는 디자인 패턴이다.</li>
+<li>크게 3가지 유형으로 나누어 볼 수 있다.</li>
+</ul>
+<ol>
+<li>생성자 주입</li>
+<li>Setter를 통한 주입</li>
+<li>Interface를 통한 주입</li>
+</ol>
+<p>직접 의존성을 주입하는 형태의 클래스를 작성해도 되지만, 프로젝트의 규모가 커진다면 번거로운 작업이 된다. 그래서 이를 라이브러리로 넘겨서 대신 처리하도록 구현할 수 있다.</p>
+<p>그 중에서도 Dagger와 관련해서 내용을 정리해보았다.</p>
+<h2 id="Dagger2"><a href="#Dagger2" class="headerlink" title="Dagger2"></a>Dagger2</h2><ul>
+<li>Dagger의 핵심 키워드는 아래 그림과 같다.</li>
+</ul>
+<img src="/image/daggerFlow.png" width="600"> 
+
+<ul>
+<li><strong>Module</strong><ul>
+<li>의존성을 제공하는 @Provides 메소드를 가진 클래스에 이용한다. 모든 @Provides 메소드는 @Module 클래스 안에 속해야 한다.</li>
+</ul>
+</li>
+<li><strong>Provides</strong><ul>
+<li>어떻게 의존성을 구성하고 제공하는지 정의하는 메소드에 사용한다.</li>
+<li>Module과 Provides는 <code>공급자</code>의 역할을 한다.</li>
+</ul>
+</li>
+<li><strong>Inject</strong><ul>
+<li>의존성이 필요한 클래스에서 의존성 주입을 요청한다. @Inject 어노테이션으로 주입을 요청하면 연결된 Component가 Module로부터 객체를 생성하여 넘겨준다.</li>
+<li><code>소비자</code>의 역할을 한다.</li>
+</ul>
+</li>
+<li><strong>Component</strong><ul>
+<li>연결된 Module을 이용해 의존성 객체를 생성하고, Inject로 요청받은 인스턴스에 생성한 객체를 주입한다. </li>
+<li>의존성을 요청받고 주입하는 Dagger의 주된 역할을 수행한다.</li>
+<li>Module과 Inject 사이의 다리 역할을 한다.</li>
+<li>인터페이스에만 사용한다.</li>
+</ul>
+</li>
+<li><strong>Scope</strong><ul>
+<li>생성된 객체의 Lifecycle 범위를 뜻한다.</li>
+<li>안드로이드에서는 주로 PerActivity, PerFragment 등으로 화면의 생명주기와 맞추어 사용한다.</li>
+<li>Module에서는 이 Scope을 보고 객체를 관리한다.</li>
+</ul>
+</li>
+<li><strong>Subcomponent</strong><ul>
+<li>Component는 계층 관계를 만들 수 있다. Subcomponent는 Inner Class 방식의 하위계층 Component이다.</li>
+<li>Sub의 Sub도 가능하다.</li>
+<li>이는 Dagger의 중요한 컨셉인 그래프를 형성한다. Inject로 주입을 요청받으면 Subcomponent에서 먼저 의존성을 검색하고 없으면 부모로 올라가면서 검색한다.</li>
+</ul>
+</li>
+<li><strong>Qualifier</strong><ul>
+<li>동일한 유형이지만 다른 인스턴스를 가진 객체를 구별하는데 사용된다.</li>
+<li>주로 타입만으로 의존성을 식별하기 어려운 경우에 사용한다.</li>
+<li>예를 들어, String과 같은 범용적인 타입일 경우 중첩될 수 있어서 이때 사용하면 된다.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Flow</strong><br>@Inject -&gt; Subcomponent -&gt; Module -&gt; Scope에 있으면 return. 없으면 생성<br>Subcomponent module에서 맞는 타입을 못찾으면 상위 Component -&gt; Module -&gt; Scope에 있으면 return. 없으면 생성.</p>
+<p>@Component를 구성하는 모든 @Module 클래스 목록을 작성해야 한다.<br>아래와 같은 그림처럼 나타난다.</p>
+<img src="/image/dagger1.png" width="600"> 
+
+<p>Component를 구성하는 모든 Module 클래스 목록을 작성한다. 이를 통해서 Component는 Module과 연결되었다. 의존성 주입이 필요한 곳에서 @Inject를 통해 요청이 들어오면 해당 컴포넌트는 연결된 모듈 중에서 의존성을 제공할 수 있는 모듈이 있는지 검색한다. </p>
+<p>제공할 수 있는 모듈이 있으면 Module에서 정의했던 메소드를 통해서 객체를 제공하게 된다. 그리고 주의해야할 점은 @Inject가 필요한 곳을 Component에 정의해야 한다는 것이다. 예를 들어, MainActivity에서 의존성 주입이 필요하다면 다음과 같이 Component에 정의해야 한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component(modules = [CatModule::class, DogModule::class])</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">AnimalComponent</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">inject</span><span class="params">(mainActivity: <span class="type">MainActivity</span>)</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Component 인터페이스를 만들고 후에 build를 하면 Dagger는 이 인터페이스를 구현한 클래스를 자동으로 생성해준다. 생성된 클래스는 @Component 인터페이스 앞에 Dagger를 붙인채로 생성된다.</p>
+<img src="/image/dagger2.png" width="600"> 
+
+
+<h2 id="추가될-내용"><a href="#추가될-내용" class="headerlink" title="추가될 내용"></a>추가될 내용</h2><p>꽤 많은 블로그를 참고해 내용을 작성했는데, 주로 한글로 작성된 자료를 참고했다. 그래서 아래에 명시한 영어로 된 자료들을 참고해서 내용을 다시 정리할 예정이다.<br>또한, Subcomponent와 관련된 내용도 더 숙지해서 정리할 필요가 있다.</p>
+<ul>
+<li><a href="https://blog.gouline.net/dagger-2-even-sharper-less-square-b52101863542" target="_blank" rel="noopener">참고1</a></li>
+<li><a href="http://frogermcs.github.io/dependency-injection-with-dagger-2-the-api/" target="_blank" rel="noopener">참고2</a></li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/09/19/Android-DI/" data-id="ck0ugcycy0001m03r57yb99cl" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "John Doe"
+        },
+        "headline": "[Android] DI - Dagger2",
+        "image": "http://victorywoolee/victorywoolee.github.io/image/daggerFlow.png",
+        "keywords": "Android DI Dagger2",
+        "genre": "Android",
+        "datePublished": "2019-09-19",
+        "dateCreated": "2019-09-19",
+        "dateModified": "2019-09-21",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/09/19/Android-DI/",
+        "description": "해당 글은 DI와 관련된 공부 및 정리 글이며 추후에 내용이 추가될 가능성이 있습니다.
+DI
+Dependency Inject이라고 하면 의존성 주입을 의미한다.
+구성요소 간의 의존 관계를 소스 코드 내부가 아닌 외부 설정 파일 등을 통해 정의되게 하는 디자인 패턴이다.
+크게 3가지 유형으로 나누어 볼 수 있다.
+
+
+생성자 주입
+Setter를 통한 주입
+In",
+        "wordCount": 419
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/victorywoolee" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/09/19/Android-Pixels/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            [Android] 해상도
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/09/19/Android-WindowBackground/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[Android] WindowBackground</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/09/22/Android-ripple/" class="title">[Android] ripple</a></p>
+                            <p class="item-date"><time datetime="2019-09-22T03:54:56.000Z" itemprop="datePublished">2019-09-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/09/21/Android-Gradle/" class="title">[Android] Gradle</a></p>
+                            <p class="item-date"><time datetime="2019-09-21T06:39:20.000Z" itemprop="datePublished">2019-09-21</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Git/">Git</a></p>
+                            <p class="item-title"><a href="/2019/09/21/Git-Flow/" class="title">[Git] Git Flow 전략</a></p>
+                            <p class="item-date"><time datetime="2019-09-21T05:34:12.000Z" itemprop="datePublished">2019-09-21</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/09/19/Android-Pixels/" class="title">[Android] 해상도</a></p>
+                            <p class="item-date"><time datetime="2019-09-19T11:48:06.000Z" itemprop="datePublished">2019-09-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/09/19/Android-DI/" class="title">[Android] DI - Dagger2</a></p>
+                            <p class="item-date"><time datetime="2019-09-19T11:46:46.000Z" itemprop="datePublished">2019-09-19</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">11</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Build/">Build</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clean-Code/">Clean Code</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Constraint-Layout/">Constraint Layout</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DI/">DI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dagger2/">Dagger2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ETC/">ETC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GNV/">GNV</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git-Flow/">Git Flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Window-Background/">Window Background</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ripple/">ripple</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/주석/">주석</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/함수/">함수</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/해상도/">해상도</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 John Doe</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/09/19/Android-DI/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

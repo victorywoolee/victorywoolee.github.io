@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>[Android] 해상도 | VictoryWoo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Android,해상도">
+    
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
+    <meta name="description" content="DIP(Device Independent Pixels) or DP 안드로이드에서 사용하는 독립적인 단위 수치 어떤 해상도에서도 같은 크기를 보여주는 것이 목적  DPI(Dot Per Inch) 1인치(2.54cm)에 들어가는 픽셀의 수 안드로이드에서는 160dpi를 기본 값으로 한다.   px(pixel) 스크린의 실제 픽셀 단위를 사용한다. 실제 크기나">
+<meta name="keywords" content="Android,해상도">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android] 해상도">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/09/19/Android-Pixels/index.html">
+<meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="DIP(Device Independent Pixels) or DP 안드로이드에서 사용하는 독립적인 단위 수치 어떤 해상도에서도 같은 크기를 보여주는 것이 목적  DPI(Dot Per Inch) 1인치(2.54cm)에 들어가는 픽셀의 수 안드로이드에서는 160dpi를 기본 값으로 한다.   px(pixel) 스크린의 실제 픽셀 단위를 사용한다. 실제 크기나">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://victorywoolee/image/dpi_img.png">
+<meta property="og:updated_time" content="2019-09-21T04:38:35.419Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android] 해상도">
+<meta name="twitter:description" content="DIP(Device Independent Pixels) or DP 안드로이드에서 사용하는 독립적인 단위 수치 어떤 해상도에서도 같은 크기를 보여주는 것이 목적  DPI(Dot Per Inch) 1인치(2.54cm)에 들어가는 픽셀의 수 안드로이드에서는 160dpi를 기본 값으로 한다.   px(pixel) 스크린의 실제 픽셀 단위를 사용한다. 실제 크기나">
+<meta name="twitter:image" content="http://victorywoolee/image/dpi_img.png">
+    
+
+    
+        <link rel="alternate" href="/" title="VictoryWoo" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">VictoryWoo&#39;s Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Android/">Android</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clean-Code/">Clean Code</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ETC/">ETC</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Android/">Android</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Android-Pixels" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [Android] 해상도
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/09/19/Android-Pixels/" class="article-date">
+            <time datetime="2019-09-19T11:48:06.000Z" itemprop="datePublished">2019-09-19</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/해상도/">해상도</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="DIP-Device-Independent-Pixels-or-DP"><a href="#DIP-Device-Independent-Pixels-or-DP" class="headerlink" title="DIP(Device Independent Pixels) or DP"></a>DIP(Device Independent Pixels) or DP</h2><ul>
+<li>안드로이드에서 사용하는 독립적인 단위 수치</li>
+<li>어떤 해상도에서도 같은 크기를 보여주는 것이 목적</li>
+</ul>
+<h2 id="DPI-Dot-Per-Inch"><a href="#DPI-Dot-Per-Inch" class="headerlink" title="DPI(Dot Per Inch)"></a>DPI(Dot Per Inch)</h2><ul>
+<li>1인치(2.54cm)에 들어가는 픽셀의 수</li>
+<li>안드로이드에서는 160dpi를 기본 값으로 한다. </li>
+</ul>
+<h2 id="px-pixel"><a href="#px-pixel" class="headerlink" title="px(pixel)"></a>px(pixel)</h2><ul>
+<li>스크린의 실제 픽셀 단위를 사용한다.</li>
+<li>실제 크기나 밀도와 상관 없다.</li>
+</ul>
+<p><strong>변환식</strong></p>
+<ul>
+<li>px = dp * (dpi/160)</li>
+<li>dp = px * (160/dpi)</li>
+<li>160dpi인 해상도에서 1dp = 1px이다. </li>
+</ul>
+<p><strong>밀도 분류</strong></p>
+<ul>
+<li>160dpi = mdpi -&gt; 160 * 1 = 1dp = 1px</li>
+<li>240dpi = hdpi -&gt; 160 * 1.5 = 1dp = 1.5px</li>
+<li>320dpi = xhdpi -&gt; 160 * 2 = 1dp = 2px</li>
+<li>480dpi = xxhdpi -&gt; 160 * 3 = 1dp = 3px</li>
+<li>640dpi = xxxhdpi -&gt; 160 * 4 = 1dp = 4px</li>
+</ul>
+<img src="/image/dpi_img.png">
+
+<p>위의 그림은 구글 공식 문서에 있다. 안드로이드의 리소스 우선순위를 확인할 수 있다.<br>자신에게 맞는 dpi 폴더를 먼저 읽고 해당 리소스가 없다면 가장 큰 dpi 폴더에서부터 작은 폴더순으로 읽으며 리소스를 찾는다.</p>
+<p><strong>최소 너비</strong></p>
+<ul>
+<li>사용 가능한 화면 영역의 가장 짧은 치수 기준으로 분류한다.</li>
+<li>sw<n>dp -&gt; sw320dp, sw600dp</n></li>
+<li>sw600dp로 분류된 레이아웃은 화면의 사용 가능한 영역 중, 가로 또는 세로 중 짧은 치수를 기준으로 600dp가 넘는 경우에만 접근이 가능하도록 한다.</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/09/19/Android-Pixels/" data-id="ck0ugcyd50009m03rpdb42r90" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "John Doe"
+        },
+        "headline": "[Android] 해상도",
+        "image": "http://victorywoolee/victorywoolee.github.io/image/dpi_img.png",
+        "keywords": "Android 해상도",
+        "genre": "Android",
+        "datePublished": "2019-09-19",
+        "dateCreated": "2019-09-19",
+        "dateModified": "2019-09-21",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/09/19/Android-Pixels/",
+        "description": "DIP(Device Independent Pixels) or DP
+안드로이드에서 사용하는 독립적인 단위 수치
+어떤 해상도에서도 같은 크기를 보여주는 것이 목적
+
+DPI(Dot Per Inch)
+1인치(2.54cm)에 들어가는 픽셀의 수
+안드로이드에서는 160dpi를 기본 값으로 한다. 
+
+px(pixel)
+스크린의 실제 픽셀 단위를 사용한다.
+실제 크기나 ",
+        "wordCount": 176
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/victorywoolee" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/09/21/Git-Flow/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            [Git] Git Flow 전략
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/09/19/Android-DI/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[Android] DI - Dagger2</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/09/22/Android-ripple/" class="title">[Android] ripple</a></p>
+                            <p class="item-date"><time datetime="2019-09-22T03:54:56.000Z" itemprop="datePublished">2019-09-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/09/21/Android-Gradle/" class="title">[Android] Gradle</a></p>
+                            <p class="item-date"><time datetime="2019-09-21T06:39:20.000Z" itemprop="datePublished">2019-09-21</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Git/">Git</a></p>
+                            <p class="item-title"><a href="/2019/09/21/Git-Flow/" class="title">[Git] Git Flow 전략</a></p>
+                            <p class="item-date"><time datetime="2019-09-21T05:34:12.000Z" itemprop="datePublished">2019-09-21</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/09/19/Android-Pixels/" class="title">[Android] 해상도</a></p>
+                            <p class="item-date"><time datetime="2019-09-19T11:48:06.000Z" itemprop="datePublished">2019-09-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/09/19/Android-DI/" class="title">[Android] DI - Dagger2</a></p>
+                            <p class="item-date"><time datetime="2019-09-19T11:46:46.000Z" itemprop="datePublished">2019-09-19</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">11</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Build/">Build</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clean-Code/">Clean Code</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Constraint-Layout/">Constraint Layout</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DI/">DI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dagger2/">Dagger2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ETC/">ETC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GNV/">GNV</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git-Flow/">Git Flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Window-Background/">Window Background</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ripple/">ripple</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/주석/">주석</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/함수/">함수</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/해상도/">해상도</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 John Doe</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/09/19/Android-Pixels/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
