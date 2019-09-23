@@ -6,26 +6,28 @@
     
 
     
-    <title>[Android] Gradle | VictoryWoo</title>
+    <title>[Android] Two-Way Data Binding | VictoryWoo</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="Android,Gradle,Build">
+        <meta name="keywords" content="Android,Data Binding,Two way Binding">
     
     <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
-    <meta name="description" content="Grdle이란? 빌드 배포 도구 안드로이드 스튜디오와 빌드 시스템은 서로 독립적이다. 안드로이드 스튜디오 : 코드의 편집을 담당 Gradle : 빌드 빌드 프로세스를 자동화하고 관리, 유연한 맞춤형 빌드 구성을 정의할 수 있다.  3가지의 Gradle 파일이 있다. 1. Gradle 설정 파일(settings.gradle)  로트 프로젝트 디렉토리에 존재한">
-<meta name="keywords" content="Android,Gradle,Build">
+    <meta name="description" content="해당 글은 데이터 바인딩에 대한 사전 지식을 가지고 있으면 이해가 수월합니다.   위의 그림을 통해서 알 수 있듯이 View와 ViewModel이 데이터바인딩을 통해 느슨하게 연결되고 Model은 View가 아닌 ViewModel과 통신하게 된다. 원칙적으로 View는 ViewModel에게 일방적으로 작업을 던지고 ViewModel은 직접적으로 View를">
+<meta name="keywords" content="Android,Data Binding,Two way Binding">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Android] Gradle">
-<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/09/21/Android-Gradle/index.html">
+<meta property="og:title" content="[Android] Two-Way Data Binding">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/09/23/Android-Two-Way-Binding/index.html">
 <meta property="og:site_name" content="VictoryWoo">
-<meta property="og:description" content="Grdle이란? 빌드 배포 도구 안드로이드 스튜디오와 빌드 시스템은 서로 독립적이다. 안드로이드 스튜디오 : 코드의 편집을 담당 Gradle : 빌드 빌드 프로세스를 자동화하고 관리, 유연한 맞춤형 빌드 구성을 정의할 수 있다.  3가지의 Gradle 파일이 있다. 1. Gradle 설정 파일(settings.gradle)  로트 프로젝트 디렉토리에 존재한">
+<meta property="og:description" content="해당 글은 데이터 바인딩에 대한 사전 지식을 가지고 있으면 이해가 수월합니다.   위의 그림을 통해서 알 수 있듯이 View와 ViewModel이 데이터바인딩을 통해 느슨하게 연결되고 Model은 View가 아닌 ViewModel과 통신하게 된다. 원칙적으로 View는 ViewModel에게 일방적으로 작업을 던지고 ViewModel은 직접적으로 View를">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-21T07:57:08.567Z">
+<meta property="og:image" content="http://victorywoolee/image/MVVMPattern.png">
+<meta property="og:updated_time" content="2019-09-23T11:48:01.535Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Android] Gradle">
-<meta name="twitter:description" content="Grdle이란? 빌드 배포 도구 안드로이드 스튜디오와 빌드 시스템은 서로 독립적이다. 안드로이드 스튜디오 : 코드의 편집을 담당 Gradle : 빌드 빌드 프로세스를 자동화하고 관리, 유연한 맞춤형 빌드 구성을 정의할 수 있다.  3가지의 Gradle 파일이 있다. 1. Gradle 설정 파일(settings.gradle)  로트 프로젝트 디렉토리에 존재한">
+<meta name="twitter:title" content="[Android] Two-Way Data Binding">
+<meta name="twitter:description" content="해당 글은 데이터 바인딩에 대한 사전 지식을 가지고 있으면 이해가 수월합니다.   위의 그림을 통해서 알 수 있듯이 View와 ViewModel이 데이터바인딩을 통해 느슨하게 연결되고 Model은 View가 아닌 ViewModel과 통신하게 된다. 원칙적으로 View는 ViewModel에게 일방적으로 작업을 던지고 ViewModel은 직접적으로 View를">
+<meta name="twitter:image" content="http://victorywoolee/image/MVVMPattern.png">
     
 
     
@@ -143,14 +145,14 @@
 </div>
 
                         <div class="main-body-content">
-                            <article id="post-Android-Gradle" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-Android-Two-Way-Binding" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        [Android] Gradle
+        [Android] Two-Way Data Binding
         </h1>
     
 
@@ -160,8 +162,8 @@
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2019/09/21/Android-Gradle/" class="article-date">
-            <time datetime="2019-09-21T06:39:20.000Z" itemprop="datePublished">2019-09-21</time>
+        <a href="/2019/09/23/Android-Two-Way-Binding/" class="article-date">
+            <time datetime="2019-09-23T05:48:31.000Z" itemprop="datePublished">2019-09-23</time>
         </a>
     </div>
 
@@ -170,92 +172,58 @@
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/Build/">Build</a>, <a class="tag-link" href="/tags/Gradle/">Gradle</a>
+        <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/Data-Binding/">Data Binding</a>, <a class="tag-link" href="/tags/Two-way-Binding/">Two way Binding</a>
     </div>
 
             </div>
         
         
         <div class="article-entry" itemprop="articleBody">
-            <h2 id="Grdle이란"><a href="#Grdle이란" class="headerlink" title="Grdle이란?"></a>Grdle이란?</h2><ul>
-<li>빌드 배포 도구</li>
-<li>안드로이드 스튜디오와 빌드 시스템은 서로 독립적이다.</li>
-<li>안드로이드 스튜디오 : 코드의 편집을 담당</li>
-<li>Gradle : 빌드</li>
-<li>빌드 프로세스를 자동화하고 관리, 유연한 맞춤형 빌드 구성을 정의할 수 있다.</li>
-</ul>
-<p>3가지의 Gradle 파일이 있다.</p>
-<p><strong>1. Gradle 설정 파일(settings.gradle)</strong></p>
-<ul>
-<li>로트 프로젝트 디렉토리에 존재한다.</li>
-<li>어떤 모듈을 포함할지를 Gradle에 알려준다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">include &apos;:app&apos;</span><br></pre></td></tr></table></figure>
+            <p>해당 글은 <strong>데이터 바인딩</strong>에 대한 사전 지식을 가지고 있으면 이해가 수월합니다.</p>
+<img src="/image/MVVMPattern.png">
 
-<p><strong>2. 최상위 빌드 파일(build.gradle)</strong></p>
+<p>위의 그림을 통해서 알 수 있듯이 View와 ViewModel이 데이터바인딩을 통해 느슨하게 연결되고 Model은 View가 아닌 ViewModel과 통신하게 된다. 원칙적으로 View는 ViewModel에게 일방적으로 작업을 던지고 ViewModel은 직접적으로 View를 알지 못하기 때문에 데이터바인딩을 통해서만 View가 갱신된다.</p>
+<p>그래서 대부분의 상황에서 ViewModel의 변화로 인해 ViewModel -&gt; View 방향으로 전달되는 일방통행의 데이터바인딩이 만들어진다.</p>
+<p>하지만, 그림에서도 볼 수 있듯이 반대의 경우도 가능하다. <strong>2-way 데이터바인딩은 여기서 나오는 개념이며 양방향 데이터바인딩이라고도 한다.</strong> 이에 대해 알아보기 위해서 구글 공식 문서를 찾아봤지만, 생각보다 설명이 친절하지 않았다. 그래도 일단 공식 문서의 내용을 정리해보겠다.</p>
+<h2 id="Google-Developer"><a href="#Google-Developer" class="headerlink" title="Google Developer"></a>Google Developer</h2><p>Two Way DataBinding은 다음과 같이 두 가지 방식으로 구현할 수 있다.</p>
 <ul>
-<li>루트 프로젝트 디렉토리에 최상위 파일로 <strong>프로젝트의 모든 모듈에 적용되는 빌드 구성</strong>을 정의한다.</li>
-<li>모든 모듈에 <code>공통</code>되는 Gradle 저장소와 의존성을 정의하기 위해 <strong>buildscript</strong> 블록을 사용한다.</li>
+<li>ObservableField를 사용하는 방법</li>
+<li>notifyPropertyChanged() 메소드를 사용하는 방법</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">buildscript&#123;</span><br><span class="line">    repositories&#123;</span><br><span class="line">        // gradle이 종속성을 검색하거나 다운로드하는 데 사용하는 레포지토리를 구성</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies&#123;</span><br><span class="line">        // gradle이 사용하는 종속성을 정의</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">allprojects&#123;</span><br><span class="line">    //  타사 플러그인 또는 라이브러리와 같이 모든 모듈이 사용하는 레포지토리 및 종속성을 구성하는 곳</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>1. @Bindable과 notifyPropertyChanged()를 사용하는 방법</strong><br>단방향 데이터바인딩을 사용해 xml의 속성에 값을 설정하고 해당 속성의 변경에 반응하도록 설정할 수 있다. 코드는 아래와 같다.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">CheckBox</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/rememberMeCheckBox"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:checked</span>=<span class="string">"@&#123;viewmodel.rememberMe&#125;"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:onCheckedChanged</span>=<span class="string">"@&#123;viewmodel.rememberMe&#125;"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><strong>3. 모듈 수준 빌드 파일(build.gradle)</strong></p>
-<ul>
-<li>해당 파일이 위치하는 특정 모듈의 빌드 설정을 구성</li>
-<li>최상위 파일을 재정의할 수 있다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: &apos;com.android.application&apos;</span><br><span class="line">// top-level에 선언되어야 하며, 안드로이드 플러그인을 gradle에 적용한다.</span><br><span class="line"></span><br><span class="line">android&#123;</span><br><span class="line">    // 안드로이드와 관련된 빌드 설정을 한다.</span><br><span class="line">    defaultConfig&#123;</span><br><span class="line">        // AndroidManifest.xml에서 사용하는 설정에 대해 동적인 옵션을 주고 싶을 때, 이 블록 내에서 포함시킨다.</span><br><span class="line">        // 예를 들면, versionCode, versionName 등</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    buildTypes&#123;</span><br><span class="line">        // debug, release와 같이 빌드 타입을 지정할 수 있다.</span><br><span class="line">        // 이외에도 alpha, beta 등등</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    flavorDimensions &quot;api&quot; // product flavor에 대한 그룹</span><br><span class="line">    productFlavors&#123;</span><br><span class="line">        // 버전을 맞춤 설정하여 다양한 코드 및 리소스를 사용할 수 있으며, 모든 앱 버전에 공통되는 부분을 공유하거나 재사용할 수 있다.</span><br><span class="line">        // flavorDimensions을 생성하고 동기화 진행</span><br><span class="line">        // 자신이 빌드 및 실행하고자 하는 것으로 변경 가능하다.</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    lintOptions&#123;</span><br><span class="line">        // 특정 lint 옵션을 구성할 수 있다.</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    testOptions&#123;</span><br><span class="line">        // text를 어떻게 실행하는지 방법에 대한 옵션을 지정한다.</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies&#123;</span><br><span class="line">    // 종속성을 관리한다.</span><br><span class="line">    // 라이브러리를 추가하기 위해 수동으로 검색 및 다운로드 하지 않고 사용 가능하다.</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>체크 박스를 이용해서 처음 상태는 뷰모델의 rememberMe 상태로 초기화를 하고 변경되면 뷰모델의 rememberMe를 참조해서 속성의 변경에 반응하도록 설정할 수 있다.</p>
+<p>양방향 데이터바인딩을 사용하면 위의 과정을 단축시킬 수 있다.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">CheckBox</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/rememberMeCheckBox"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:checked</span>=<span class="string">"@=&#123;viewmodel.rememberMe&#125;"</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><strong>build variants</strong></p>
+<p><code>@={}</code> 표기법은 = 표기법이 기존의 단방향 데이터바인딩과의 차이점이다. 그리고 이는 속성에 대한 데이터 변경사항을 수신하고 동시에 사용자 업데이트를 듣는다.</p>
+<p>레이아웃에 있는 뒤쪽의 데이터의 변화에 반응하기 위해, 레이아웃 변수를 Observable 구현으로 만들 수 있다. 보통 <strong>BaseObservable()</strong>을 구현하고 코드에서 <code>@Bindable</code> 어노테이션을 사용한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span>: <span class="type">BaseObservable</span></span>()&#123;</span><br><span class="line">    <span class="meta">@get:Bindable</span></span><br><span class="line">    <span class="keyword">var</span> firstName: String = <span class="string">""</span></span><br><span class="line">        <span class="keyword">set</span>(value) &#123;</span><br><span class="line">            field = value</span><br><span class="line">            notifyPropertyChanged(BR.firstName)</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>단일 프로젝트에서 다양한 버전의 앱을 생성하기 위해 사용한다.</li>
-<li>각 build variants는 빌드할 수 있는 다른 버전의 앱을 나타낸다.</li>
-<li>build type과 product flavor에 구성된 설정, 코드 및 리소스를 조합한 결과</li>
+<li>사용하려는 Class에서 BaseObservable을 상속받는다.</li>
+<li>firstName이라는 변수를 @get:Bindable 어노테이션을 이용해 바인딩을 통해서 값을 가져올 수 있도록 설정한다.</li>
+<li>사용자 지정 set()을 사용해서 값을 할당하고 <code>notifyPropertyChanged()</code> 메소드를 통해서 데이터바인딩을 통해서 만들어진 파일에서 firstName이라는 변수가 변경되었다는 것을 알려서 갱신을 한다. </li>
 </ul>
-<p><strong>proguard</strong></p>
+<p>중요한 포인트는 set()할 때는 값을 할당하고 <strong>notifyPropertyChanged()</strong> 메소드를 통해서 변경되었다는 것을 알려주는 것이고, <strong>@get:Bindable</strong> 어노테이션을 통해서 접근이 가능하도록 연결 통로를 마련해줘야 한다.</p>
+<p><strong>2. ObservableField를 사용하는 방법</strong></p>
+<p>이 방법도 1번과 비슷한 방법이지만, 조금 다르다. @Bindable과 notifyPropertyChanged() 메소드를 사용하지 않는다. 대신에 사용하려는 프로퍼티를 ObservableField 타입으로 선언한다. </p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span>: <span class="type">BaseObservable</span></span>()&#123;</span><br><span class="line">    <span class="keyword">var</span> user: ObservableField&lt;String&gt; = ObservableField(<span class="string">""</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getInformation</span><span class="params">()</span></span>: String&#123;</span><br><span class="line">        <span class="keyword">return</span> user.<span class="keyword">get</span>()!!</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">setInformation</span><span class="params">(name: <span class="type">String</span>)</span></span>&#123;</span><br><span class="line">        user.<span class="keyword">set</span>(name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>빌드 프로세스 중에 클래스를 축소하고 난독화 처리하기 위해 사용한다.</li>
-<li>불필요한 메소드를 제거하여 멀티덱스를 피할 수 있다.</li>
-<li><code>난독화</code> : 특정 언어로 작성된 코드를 읽기 어렵게 만드는 작업<ul>
-<li>디컴파일시 난독화가 되어 코드를 읽기 어렵다.</li>
+<li>ObservableField를 이용할 때는 get() 메소드를 이용해서 프로퍼티의 값을 가져온다. </li>
+<li>값을 할당할 때는 set() 메소드를 이용해서 프로퍼티에 값을 할당한다.</li>
+<li>주의해야할 점은 ObservableField를 초기화할 때, 빈 생성자로 초기화를 하면 객체가 생성되지 않는다. 기본값을 넘겨주어 초기화를 진행해야 객체가 생성된다.</li>
+<li>ObservableField의 get() 메소드는 Nullable하기 때문에 주의해서 처리해야 한다.</li>
 </ul>
-</li>
-<li><code>멀티 덱스</code> : 안드로이드 앱을 구성하는 코드는 컴파일되어 덱스 파일로 만들어진다. 하나의 덱스파일은 최대 65536개의 메소드만 참조 가능하다. 이를 초과하면 여러 개의 덱스 파일이 생성된다.<ul>
-<li>멀티 덱스를 사용할 수도 있지만, 빌드 과정에서 앱 내의 파일을 여러 개의 덱스 파일로 나누어야 하므로 빌드 속도가 느려지고 APK의 용량이 커지다.</li>
+<p>형태와 값을 가져오고 할당하는 코드가 조금 다르지만 결국 같은 결과를 보여준다. 어떤 방법을 사용할지는 개발자의 몫이다. 조금 더 생각해보면 코드를 간단히 할 수도 있을 것 같다. 이 부분은 조금 더 생각해보기로 하자. </p>
+<p>그리고 추가될 내용으로는 양방향 데이터바인딩에서 바인딩 어댑터를 사용하는 방법을 알아볼 예정이다.</p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
+<li><a href="https://developer.android.com/topic/libraries/data-binding/two-way" target="_blank" rel="noopener">Google Developer</a></li>
+<li><a href="https://developer.android.com/topic/libraries/data-binding/observability" target="_blank" rel="noopener">Google Developer</a></li>
+<li><a href="https://blog.yatopark.net/2017/07/16/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C%EC%9D%98-2-way-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B0%94%EC%9D%B8%EB%94%A9/" target="_blank" rel="noopener">안드로이드의 2-way 데이터바인딩</a></li>
 </ul>
-</li>
-</ul>
-<h2 id="APK와-App-Bundle"><a href="#APK와-App-Bundle" class="headerlink" title="APK와 App Bundle"></a>APK와 App Bundle</h2><ul>
-<li>APK : Android Package</li>
-<li>App Bundle : Application Bundle</li>
-<li>두 가지 모두 여러 개의 흩뿌려져 있는 코드들을 안드로이드 기반 기기에서 독립적으로 실행 가능하도록 묶음으로 만드는 역할을 한다.</li>
-</ul>
-<p><strong>APK가 커지는 이유</strong></p>
-<ol>
-<li>멀티 스크린을 지원하기 위해 이미지와 같은 리소스들이 증가</li>
-<li>다국어를 지원하는 앱인 경우 String 파일 증가</li>
-<li>자주 사용되지 않는 기능들의 증가</li>
-</ol>
-<p>안드로이드 App Bundle은 새로운 업로드 방법으로 앱의 크기를 줄일 수 있다.<br>기존에는 Play Console에 APK을 업로드하여 배포를 진행했지만, 새로운 배포 방법은 서명된 App Bundle을 Play Console로 배포하면 사용자의 기기에 맞는 언어, 리소스, CPU 아키텍처에 맞는 부분만 빌드하여 생성하기 때문에 사용자가 다운로드 받는 APK 용량을 줄일 수 있다.</p>
-<p><strong>App Bundle?</strong></p>
-<ul>
-<li>App Bundle은 APK와 비슷하지만 모든 코드, 리소스, CPU 아키텍처와 메타 데이터를 압축한 Zip 파일이다. 그래서 Google Play는 App Bundle에서 사용자 기기에 필요한 코드와 리소스만을 선택해 빌드될 수 있는 것이다.</li>
-<li>App Bundle을 빌드하면 .aab 파일이 생성된다. 빌드된 aab 파일을 Play Store에 업로드하면 Play Console이 사용자 각각의 디바이스에 최적화된 APK를 빌드한다.</li>
-</ul>
-<ul>
-<li><code>Dynamic Delivery?</code><ul>
-<li>사용자 기기에 필요한 리소스만을 다운로드 가능하게 해준다.</li>
-<li>Android 5.0(SDK 21) 이상부터 사용할 수 있다.</li>
-<li>Split APK 매커니즘을 이용한다. 이는 분리된 APK를 하나의 앱으로 만들어주는 것으로 여러가지 기능을 분리하고 나중에 기능이 필요할 때 다운로드 받아 설치된다.</li>
-<li>따라서 Dynamic Delivery로 Google Play는 각 기기의 맞는 리소스만 빌드를 하고 기기에 설치되도록 한 다음에 사용자가 특정 기능을 필요로 할 때, 부분적으로 다운 받아서 사용할 수 있게 해주기 때문에 앱 용량을 줄일 수 있다.</li>
-</ul>
-</li>
-<li><strong>Base APK</strong> : 모든 APK가 접근할 수 있는 코드와 리소스가 포함된 APK이다. 앱의 기본 기능을 제공하고 사용자가 앱 다운로드를 요청하면 가장 처음 다운로드 받는 APK.</li>
-<li><strong>Configuration APK</strong> : 기기에 설치될 때, 각 기기에 최적화된 화면 밀도(dpi)나 CPU 아키텍처, 다국어, 리소스와 네이티브 라이브러리가 포함된 APK이다. Google Play에서 자동으로 생성해준다.</li>
-<li><strong>Dynamic feature APK</strong> : 사용자가 기기에 처음 설치할 때 필요하지 않지만, 나중에 추가로 설치할 수 있는 코드와 리소스가 들어있는 APK. 즉, 필요에 따라 동적으로 APK를 설치하여 사용자에게 추가 기능을 제공할 수 있다.</li>
-</ul>
-<p>기본적으로 Google Play는 Base APK와 Configuration APK를 설치한다.<br>예를 들어, 과거에는 다국어와 화면 사이즈를 대응하는 앱인 경우 APK를 빌드하고 서명 후 Play Console에 배포했다. 하지만, 지금은 App Bundle을 Google Play에 업로드하면 Google Play는 App Bundle의 메타데이터와 리소스에서 영어, xxhdpi 리소스만 빌드하여 base+en+xxhdpi으로 조합된 APK를 만든다.</p>
-<p>이로 인해 사용자는 더 작고 최적화된 설치 파일을 다운로드 받을 수 있다.</p>
 
         </div>
         <footer class="article-footer">
@@ -263,7 +231,7 @@
 
 
 
-    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/09/21/Android-Gradle/" data-id="ck0wb1xdt000g0o3r6e4dfgts" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/09/23/Android-Two-Way-Binding/" data-id="ck0wb1xcy00010o3r36u1b0ao" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -333,26 +301,19 @@
             "@type": "Person",
             "name": "John Doe"
         },
-        "headline": "[Android] Gradle",
-        "image": "http://victorywoolee/victorywoolee.github.io",
-        "keywords": "Android Gradle Build",
+        "headline": "[Android] Two-Way Data Binding",
+        "image": "http://victorywoolee/victorywoolee.github.io/image/MVVMPattern.png",
+        "keywords": "Android Data Binding Two way Binding",
         "genre": "Android",
-        "datePublished": "2019-09-21",
-        "dateCreated": "2019-09-21",
-        "dateModified": "2019-09-21",
-        "url": "http://victorywoolee/victorywoolee.github.io/2019/09/21/Android-Gradle/",
-        "description": "Grdle이란?
-빌드 배포 도구
-안드로이드 스튜디오와 빌드 시스템은 서로 독립적이다.
-안드로이드 스튜디오 : 코드의 편집을 담당
-Gradle : 빌드
-빌드 프로세스를 자동화하고 관리, 유연한 맞춤형 빌드 구성을 정의할 수 있다.
+        "datePublished": "2019-09-23",
+        "dateCreated": "2019-09-23",
+        "dateModified": "2019-09-23",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/09/23/Android-Two-Way-Binding/",
+        "description": "해당 글은 데이터 바인딩에 대한 사전 지식을 가지고 있으면 이해가 수월합니다.
 
-3가지의 Gradle 파일이 있다.
-1. Gradle 설정 파일(settings.gradle)
 
-로트 프로젝트 디렉토리에 존재한",
-        "wordCount": 932
+위의 그림을 통해서 알 수 있듯이 View와 ViewModel이 데이터바인딩을 통해 느슨하게 연결되고 Model은 View가 아닌 ViewModel과 통신하게 된다. 원칙적으로 View는 ViewModel에게 일방적으로 작업을 던지고 ViewModel은 직접적으로 View를 ",
+        "wordCount": 615
     }
 </script>
 
@@ -416,20 +377,10 @@ Gradle : 빌드
         
 <nav id="article-nav">
     
-        <a href="/2019/09/22/Android-ripple/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            [Android] ripple
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2019/09/21/Git-Flow/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2019/09/22/CleanCode05/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">[Git] Git Flow 전략</p>
+        <p class="article-nav-title">[Clean Code] 5장</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -562,7 +513,7 @@ Gradle : 빌드
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/09/21/Android-Gradle/';
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/09/23/Android-Two-Way-Binding/';
     
     (function() {
     var dsq = document.createElement('script');
