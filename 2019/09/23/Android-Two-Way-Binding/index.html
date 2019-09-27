@@ -23,7 +23,7 @@
 <meta property="og:description" content="해당 글은 데이터 바인딩에 대한 사전 지식을 가지고 있으면 이해가 수월합니다.   위의 그림을 통해서 알 수 있듯이 View와 ViewModel이 데이터바인딩을 통해 느슨하게 연결되고 Model은 View가 아닌 ViewModel과 통신하게 된다. 원칙적으로 View는 ViewModel에게 일방적으로 작업을 던지고 ViewModel은 직접적으로 View를">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://victorywoolee/image/MVVMPattern.png">
-<meta property="og:updated_time" content="2019-09-23T11:48:01.535Z">
+<meta property="og:updated_time" content="2019-09-27T13:59:35.700Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android] Two-Way Data Binding">
 <meta name="twitter:description" content="해당 글은 데이터 바인딩에 대한 사전 지식을 가지고 있으면 이해가 수월합니다.   위의 그림을 통해서 알 수 있듯이 View와 ViewModel이 데이터바인딩을 통해 느슨하게 연결되고 Model은 View가 아닌 ViewModel과 통신하게 된다. 원칙적으로 View는 ViewModel에게 일방적으로 작업을 던지고 ViewModel은 직접적으로 View를">
@@ -218,6 +218,7 @@
 <li>ObservableField의 get() 메소드는 Nullable하기 때문에 주의해서 처리해야 한다.</li>
 </ul>
 <p>형태와 값을 가져오고 할당하는 코드가 조금 다르지만 결국 같은 결과를 보여준다. 어떤 방법을 사용할지는 개발자의 몫이다. 조금 더 생각해보면 코드를 간단히 할 수도 있을 것 같다. 이 부분은 조금 더 생각해보기로 하자. </p>
+<p><strong>ObservableField를 사용하는 경우, BaseObervable()을 상속받지 않고 프로퍼티를 선언만해서 사용하는 방법도 가능하다.</strong></p>
 <p>그리고 추가될 내용으로는 양방향 데이터바인딩에서 바인딩 어댑터를 사용하는 방법을 알아볼 예정이다.</p>
 <h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
 <li><a href="https://developer.android.com/topic/libraries/data-binding/two-way" target="_blank" rel="noopener">Google Developer</a></li>
@@ -231,7 +232,7 @@
 
 
 
-    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/09/23/Android-Two-Way-Binding/" data-id="ck0wb1xcy00010o3r36u1b0ao" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/09/23/Android-Two-Way-Binding/" data-id="ck127v54b0005y63r1f7bk2nv" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -307,13 +308,13 @@
         "genre": "Android",
         "datePublished": "2019-09-23",
         "dateCreated": "2019-09-23",
-        "dateModified": "2019-09-23",
+        "dateModified": "2019-09-27",
         "url": "http://victorywoolee/victorywoolee.github.io/2019/09/23/Android-Two-Way-Binding/",
         "description": "해당 글은 데이터 바인딩에 대한 사전 지식을 가지고 있으면 이해가 수월합니다.
 
 
 위의 그림을 통해서 알 수 있듯이 View와 ViewModel이 데이터바인딩을 통해 느슨하게 연결되고 Model은 View가 아닌 ViewModel과 통신하게 된다. 원칙적으로 View는 ViewModel에게 일방적으로 작업을 던지고 ViewModel은 직접적으로 View를 ",
-        "wordCount": 615
+        "wordCount": 625
     }
 </script>
 
@@ -377,6 +378,16 @@
         
 <nav id="article-nav">
     
+        <a href="/2019/09/27/SuperApp/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            [ETC] Super App
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
     
         <a href="/2019/09/22/CleanCode05/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
@@ -398,6 +409,15 @@
         <h3 class="widget-title">recents</h3>
         <div class="widget">
             <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ETC/">ETC</a></p>
+                            <p class="item-title"><a href="/2019/09/27/SuperApp/" class="title">[ETC] Super App</a></p>
+                            <p class="item-date"><time datetime="2019-09-27T14:00:57.000Z" itemprop="datePublished">2019-09-27</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -435,15 +455,6 @@
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Git/">Git</a></p>
-                            <p class="item-title"><a href="/2019/09/21/Git-Flow/" class="title">[Git] Git Flow 전략</a></p>
-                            <p class="item-date"><time datetime="2019-09-21T05:34:12.000Z" itemprop="datePublished">2019-09-21</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -453,7 +464,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -463,7 +474,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">13</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">14</span></li></ul>
         </div>
     </div>
 
@@ -473,7 +484,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Build/">Build</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clean-Code/">Clean Code</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Constraint-Layout/">Constraint Layout</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DI/">DI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dagger2/">Dagger2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Binding/">Data Binding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ETC/">ETC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GNV/">GNV</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git-Flow/">Git Flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-way-Binding/">Two way Binding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Window-Background/">Window Background</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ripple/">ripple</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/주석/">주석</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/함수/">함수</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/해상도/">해상도</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Build/">Build</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clean-Code/">Clean Code</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Constraint-Layout/">Constraint Layout</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DI/">DI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dagger2/">Dagger2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Binding/">Data Binding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ETC/">ETC</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GNV/">GNV</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git-Flow/">Git Flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Super-App/">Super App</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-way-Binding/">Two way Binding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Window-Background/">Window Background</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ripple/">ripple</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/주석/">주석</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/함수/">함수</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/해상도/">해상도</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
