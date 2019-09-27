@@ -6,19 +6,26 @@
     
 
     
-    <title>Tag: Window Background | VictoryWoo</title>
+    <title>[Android] EditText | VictoryWoo</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
+        <meta name="keywords" content="Android,EditText">
+    
     <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
-    <meta property="og:type" content="website">
-<meta property="og:title" content="VictoryWoo">
-<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/tags/Window-Background/index.html">
+    <meta name="description" content="EditTextAndroid에서 사용자 입력, 검색을 받기 위해서 EditText를 사용한다. 기본적으로는 키보드가 올라오면 엔터키 자리가 줄바꿈으로 되어있을 것이다. 하지만, 기획과 개발에서 요구하는 사항에 따라서 해당 엔터키가 특정 동작을 하길 원할 수도 있다.  나는 검색 관련 기능을 구현하면서 엔터키가 검색 버튼이며 검색 기능을 동작했으면 했다. 그">
+<meta name="keywords" content="Android,EditText">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android] EditText">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/09/27/Android-EditText/index.html">
 <meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="EditTextAndroid에서 사용자 입력, 검색을 받기 위해서 EditText를 사용한다. 기본적으로는 키보드가 올라오면 엔터키 자리가 줄바꿈으로 되어있을 것이다. 하지만, 기획과 개발에서 요구하는 사항에 따라서 해당 엔터키가 특정 동작을 하길 원할 수도 있다.  나는 검색 관련 기능을 구현하면서 엔터키가 검색 버튼이며 검색 기능을 동작했으면 했다. 그">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-09-27T14:37:41.124Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VictoryWoo">
+<meta name="twitter:title" content="[Android] EditText">
+<meta name="twitter:description" content="EditTextAndroid에서 사용자 입력, 검색을 받기 위해서 EditText를 사용한다. 기본적으로는 키보드가 올라오면 엔터키 자리가 줄바꿈으로 되어있을 것이다. 하지만, 기획과 개발에서 요구하는 사항에 따라서 해당 엔터키가 특정 동작을 하길 원할 수도 있다.  나는 검색 관련 기능을 구현하면서 엔터키가 검색 버튼이며 검색 기능을 동작했으면 했다. 그">
     
 
     
@@ -131,55 +138,158 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-tag"></i>Tag: <em>Window Background</em>
+    <a class="page-title-link" href="/categories/Android/">Android</a>
     </h1>
 </div>
 
                         <div class="main-body-content">
-                            
-
-    
-    
+                            <article id="post-Android-EditText" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        
-        <section class="archives-wrap">
-            <div class="archive-year-wrap">
-                <a href="/archives/2019" class="archive-year"><i class="icon fa fa-calendar-o"></i>2019</a>
-            </div>
-            <div class="archives">
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Android/">Android</a>
-            </div>
-            <div class="date"><time datetime="2019-09-19T10:47:44.000Z" itemprop="datePublished">2019-09-19</time></div>
-        </div>
-        
+            <header class="article-header">
+                
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/09/19/Android-WindowBackground/">[Android] WindowBackground</a>
+        [Android] EditText
         </h1>
     
 
-        <p class="article-excerpt">
-            아래의 글을 읽어보면 어떻게 drawing을 더 빠르게 하고, activity의 시작 시간을 단축시킬 수 있는지 알 수 있다. 이는 window background drawable과 관련이 있다. 
-setContentView()를 통해 Activity에 View를 붙이면, 이 View는 activity의 window에 붙게 된다. 하지만, window는 s
-        </p>
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/09/27/Android-EditText/" class="article-date">
+            <time datetime="2019-09-27T14:24:29.000Z" itemprop="datePublished">2019-09-27</time>
+        </a>
     </div>
-</article>
-    
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/EditText/">EditText</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="EditText"><a href="#EditText" class="headerlink" title="EditText"></a>EditText</h2><p>Android에서 사용자 입력, 검색을 받기 위해서 EditText를 사용한다. 기본적으로는 키보드가 올라오면 엔터키 자리가 줄바꿈으로 되어있을 것이다. 하지만, 기획과 개발에서 요구하는 사항에 따라서 해당 엔터키가 특정 동작을 하길 원할 수도 있다. </p>
+<p>나는 검색 관련 기능을 구현하면서 엔터키가 검색 버튼이며 검색 기능을 동작했으면 했다. 그래서 엔터키를 검색 아이콘으로 변경했다. xml과 코드 상에서 모두 변경 가능하며 아래는 xml에서 변경하는 방식이다.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">EditText</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/search_query"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"0dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:background</span>=<span class="string">"@color/transparent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:imeOptions</span>=<span class="string">"actionSearch"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:layout_constraintEnd_toStartOf</span>=<span class="string">"@id/btn_clear"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:layout_constraintStart_toEndOf</span>=<span class="string">"@id/btn_back"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:layout_goneMarginEnd</span>=<span class="string">"16dp"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>그리고 엔터키가 검색 동작임을 확인해서 원하는 기능을 구현할 수 있다. 아래와 같이 리스너를 달아주어 어떤 이벤트인지와 입력되는 값을 캐치할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">searchQuery.setOnEditorActionListener &#123; query, id, _ -&gt;</span><br><span class="line">        <span class="keyword">if</span>(EditorInfo.IME_ACTION_SEARCH == id)&#123;</span><br><span class="line">            viewModel.searchDestination(query.text.toString())</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="literal">true</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>리스너를 달아주고 들어오는 이벤트의 id가 위에서 설정했던 <strong>actionSearch</strong>와 같다면 viewModel의 쿼리를 날려 검색 결과를 보여주는 간단한 기능이다.</p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
+<li><a href="https://ccdev.tistory.com/31" target="_blank" rel="noopener">imeOptions 종류</a></li>
+</ul>
+
         </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/09/27/Android-EditText/" data-id="ck128z0v700042e3rguoze56r" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "John Doe"
+        },
+        "headline": "[Android] EditText",
+        "image": "http://victorywoolee/victorywoolee.github.io",
+        "keywords": "Android EditText",
+        "genre": "Android",
+        "datePublished": "2019-09-27",
+        "dateCreated": "2019-09-27",
+        "dateModified": "2019-09-27",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/09/27/Android-EditText/",
+        "description": "EditTextAndroid에서 사용자 입력, 검색을 받기 위해서 EditText를 사용한다. 기본적으로는 키보드가 올라오면 엔터키 자리가 줄바꿈으로 되어있을 것이다. 하지만, 기획과 개발에서 요구하는 사항에 따라서 해당 엔터키가 특정 동작을 하길 원할 수도 있다. 
+나는 검색 관련 기능을 구현하면서 엔터키가 검색 버튼이며 검색 기능을 동작했으면 했다. 그",
+        "wordCount": 349
+    }
+</script>
+
+</article>
+
+    <section id="comments">
     
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
 
-
-    </div></section>
+    
+    </section>
 
 
 
@@ -225,6 +335,29 @@ setContentView()를 통해 Activity에 View를 붙이면, 이 View는 activity�
             
         </ul>
     </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/09/27/Freeze/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            [ETC] Freeze
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/09/27/SuperApp/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[ETC] Super App</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
     
     <div class="widgets-container">
         
@@ -352,11 +485,13 @@ setContentView()를 통해 Activity에 View를 붙이면, 이 View는 activity�
     var disqus_shortname = 'hexo-theme-hueman';
     
     
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/09/27/Android-EditText/';
+    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>
