@@ -6,19 +6,26 @@
     
 
     
-    <title>Archive: 2019/10 | VictoryWoo</title>
+    <title>[CleanCode] 8장 | VictoryWoo</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
+        <meta name="keywords" content="Clean Code,경계">
+    
     <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
-    <meta property="og:type" content="website">
-<meta property="og:title" content="VictoryWoo">
-<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/archives/2019/10/index.html">
+    <meta name="description" content="외부 코드 사용하기 인터페이스 제공자와 인터페이스 사용자 사이에는 특유의 긴장이 존재한다. 패키지 제공자나 프레임워크 제공자는 적용성을 최대한 넓히려 애쓴다. 더 많은 환경에서 돌아가야 더 많은 고객이 구매하기 때문이다.  반면, 사용자는 자신의 요구에 집중하는 인터페이스를 바란다. 이런 긴장으로 인해 시스템 경계에서 문제가 생길 소지가 많다. Map은 굉">
+<meta name="keywords" content="Clean Code,경계">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[CleanCode] 8장">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/10/04/CleanCode08/index.html">
 <meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="외부 코드 사용하기 인터페이스 제공자와 인터페이스 사용자 사이에는 특유의 긴장이 존재한다. 패키지 제공자나 프레임워크 제공자는 적용성을 최대한 넓히려 애쓴다. 더 많은 환경에서 돌아가야 더 많은 고객이 구매하기 때문이다.  반면, 사용자는 자신의 요구에 집중하는 인터페이스를 바란다. 이런 긴장으로 인해 시스템 경계에서 문제가 생길 소지가 많다. Map은 굉">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-04T14:24:55.098Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VictoryWoo">
+<meta name="twitter:title" content="[CleanCode] 8장">
+<meta name="twitter:description" content="외부 코드 사용하기 인터페이스 제공자와 인터페이스 사용자 사이에는 특유의 긴장이 존재한다. 패키지 제공자나 프레임워크 제공자는 적용성을 최대한 넓히려 애쓴다. 더 많은 환경에서 돌아가야 더 많은 고객이 구매하기 때문이다.  반면, 사용자는 자신의 요구에 집중하는 인터페이스를 바란다. 이런 긴장으로 인해 시스템 경계에서 문제가 생길 소지가 많다. Map은 굉">
     
 
     
@@ -131,155 +138,188 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-archive"></i>Archive: 2019/10
+    <a class="page-title-link" href="/categories/Clean-Code/">Clean Code</a>
     </h1>
 </div>
 
                         <div class="main-body-content">
-                            
-
-    
-    
+                            <article id="post-CleanCode08" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        
-        <section class="archives-wrap">
-            <div class="archive-year-wrap">
-                <a href="/archives/2019" class="archive-year"><i class="icon fa fa-calendar-o"></i>2019</a>
-            </div>
-            <div class="archives">
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Clean-Code/">Clean Code</a>
-            </div>
-            <div class="date"><time datetime="2019-10-04T13:24:51.000Z" itemprop="datePublished">2019-10-04</time></div>
-        </div>
-        
+            <header class="article-header">
+                
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/10/04/CleanCode08/">[CleanCode] 8장</a>
+        [CleanCode] 8장
         </h1>
     
 
-        <p class="article-excerpt">
-            외부 코드 사용하기
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/10/04/CleanCode08/" class="article-date">
+            <time datetime="2019-10-04T13:24:51.000Z" itemprop="datePublished">2019-10-04</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Clean-Code/">Clean Code</a>, <a class="tag-link" href="/tags/경계/">경계</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="외부-코드-사용하기"><a href="#외부-코드-사용하기" class="headerlink" title="외부 코드 사용하기"></a>외부 코드 사용하기</h2><ul>
+<li>인터페이스 제공자와 인터페이스 사용자 사이에는 특유의 긴장이 존재한다. 패키지 제공자나 프레임워크 제공자는 적용성을 최대한 넓히려 애쓴다. 더 많은 환경에서 돌아가야 더 많은 고객이 구매하기 때문이다. </li>
+<li>반면, 사용자는 자신의 요구에 집중하는 인터페이스를 바란다. 이런 긴장으로 인해 시스템 경계에서 문제가 생길 소지가 많다.</li>
+<li>Map은 굉장히 다양한 인터페이스로 수많은 기능을 제공한다. Map이 제공하는 기능성과 유연성은 확실히 유용하지만, 그만큼 위험부담이 크다.</li>
+<li>ex)<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Map sensors = <span class="keyword">new</span> HashMap(); <span class="comment">// Map 생성</span></span><br><span class="line">Sensor s = (Sensor) sensors.get(sensorId); <span class="comment">// Sensor 객체를 가져온다.</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>위와 같은 코드가 한 번이 아니라 여러 차례 나온다. 즉, Map이 반환하는 Object를 올바른 유형으로 변환할 책임은 Map을 사용하는 클라이언트에 있다. 그래도 코드는 올바르게 동작한다. 하지만, 깨끗한 코드라 보기 어렵다. 제네릭을 사용하면 코드 가독성이 높아진다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Sensor&gt; sensors = <span class="keyword">new</span> HashMap&lt;Sensor&gt;();</span><br><span class="line">Sensor s = sensors.get(sensorId);</span><br></pre></td></tr></table></figure>
+
+<p>하지만, 위의 방법도 결국 사용자에게 필요하지 않은 기능까지 제공한다는 문제가 남아있다. <code>Map&lt;String, Sensor&gt;</code><br>아래는 Map을 조금 더 깔끔하게 사용한 코드다. Sensors 사용자는 제네릭이 사용되었는지 여부에 신경 쓸 필요가 없다. 제네릭의 사용 여부는 Sensors 안에서 결정한다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sensors</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Map sensors = <span class="keyword">new</span> HashMap();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Sensor <span class="title">getById</span><span class="params">(String id)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (Sensor) sensors.get(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>경계 인터페이스인 Map은 Sensors 안으로 숨긴다. 따라서 Map 인터페이스가 변하더라도 나머지에는 영향을 미치지 않는다. 제네릭을 사용하든 말든 문제가 되지 않는다. Sensors 클래스 안에서 객체 유형을 관리하고 변환하기 때문이다.</li>
+<li>또한, Sensors 클래스는 프로그램에 필요한 인터페이스만 제공한다. 그래서 코드는 이해하기 쉽지만 오용하기는 어렵다. Sensors 클래스는 나머지 프로그램이 설계 규칙과 비즈니스 규칙을 따르도록 강제할 수 있다.</li>
+<li>Map과 같은 경계 인터페이스를 사용할 때는 이를 이용하는 클래스나 클래스 계열 밖으로 노출되지 않도록 주의한다. Map 인스턴스를 공개 API의 인수로 넘기거나 반환값으로 사용하지 않는다.</li>
+</ul>
+<h2 id="경계-살피고-익히기"><a href="#경계-살피고-익히기" class="headerlink" title="경계 살피고 익히기"></a>경계 살피고 익히기</h2><ul>
+<li>외부 코드를 익히기는 어렵다. 외부 코드를 통합하기도 어렵다.</li>
+<li>곧바로 우리쪽 코드를 작성해 외부 코드를 호출하는 대신 먼저 간단한 테스트 케이스를 작성해 외부 코드를 익히면 어떨까? 이를 <code>학습 테스트</code>라 부른다.</li>
+<li>학습 테스트는 프로그램에서 사용하려는 방식대로 외부 API를 호출한다. 통제된 환경에서 API를 제대로 이해하는지를 확인하는 셈이다. 학습 테스트는 API를 사용하려는 목적에 초점을 맞춘다.</li>
+</ul>
+<h2 id="학습-테스트는-공짜-이상이다"><a href="#학습-테스트는-공짜-이상이다" class="headerlink" title="학습 테스트는 공짜 이상이다"></a>학습 테스트는 공짜 이상이다</h2><ul>
+<li>학습 테스트에 드는 비용은 없다. 오히려 필요한 지식만 확보하는 손쉬운 방법이다. 이해도를 높여준다.</li>
+<li>투자하는 노력보다 얻는 성과가 크다.</li>
+<li>학습 테스트를 이용한 학습이 필요하든 그렇지 않든, 실제 코드와 동일한 방식으로 인터페이스를 사용하는 테스트 케이스가 필요하다. 이런 경계 테스트가 있다면 패키지의 새 버전으로 이전하기 쉬워진다. 그렇지 않다면 낡은 버전을 필요 이상으로 오랫동안 사용하려는 유혹에 빠지게 된다.</li>
+</ul>
+<h2 id="아직-존재하지-않는-코드를-사용하기"><a href="#아직-존재하지-않는-코드를-사용하기" class="headerlink" title="아직 존재하지 않는 코드를 사용하기"></a>아직 존재하지 않는 코드를 사용하기</h2><ul>
+<li>경계와 관련해 또 다른 유형은 아는 코드와 모르는 코드를 분리하는 경계다.</li>
+<li>아직 존재하지 않는 코드를 위해 인터페이스를 사용해 설계를 먼저 한다.</li>
+<li>우리가 바라는 인터페이스를 구현하면 우리가 인터페이스를 전적으로 통제한다는 장점이 생긴다. 또한 코드 가독성도 높아지고 코드 의도도 분명해진다. </li>
+</ul>
+<h2 id="깨끗한-경계"><a href="#깨끗한-경계" class="headerlink" title="깨끗한 경계"></a>깨끗한 경계</h2><ul>
+<li>경계에 위치하는 코드는 깔끔히 분리한다. 또한 기대치를 정의하는 테스트 케이스도 작성한다. </li>
+<li>통제가 불가능한 외부 패키지에 의존하는 대신 통제가 가능한 우리 코드에 의존하는 편이 훨씬 좋다. 자칫하면 외부 코드에 휘둘리고 만다.</li>
+<li>외부 패키지를 호출하는 코드를 가능한 줄여 경계를 관리하자. 새로운 클래스로 경계를 감싸거나 Adapter 패턴을 사용해 우리가 원하는 인터페이스를 패키지가 제공하는 인터페이스로 변환하자. 어느 방법이든 코드 가독성이 높아지며, 경계 인터페이스를 사용하는 일관성도 높아지며, 외부 패키지가 변했을 때, 변경할 코드도 줄어든다. </li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/04/CleanCode08/" data-id="ck1c8049i0016n83rg1yrojmr" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "John Doe"
+        },
+        "headline": "[CleanCode] 8장",
+        "image": "http://victorywoolee/victorywoolee.github.io",
+        "keywords": "Clean Code 경계",
+        "genre": "Clean Code",
+        "datePublished": "2019-10-04",
+        "dateCreated": "2019-10-04",
+        "dateModified": "2019-10-04",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/10/04/CleanCode08/",
+        "description": "외부 코드 사용하기
 인터페이스 제공자와 인터페이스 사용자 사이에는 특유의 긴장이 존재한다. 패키지 제공자나 프레임워크 제공자는 적용성을 최대한 넓히려 애쓴다. 더 많은 환경에서 돌아가야 더 많은 고객이 구매하기 때문이다. 
 반면, 사용자는 자신의 요구에 집중하는 인터페이스를 바란다. 이런 긴장으로 인해 시스템 경계에서 문제가 생길 소지가 많다.
-Map은 굉
-        </p>
-    </div>
+Map은 굉",
+        "wordCount": 548
+    }
+</script>
+
 </article>
-    
 
+    <section id="comments">
     
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
         
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Clean-Code/">Clean Code</a>
-            </div>
-            <div class="date"><time datetime="2019-10-04T08:39:45.000Z" itemprop="datePublished">2019-10-04</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/10/04/CleanCode07/">[CleanCode] 7장</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            깨끗한 코드와 오류 처리는 연관성이 있다. 상당수 코드 기반은 전적으로 오류 처리 코드에 좌우된다. 여기저기 흩어진 오류 처리 코드 때문에 실제 코드가 하는 일을 파악하기가 거의 불가능하다는 의미다. 오류 처리는 중요하다. 하지만, 오류 처리 코드로 인해 프로그램 논리를 이해하기 어려워진다면 깨끗한 코드라 부르기 어렵다. 
-오류 코드보다 예외를 사용하라
-예
-        </p>
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
-</article>
-    
-        </div>
-    
 
     
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Kotlin/">Kotlin</a>
-            </div>
-            <div class="date"><time datetime="2019-10-04T06:35:18.000Z" itemprop="datePublished">2019-10-04</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/10/04/Chap4-1/">[Kotlin] 클래스와 인턴페이스</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            클래스 계층 정의1. 코틀린 인터페이스
-
-추상 메소드 뿐 아니라 구현이 있는 메소드도 정의할 수 있다.
-아무런 상태(필드)도 들어갈 수 없다.
-인터페이스의 선언은 자바와 같으며, extends(상속)와 implements(구현)은 코틀린에서는 모두 콜론(:) 키워드를 사용해 클래스 확장과 인터페이스 구현을 모두 처리한다.
-override 변경자는 상위 클래
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Kotlin/">Kotlin</a>
-            </div>
-            <div class="date"><time datetime="2019-10-03T15:59:40.000Z" itemprop="datePublished">2019-10-04</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/10/04/Chap3-2/">[Kotlin] 문자열과 정규식 다루기</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            해당 포스팅은 코틀린 인 액션 책을 보며 정리한 내용입니다. 주관적인 생각이 포함되어 있으니 다른 의견이 있으시다면 적극적으로 알려주시면 감사합니다.
-문자열과 정규식 다루기
-다양한 확장 함수를 제공함으로써 표준 자바 문자열을 더 잘 다룰 수 있게 해준다.
-
-1. 문자열 나누기
-
-코틀린에서는 자바의 split 대신에 여러 가지 다른 조합의 파라미터를 받는 s
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-
-    </div></section>
+    </section>
 
 
 
@@ -325,6 +365,19 @@ override 변경자는 상위 클래
             
         </ul>
     </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/10/04/CleanCode07/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[CleanCode] 7장</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
     
     <div class="widgets-container">
         
@@ -452,11 +505,13 @@ override 변경자는 상위 클래
     var disqus_shortname = 'hexo-theme-hueman';
     
     
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/10/04/CleanCode08/';
+    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>
