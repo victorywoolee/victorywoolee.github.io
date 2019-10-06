@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="VictoryWoo">
 <meta property="og:description" content="클래스 계층 정의1. 코틀린 인터페이스  추상 메소드 뿐 아니라 구현이 있는 메소드도 정의할 수 있다. 아무런 상태(필드)도 들어갈 수 없다. 인터페이스의 선언은 자바와 같으며, extends(상속)와 implements(구현)은 코틀린에서는 모두 콜론(:) 키워드를 사용해 클래스 확장과 인터페이스 구현을 모두 처리한다. override 변경자는 상위 클래">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-04T08:39:30.593Z">
+<meta property="og:updated_time" content="2019-10-05T10:05:43.538Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Kotlin] 클래스와 인턴페이스">
 <meta name="twitter:description" content="클래스 계층 정의1. 코틀린 인터페이스  추상 메소드 뿐 아니라 구현이 있는 메소드도 정의할 수 있다. 아무런 상태(필드)도 들어갈 수 없다. 인터페이스의 선언은 자바와 같으며, extends(상속)와 implements(구현)은 코틀린에서는 모두 콜론(:) 키워드를 사용해 클래스 확장과 인터페이스 구현을 모두 처리한다. override 변경자는 상위 클래">
@@ -235,7 +235,59 @@
 <li>기본 변경자는 모두 공개된다. 즉, public이다.</li>
 <li>코틀린은 패키지를 가시성 제어에 사용하지 않는다.</li>
 <li><code>internal</code>은 모듈 내부에서만 볼 수 있다는 뜻이다.</li>
-<li></li>
+<li>모듈 : 한 번에 한꺼번에 컴파일되는 코틀린 파일들을 의미한다.</li>
+<li>자바에서는 패키지가 같은 클래스를 선언하기만 하면 외부의 다른 프로젝트에서 접근이 가능하기 때문에 캡슐화가 깨지기 쉽다. 하지만, 모듈 내부 가시성은 모듈의 구현에 대해 진정한 캡슐화를 제공한다는 장점이 있다.</li>
+<li>최상위 선언에 대해 private 가시성을 허용한다.</li>
+</ul>
+<p><strong>코틀린의 가시성 변경자</strong></p>
+<ul>
+<li>public(기본) : 클래스 멤버와 최상위 선언 모두 모든 곳에서 볼 수 있다.</li>
+<li>internal : 클래스 멤버, 최상위 선언 모두 같은 모듈 안에서만 볼 수 있다.</li>
+<li>protected : 클래스 멤버는 하위 클래스 안에서만 볼 수 있으며, 최상위 선언에 적용할 수 없다.</li>
+<li>private : 클래스 멤버는 같은 클래스 안에서만 볼 수 있으며, 최상위 선언에 적용되면 같은 파일 안에서만 볼 수 있다.</li>
+</ul>
+<p>유의해야할 점은 자바에서는 같은 패키지 안에서 <strong>protected</strong> 멤버에 접근할 수 있지만, 코틀린은 그렇지 않다는 것이다. 코틀린에서 protected 멤버는 오직 어떤 클래스나 그 클래스를 상속한 클래스 안에서만 보인다. <strong>클래스를 확장한 함수는 그 클래스의 private이나 protected 멤버에 접근할 수 없다.</strong></p>
+<h2 id="내부-클래스와-중첩된-클래스"><a href="#내부-클래스와-중첩된-클래스" class="headerlink" title="내부 클래스와 중첩된 클래스"></a>내부 클래스와 중첩된 클래스</h2><ul>
+<li>클래스 안에 다른 클래스를 선언할 수 있다.</li>
+<li>클래스 안에 다른 클래스를 선언하면 도우미 클래스를 캡슐화하거나 코드 정의를 그 코드를 사용하는 곳 가까이에 두고 싶을 때 유용하다. </li>
+<li>코틀린의 중첩 클래스는 명시적으로 요청하지 않는 한 바깥쪽 클래스 인스턴스에 대한 접근 권한이 없다. </li>
+<li>책의 예제 참고<ul>
+<li>자바에서는 클래스 안에 정의한 클래스는 자동으로 내부 클래스가 된다. 따라서 내부의 클래스는 바깥 클래스에 대한 참조를 묵시적으로 포함한다. 그 참조로 인해 내부 클래스를 직렬화할 수 없다. 바깥 클래스를 직렬화할 수 없으므로 바깥 클래스에 대한 참조가 내부 클래스의 직렬화를 방해한다.</li>
+<li><code>자바의 내부 클래스 특징 살펴보기</code></li>
+</ul>
+</li>
+<li>문제를 해결하기 위해서는 내부 클래스를 <code>static</code>으로 선언해야 한다. 중첩 클래스를 <code>static</code>으로 선언하면 그 클래스를 둘러싼 바깥쪽 클래스에 대한 묵시적인 참조가 사라진다.</li>
+<li>코틀린에서 중첩된 클래스가 기본적으로 동작하는 방식은 위와 반대이다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Button</span>: <span class="type">View &#123;</span></span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getCurrentState</span><span class="params">()</span></span>: State = ButtonState()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">restoreState</span><span class="params">(state: <span class="type">State</span>)</span></span> &#123; .. &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">ButtonState</span>: <span class="type">State &#123; .. &#125;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>코틀린 중첩 클래스에 아무런 변경자가 붙지 않으면 자바 static 중첩 클래스와 같다.(즉, 바깥쪽 클래스에 대한 참조가 없다.) 이를 내부 클래스로 변경해서 바깥쪽 클래스에 대한 참조를 포함하게 만들기 위해서는 inner 변경자를 붙이면 된다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">클래스 B 안에 정의된 클래스 A</th>
+<th align="center">자바에서는</th>
+<th align="center">코틀린에서는</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">중첩 클래스(바깥쪽 클래스에 대한 참조를 저장하지 않음)</td>
+<td align="center">static class A</td>
+<td align="center">class A</td>
+</tr>
+<tr>
+<td align="center">내부 클래스(바깥쪽 클래스에 대한 참조를 저장함)</td>
+<td align="center">class A</td>
+<td align="center">inner class A</td>
+</tr>
+</tbody></table>
+<ul>
+<li>클래스 계층을 만들되 그 계층에 속한 클래스의 수를 제한하고 싶은 경우 중첩 클래스를 쓰면 편리하다.</li>
+</ul>
+<h2 id="봉인됭-클래스"><a href="#봉인됭-클래스" class="headerlink" title="봉인됭 클래스"></a>봉인됭 클래스</h2><ul>
+<li>클래스 계층 정의시 계층 확장 제한</li>
 </ul>
 
         </div>
@@ -244,7 +296,7 @@
 
 
 
-    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/04/Chap4-1/" data-id="ck1c8049c000nn83rfs76i13o" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/04/Chap4-1/" data-id="ck1de2rag000kmo3r7suayrla" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -320,7 +372,7 @@
         "genre": "Kotlin",
         "datePublished": "2019-10-04",
         "dateCreated": "2019-10-04",
-        "dateModified": "2019-10-04",
+        "dateModified": "2019-10-05",
         "url": "http://victorywoolee/victorywoolee.github.io/2019/10/04/Chap4-1/",
         "description": "클래스 계층 정의1. 코틀린 인터페이스
 
@@ -328,7 +380,7 @@
 아무런 상태(필드)도 들어갈 수 없다.
 인터페이스의 선언은 자바와 같으며, extends(상속)와 implements(구현)은 코틀린에서는 모두 콜론(:) 키워드를 사용해 클래스 확장과 인터페이스 구현을 모두 처리한다.
 override 변경자는 상위 클래",
-        "wordCount": 991
+        "wordCount": 1399
     }
 </script>
 
@@ -427,6 +479,15 @@ override 변경자는 상위 클래",
                     <li>
                         
                         <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/10/05/Android-Compose/" class="title">[Android] Compose</a></p>
+                            <p class="item-date"><time datetime="2019-10-05T08:07:49.000Z" itemprop="datePublished">2019-10-05</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Clean-Code/">Clean Code</a></p>
                             <p class="item-title"><a href="/2019/10/04/CleanCode08/" class="title">[CleanCode] 8장</a></p>
                             <p class="item-date"><time datetime="2019-10-04T13:24:51.000Z" itemprop="datePublished">2019-10-04</time></p>
@@ -460,15 +521,6 @@ override 변경자는 상위 클래",
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
-                            <p class="item-title"><a href="/2019/09/29/Chap3-1/" class="title">[Kotlin] 함수 정의와 호출</a></p>
-                            <p class="item-date"><time datetime="2019-09-29T13:08:18.000Z" itemprop="datePublished">2019-09-29</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -478,7 +530,7 @@ override 변경자는 상위 클래",
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">3</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">3</span></li></ul>
         </div>
     </div>
 
@@ -488,7 +540,7 @@ override 변경자는 상위 클래",
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
         </div>
     </div>
 
@@ -498,7 +550,7 @@ override 변경자는 상위 클래",
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Build/">Build</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clean-Code/">Clean Code</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Constraint-Layout/">Constraint Layout</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DI/">DI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dagger2/">Dagger2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Binding/">Data Binding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ETC/">ETC</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EditText/">EditText</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Freeze/">Freeze</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GNV/">GNV</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git-Flow/">Git Flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Super-App/">Super App</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-way-Binding/">Two way Binding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Window-Background/">Window Background</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ripple/">ripple</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/객체와-자료구조/">객체와 자료구조</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/경계/">경계</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/메소드/">메소드</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/안드로이드/">안드로이드</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/오류-처리/">오류 처리</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/주석/">주석</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/코틀린-인-액션/">코틀린 인 액션</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/함수/">함수</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/함수와-메소드-차이/">함수와 메소드 차이</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/해상도/">해상도</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Build/">Build</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clean-Code/">Clean Code</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Compose/">Compose</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Constraint-Layout/">Constraint Layout</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DI/">DI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dagger2/">Dagger2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Binding/">Data Binding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ETC/">ETC</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EditText/">EditText</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Freeze/">Freeze</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GNV/">GNV</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git-Flow/">Git Flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/">Gradle</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jetpack/">Jetpack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Super-App/">Super App</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Two-way-Binding/">Two way Binding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Window-Background/">Window Background</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ripple/">ripple</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/객체와-자료구조/">객체와 자료구조</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/경계/">경계</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/메소드/">메소드</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/안드로이드/">안드로이드</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/오류-처리/">오류 처리</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/주석/">주석</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/코틀린-인-액션/">코틀린 인 액션</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/함수/">함수</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/함수와-메소드-차이/">함수와 메소드 차이</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/해상도/">해상도</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
