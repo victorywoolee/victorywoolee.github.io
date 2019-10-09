@@ -6,7 +6,7 @@
     
 
     
-    <title>[Kotlin] 생성자 | VictoryWoo</title>
+    <title>[Kotlin] 뻔하지 않은 프로퍼티와 생성자 | VictoryWoo</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
@@ -17,14 +17,14 @@
     <meta name="description" content="생성자 주 생성자 : 클래스를 초기화할 때 주로 사용하는 간략한 생성자로, 클래스 본문 밖에서 정의한다. (괄호 {} 밖에서 정의한다.) 부 생성자 : 클래스 본문 안에서 정의한다. (괄호 {} 안에서 정의한다.) 초기화 블록 : 초기화 로직을 추가할 수 있다.  클래스 초기화 클래스 이름 뒤에 오는 괄호롤 둘러싸인 부분은 주 생성자라고 부른다. 주 생성자">
 <meta name="keywords" content="코틀린 인 액션,안드로이드,생성자">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Kotlin] 생성자">
+<meta property="og:title" content="[Kotlin] 뻔하지 않은 프로퍼티와 생성자">
 <meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/10/09/Chap4-2/index.html">
 <meta property="og:site_name" content="VictoryWoo">
 <meta property="og:description" content="생성자 주 생성자 : 클래스를 초기화할 때 주로 사용하는 간략한 생성자로, 클래스 본문 밖에서 정의한다. (괄호 {} 밖에서 정의한다.) 부 생성자 : 클래스 본문 안에서 정의한다. (괄호 {} 안에서 정의한다.) 초기화 블록 : 초기화 로직을 추가할 수 있다.  클래스 초기화 클래스 이름 뒤에 오는 괄호롤 둘러싸인 부분은 주 생성자라고 부른다. 주 생성자">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-09T08:44:04.568Z">
+<meta property="og:updated_time" content="2019-10-09T08:59:24.713Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Kotlin] 생성자">
+<meta name="twitter:title" content="[Kotlin] 뻔하지 않은 프로퍼티와 생성자">
 <meta name="twitter:description" content="생성자 주 생성자 : 클래스를 초기화할 때 주로 사용하는 간략한 생성자로, 클래스 본문 밖에서 정의한다. (괄호 {} 밖에서 정의한다.) 부 생성자 : 클래스 본문 안에서 정의한다. (괄호 {} 안에서 정의한다.) 초기화 블록 : 초기화 로직을 추가할 수 있다.  클래스 초기화 클래스 이름 뒤에 오는 괄호롤 둘러싸인 부분은 주 생성자라고 부른다. 주 생성자">
     
 
@@ -150,7 +150,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-        [Kotlin] 생성자
+        [Kotlin] 뻔하지 않은 프로퍼티와 생성자
         </h1>
     
 
@@ -264,7 +264,18 @@
 <li>값을 저장하는 동시에 어떠한 로직을 실행할 수 있게 하기 위해서는 접근자 안에서 프로퍼티를 뒷받침하는 필드에 접근할 수 있어야 한다.</li>
 <li>간단한 예를 확인해보자.</li>
 </ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span></span>(<span class="keyword">val</span> name: String)&#123;</span><br><span class="line">    <span class="keyword">val</span> address: String = <span class="string">"not yet"</span></span><br><span class="line">        <span class="keyword">set</span>(value: String)&#123;</span><br><span class="line">            println(<span class="string">"Address was changed for <span class="variable">$name</span>: </span></span><br><span class="line"><span class="string">            "</span>$field<span class="string">" -&gt; "</span>$value<span class="string">". "</span><span class="string">""</span>.trimIndent())</span><br><span class="line">            field = value</span><br><span class="line">            <span class="comment">// 뒷받침하는 필드 값을 변경한다.</span></span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<ul>
+<li><code>field</code>를 통해서 뒷받침하는 필드에 접근할 수 있다.(즉, address에 접근 가능.)</li>
+<li>게터에서는 field 값을 읽을 수만 있고, 세터에서는 field 값을 읽거나 쓸 수 있다. </li>
+<li>변경 가능 프로퍼티의 게터와 세터 중 한쪽만 직접 정의해도 된다. </li>
+</ul>
+<h3 id="접근자의-가시성-변경"><a href="#접근자의-가시성-변경" class="headerlink" title="접근자의 가시성 변경"></a>접근자의 가시성 변경</h3><ul>
+<li>get(), set() 앞에 가시성 변경자를 추가해 접근자의 가시성을 변경할 수 있다.</li>
+<li>아래는 추가된 단어의 길이를 반환하는 함수가 있다. 이는 클라이언트에게 제공되므로 public으로 선언되 외부에 공개한다. 다만, 단어 길이의 합을 외부에서 바꾸지 못하도록 하기 위해서 게터는 그대로 냅두고, 세터의 가시성을 <strong>private</strong>으로 지정한다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LengthCounter</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> counter: <span class="built_in">Int</span> = <span class="number">0</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">set</span></span><br><span class="line">    <span class="comment">// 이 클래스의 밖에서 counter의 값을 바꿀 수 없다.</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">addWord</span><span class="params">(word: <span class="type">String</span>)</span></span>&#123;</span><br><span class="line">        counter += word.length</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> lengthCounter = LengthCounter()</span><br><span class="line">lengthCounter.addWord(<span class="string">"Hi!"</span>)</span><br><span class="line">println(lengthCounter.counter)</span><br><span class="line"><span class="comment">// 결과:3</span></span><br></pre></td></tr></table></figure>
         </div>
         <footer class="article-footer">
             
@@ -341,7 +352,7 @@
             "@type": "Person",
             "name": "John Doe"
         },
-        "headline": "[Kotlin] 생성자",
+        "headline": "[Kotlin] 뻔하지 않은 프로퍼티와 생성자",
         "image": "http://victorywoolee/victorywoolee.github.io",
         "keywords": "코틀린 인 액션 안드로이드 생성자",
         "genre": "Kotlin",
@@ -357,7 +368,7 @@
 클래스 초기화
 클래스 이름 뒤에 오는 괄호롤 둘러싸인 부분은 주 생성자라고 부른다.
 주 생성자",
-        "wordCount": 1035
+        "wordCount": 1348
     }
 </script>
 
@@ -447,7 +458,7 @@
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
-                            <p class="item-title"><a href="/2019/10/09/Chap4-2/" class="title">[Kotlin] 생성자</a></p>
+                            <p class="item-title"><a href="/2019/10/09/Chap4-2/" class="title">[Kotlin] 뻔하지 않은 프로퍼티와 생성자</a></p>
                             <p class="item-date"><time datetime="2019-10-09T05:01:27.000Z" itemprop="datePublished">2019-10-09</time></p>
                         </div>
                     </li>
