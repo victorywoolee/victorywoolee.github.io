@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>[Kotlin] object 키워드 | VictoryWoo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="코틀린 인 액션,안드로이드,object">
+    
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
+    <meta name="description" content="object 키워드를 다양한 상황에서 사용하지만, 모든 경우 클래스를 정의하면서 동시에 인스턴스를 생성한다는 공통점이 있다. object를 사용하는 상황을 다음과 같다.  싱글톤을 정의할 때 object를 사용한다. companion object(동반 객체)는 인스턴스 메소드는 아니지만, 어떤 클래스와 관련있는 메소드와 팩토리 메소드를 담을 때 주로 쓰인다">
+<meta name="keywords" content="코틀린 인 액션,안드로이드,object">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Kotlin] object 키워드">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/10/09/Chap4-4/index.html">
+<meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="object 키워드를 다양한 상황에서 사용하지만, 모든 경우 클래스를 정의하면서 동시에 인스턴스를 생성한다는 공통점이 있다. object를 사용하는 상황을 다음과 같다.  싱글톤을 정의할 때 object를 사용한다. companion object(동반 객체)는 인스턴스 메소드는 아니지만, 어떤 클래스와 관련있는 메소드와 팩토리 메소드를 담을 때 주로 쓰인다">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-12T05:31:41.575Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Kotlin] object 키워드">
+<meta name="twitter:description" content="object 키워드를 다양한 상황에서 사용하지만, 모든 경우 클래스를 정의하면서 동시에 인스턴스를 생성한다는 공통점이 있다. object를 사용하는 상황을 다음과 같다.  싱글톤을 정의할 때 object를 사용한다. companion object(동반 객체)는 인스턴스 메소드는 아니지만, 어떤 클래스와 관련있는 메소드와 팩토리 메소드를 담을 때 주로 쓰인다">
+    
+
+    
+        <link rel="alternate" href="/" title="VictoryWoo" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">VictoryWoo&#39;s Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Android/">Android</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clean-Code/">Clean Code</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ETC/">ETC</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Kotlin/">Kotlin</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Kotlin/">Kotlin</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Chap4-4" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [Kotlin] object 키워드
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/10/09/Chap4-4/" class="article-date">
+            <time datetime="2019-10-09T13:16:26.000Z" itemprop="datePublished">2019-10-09</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/object/">object</a>, <a class="tag-link" href="/tags/안드로이드/">안드로이드</a>, <a class="tag-link" href="/tags/코틀린-인-액션/">코틀린 인 액션</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>object 키워드를 다양한 상황에서 사용하지만, 모든 경우 클래스를 정의하면서 동시에 인스턴스를 생성한다는 공통점이 있다. object를 사용하는 상황을 다음과 같다.</p>
+<ul>
+<li>싱글톤을 정의할 때 object를 사용한다.</li>
+<li>companion object(동반 객체)는 인스턴스 메소드는 아니지만, 어떤 클래스와 관련있는 메소드와 팩토리 메소드를 담을 때 주로 쓰인다. 동반 객체가 포함된 클래스 이름을 사용해 접근할 수 있다.</li>
+<li>객체 식은 자바의 익명 내부 클래스 대신 쓰인다. </li>
+</ul>
+<h2 id="객체-선언-싱글톤"><a href="#객체-선언-싱글톤" class="headerlink" title="객체 선언 : 싱글톤"></a>객체 선언 : 싱글톤</h2><ul>
+<li><strong>객체 선언</strong>을 통해 싱글톤을 언어에서 기본으로 지원한다. </li>
+<li>객체 선언 = 클래스 선언 + 클래스에 속한 단일 인스턴스의 선언</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">object</span> Payroll&#123;</span><br><span class="line">    <span class="keyword">val</span> allEmployee = arrayListOf&lt;Person&gt;()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">calculateSalary</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(person <span class="keyword">in</span> allEmployee)&#123;</span><br><span class="line">            <span class="comment">// 생략.</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>객체 선언은 object 키워드로 시작한다. 객체 선언은 클래스를 정의하고 그 클래스의 인스턴스를 만들어서 변수에 저장하는 모든 작업을 한 문장으로 수행한다.</li>
+<li>클래스와 마찬 가지로 객체 선언(object) 안에도 프로퍼티, 메소드, 초기화 블록 등이 들어갈 수 있지만, 생성자는 쓸 수 없다. 이유는 일반 클래스 인스턴스와 달리 싱글톤 객체는 객체 선언문이 있는 위치에서 생성자 호출 없이 즉시 만들어지기 때문이다. <strong>따라서 객체 선언(object)에는 생성자 정의가 필요 없다.</strong></li>
+<li>객체 선언도 클래스나 인스턴스를 상속할 수 있다. </li>
+<li>일반 객체를 사용할 수 있는 곳에서는 항상 싱글톤 객체를 쓸 수 있다.</li>
+<li>클래스 안에서 객체 선언을 할 수도 있다. 그런 객체도 인스턴스는 단 하나뿐이다.(<strong>즉, 바깥 클래스의 인스턴스마다 중첩 객체 선언에 해당하는 인스턴스가 하나씩 따로 생기는 것이 아니다.</strong>)</li>
+</ul>
+<h2 id="동반-객체"><a href="#동반-객체" class="headerlink" title="동반 객체"></a>동반 객체</h2><ul>
+<li><code>companion object</code>라고 하며, 동반 객체라고도 부른다.</li>
+<li>코틀린에는 자바에서의 static과 같은 개념이 없다. 그래서 정적인 멤버가 없다. </li>
+<li>그래서 패키지 수준의 최상위 함수(자바의 정적 메소드 역할을 거의 대신한다.)와 객체 선언(자바의 정적 메소드 역할 중 코틀린 최상위 함수가 대신할 수 없는 역할이나 정적 필드를 대신할 수 있다.)을 활용한다. <strong>대부분의 경우 최상위 함수를 활용하는 편은 더 권장한다.</strong></li>
+<li>최상위 함수는 클래스의 private 멤버에 접근할 수 없다. 클래스의 인스턴스와 상관없이 호출해야 하지만, 클래스 내부 정보에 접근해야 하는 함수가 필요할 때는 클래스에 중첩된 객체 선언의 멤버 함수로 정의해야 한다.</li>
+<li>클래스 안에 정의된 객체에 <code>companion</code> 키워드를 붙이면 동반 객체로 만들 수 있다. 동반 객체의 프로퍼티, 메소드에 접근하기 위해서는 <strong>클래스 이름.동반 객체</strong>로 접근하면 된다. </li>
+<li>이때 객체의 이름을 따로 지정하지 않아도 된다.</li>
+<li>동반 객체는 자신을 둘러싼 클래스의 모든 private 멤버에 접근할 수 있다. 따라서 팩토리 패턴을 구현하기 적합하다.</li>
+<li>아래는 이전에 예제로 다뤄봤던 코드이다. 두 클래스를 하나로 합치면서 사용자 객체를 여러가지 방법으로 제공한다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">val</span> nickname: String</span><br><span class="line">    <span class="keyword">constructor</span>(email: String)&#123;</span><br><span class="line">        nickname = email.substringBefore(<span class="string">'@'</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">constructor</span>(facebookAccountId: <span class="built_in">Int</span>)&#123;</span><br><span class="line">        nickname = getFacebookName(facebookAccountId)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>위의 로직을 좀 더 유용한 방법으로 표현하기 위해서 팩토리 패턴을 사용해보자. </li>
+<li>생성자를 통해 객체를 생성할 수 없고 팩토리 메소드를 사용해야 한다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">private</span> <span class="keyword">constructor</span></span>(<span class="keyword">val</span> nickname: String)&#123;</span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">newSubscribingUser</span><span class="params">(email: <span class="type">String</span>)</span></span> = </span><br><span class="line">            User(email.substringBefore(<span class="string">'@'</span>))</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">newFacebookUser</span><span class="params">(facebookAccountId: <span class="type">Int</span>)</span></span> = </span><br><span class="line">            User(getFacebookName(facebookAccountId))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>동반 객체를 일반 객체처럼 사용</strong></p>
+<ul>
+<li>동반 객체는 클래스 안에 정의된 일반 객체다. 따라서 이름을 붙일 수도 있고, 인터페이스를 상속하거나, 동반 객체 안에 확장 함수와 프로퍼티를 정의할 수도 있다.</li>
+<li>이름을 정의하지 않으면 동반 객체의 이름은 자동으로 Companion이 된다.</li>
+</ul>
+<p><strong>동반 객체에서 인터페이스 구현</strong></p>
+<ul>
+<li>동반 객체에서 인터페이스를 구현할 수 있다.</li>
+<li>다음 코드를 확인해보자.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">JSONFactory</span>&lt;<span class="type">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">fromJSON</span><span class="params">(jsonText: <span class="type">String</span>)</span></span>: T</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(<span class="keyword">val</span> name: String)&#123;</span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> : JSONFactory&lt;Person&gt;&#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">fromJSON</span><span class="params">(jsonText: <span class="type">String</span>)</span></span>: Person = ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>동반 객체가 인터페이스를 구현하고 JSON으로부터 각 원소를 다시 만들어내는 추상 팩토리가 있다고 가정하면 Person 객체를 그 팩토리에게 쉽게 넘길 수 있다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> loadFromJSON<span class="type">&lt;T&gt;</span> <span class="params">(factory: <span class="type">JSONFactory</span>&lt;<span class="type">T</span>&gt;)</span></span> : T&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">loadFromJSON(Person)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>여기서 동반 객체가 구현한 JSONFactory의 인스턴스를 넘길 때 Person 클래스의 이름을 그대로 사용할 수 있다.</li>
+<li>동반 객체는 일반 객체와 비슷한 방식으로 클래스에 정의된 인스턴스를 가리키는 정적 필드로 컴파일된다. </li>
+</ul>
+<p><strong>동반 객체 확장</strong></p>
+<ul>
+<li>확장 함수를 사용하는 것의 장점은 코드 기반의 다른 곳에서 정의된 클래스의 인스턴스에 대해 새로운 메소드를 정의할 수 있다는 것이다. </li>
+<li>이 방법을 동반 객체에도 적용할 수 있다.</li>
+<li>위에서 살펴본 Person의 관심사를 좀 더 명확하게 분리해보자.<ul>
+<li>Person 클래스는 핵심 비즈니스 로직 모듈의 일부다. 하지만, 특정 데이터 타입에 의존하기를 원하지 않는다.</li>
+<li>역직렬화 함수를 비즈니스 모듈이 아닌 클라이언트/서버 통신을 담당하는 모듈 안에 포함시키고 싶다.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(<span class="keyword">val</span> name: String)&#123;</span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span>&#123;</span><br><span class="line">        <span class="comment">// 비어있는 동반 객체.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> Person.Companion.<span class="title">fronJSON</span><span class="params">(json: <span class="type">String</span>)</span></span>: Person&#123;</span><br><span class="line">    <span class="comment">// 확장 함수를 선언.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> p = Person.fromJSON(json)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>이렇게 확장 함수를 정의함으로써 동반 객체 안에 fronJSON 함수를 정의한 것처럼 호출할 수 있다. 실제로 fromJSON 함수를 클래스 밖에 정의한 확장 함수이다.</li>
+<li>동반 객체에 대한 확장 함수를 정의하기 위해서는 클래스 안에 비어있더라도 동반 객체를 선언해줘야 한다.</li>
+</ul>
+<h2 id="객체-식-무명-내부-클래스를-다른-방식으로-작성"><a href="#객체-식-무명-내부-클래스를-다른-방식으로-작성" class="headerlink" title="객체 식: 무명 내부 클래스를 다른 방식으로 작성"></a>객체 식: 무명 내부 클래스를 다른 방식으로 작성</h2><ul>
+<li>object 키워드는 무명 객체를 정의할 때도 사용된다.</li>
+<li>무명 객체는 <strong>자바의 무명 내부 클래스</strong>를 대신한다. 안드로이드에서는 흔히 사용하는 이벤트 리스너가 한 예가 될 수 있다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">window.addListener(<span class="keyword">object</span> : Adapter()&#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">mouseClicked</span><span class="params">(e: <span class="type">Event</span>)</span></span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">mouseEntered</span><span class="params">(e: <span class="type">Event</span>)</span></span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>객체 식은 클래스를 정의하고 그 클래스에 속한 인스턴스를 생성한다. 하지만, 클래스나 인스턴스에 이름을 붙이지 않는다. 이 점이 object 키워드를 싱글톤 선언할 때 사용하는 방식과 다른 점이다.</li>
+<li>보통 함수를 호출하면서 인자로 무명 객체를 넘기기 때문에 클래스와 인스턴스 모두 이름이 필요하지 않다. 하지만, 이름이 필요하다면 변수에 무명 객체를 할당해서 사용하면 된다.</li>
+<li>무명 클래스는 여러 인터레이스를 구현하거나 클래스를 확장하면서 인터페이스를 구현할 수 있다.</li>
+<li><strong>객체 선언과 달리 무명 객체는 싱글톤이 아니다. 객체 식이 쓰일 때마다 새로운 인스턴스가 생성된다.</strong></li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/09/Chap4-4/" data-id="ck1n1srov000uxy3rm5g1ksnr" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Victory Woo"
+        },
+        "headline": "[Kotlin] object 키워드",
+        "image": "http://victorywoolee/victorywoolee.github.io",
+        "keywords": "코틀린 인 액션 안드로이드 object",
+        "genre": "Kotlin",
+        "datePublished": "2019-10-09",
+        "dateCreated": "2019-10-09",
+        "dateModified": "2019-10-12",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/10/09/Chap4-4/",
+        "description": "object 키워드를 다양한 상황에서 사용하지만, 모든 경우 클래스를 정의하면서 동시에 인스턴스를 생성한다는 공통점이 있다. object를 사용하는 상황을 다음과 같다.
+
+싱글톤을 정의할 때 object를 사용한다.
+companion object(동반 객체)는 인스턴스 메소드는 아니지만, 어떤 클래스와 관련있는 메소드와 팩토리 메소드를 담을 때 주로 쓰인다",
+        "wordCount": 1158
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/victorywoolee" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/10/09/Chap4-3/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[Kotlin] 데이터 클래스와 클래스 위임</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">6</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/10/09/Chap4-4/" class="title">[Kotlin] object 키워드</a></p>
+                            <p class="item-date"><time datetime="2019-10-09T13:16:26.000Z" itemprop="datePublished">2019-10-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/10/09/Chap4-3/" class="title">[Kotlin] 데이터 클래스와 클래스 위임</a></p>
+                            <p class="item-date"><time datetime="2019-10-09T09:00:04.000Z" itemprop="datePublished">2019-10-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/10/09/Chap4-2/" class="title">[Kotlin] 뻔하지 않은 프로퍼티와 생성자</a></p>
+                            <p class="item-date"><time datetime="2019-10-09T05:01:27.000Z" itemprop="datePublished">2019-10-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/10/05/Android-Compose/" class="title">[Android] Compose</a></p>
+                            <p class="item-date"><time datetime="2019-10-05T08:07:49.000Z" itemprop="datePublished">2019-10-05</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Clean-Code/">Clean Code</a></p>
+                            <p class="item-title"><a href="/2019/10/04/CleanCode08/" class="title">[CleanCode] 8장</a></p>
+                            <p class="item-date"><time datetime="2019-10-04T13:24:51.000Z" itemprop="datePublished">2019-10-04</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Victory Woo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/10/09/Chap4-4/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
