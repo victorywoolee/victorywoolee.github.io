@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>[Kotlin] 람다 | VictoryWoo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="코틀린 인 액션,안드로이드,람다">
+    
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
+    <meta name="description" content="람다 또는 람다 식은 기본적으로 다른 함수에 넘길 수 있는 작은 코드 조각을 의미한다. 람다를 사용하면 쉽게 공통 구조를 라이브러리 함수로 뽑아낼 수 있다. 주로 컬렉션 처리에서 많이 사용된다.  람다 식이 유용한 예제를 하나 살펴보고 문법에 대해서 알아보자. 사람들로 이뤄진 리스트가 있고 그 중에서 연장자를 찾아보자.  1234567891011121314">
+<meta name="keywords" content="코틀린 인 액션,안드로이드,람다">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Kotlin] 람다">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/10/12/Chap5-1/index.html">
+<meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="람다 또는 람다 식은 기본적으로 다른 함수에 넘길 수 있는 작은 코드 조각을 의미한다. 람다를 사용하면 쉽게 공통 구조를 라이브러리 함수로 뽑아낼 수 있다. 주로 컬렉션 처리에서 많이 사용된다.  람다 식이 유용한 예제를 하나 살펴보고 문법에 대해서 알아보자. 사람들로 이뤄진 리스트가 있고 그 중에서 연장자를 찾아보자.  1234567891011121314">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-12T08:29:44.419Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Kotlin] 람다">
+<meta name="twitter:description" content="람다 또는 람다 식은 기본적으로 다른 함수에 넘길 수 있는 작은 코드 조각을 의미한다. 람다를 사용하면 쉽게 공통 구조를 라이브러리 함수로 뽑아낼 수 있다. 주로 컬렉션 처리에서 많이 사용된다.  람다 식이 유용한 예제를 하나 살펴보고 문법에 대해서 알아보자. 사람들로 이뤄진 리스트가 있고 그 중에서 연장자를 찾아보자.  1234567891011121314">
+    
+
+    
+        <link rel="alternate" href="/" title="VictoryWoo" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">VictoryWoo&#39;s Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Android/">Android</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clean-Code/">Clean Code</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ETC/">ETC</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Kotlin/">Kotlin</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Kotlin/">Kotlin</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Chap5-1" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [Kotlin] 람다
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/10/12/Chap5-1/" class="article-date">
+            <time datetime="2019-10-12T06:22:11.000Z" itemprop="datePublished">2019-10-12</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/람다/">람다</a>, <a class="tag-link" href="/tags/안드로이드/">안드로이드</a>, <a class="tag-link" href="/tags/코틀린-인-액션/">코틀린 인 액션</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>람다 또는 람다 식은 기본적으로 다른 함수에 넘길 수 있는 작은 코드 조각을 의미한다. 람다를 사용하면 쉽게 공통 구조를 라이브러리 함수로 뽑아낼 수 있다. 주로 컬렉션 처리에서 많이 사용된다.</p>
+<ul>
+<li>람다 식이 유용한 예제를 하나 살펴보고 문법에 대해서 알아보자.</li>
+<li>사람들로 이뤄진 리스트가 있고 그 중에서 연장자를 찾아보자.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(<span class="keyword">val</span> name: String, <span class="keyword">val</span> age: <span class="built_in">Int</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">findTheOldest</span><span class="params">(people: <span class="type">List</span>&lt;<span class="type">Person</span>&gt;)</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> maxAge: <span class="built_in">Int</span>=<span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> theOldest: Person?=<span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(person <span class="keyword">in</span> people)&#123;</span><br><span class="line">        <span class="keyword">if</span>(person.age &gt; maxAge)&#123;</span><br><span class="line">            maxAge = person.age</span><br><span class="line">            theOldest = person</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    println(theOldest)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> people = listOf(Person(<span class="string">"Lee"</span>, <span class="number">26</span>),Person(<span class="string">"Jung"</span>,<span class="number">23</span>))</span><br><span class="line">findTheOldest(people)</span><br><span class="line">Person(name=Lee,age=<span class="number">26</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>코틀린을 썼지만, 자바처럼 작성했다. 그리고 코드가 길어진다. 코틀린에서는 훨씬 줄여서 쓸 수 있다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> people = listOf(Person(<span class="string">"Lee"</span>, <span class="number">26</span>),Person(<span class="string">"Jung"</span>,<span class="number">23</span>))</span><br><span class="line">println(people.maxBy&#123;it.age&#125;)</span><br><span class="line">Person(name=Lee, age=<span class="number">26</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>코드가 이전에 비해 훨씬 짧아진 것을 확인할 수 있다. maxBy 함수는 모든 컬렉션에 대해 호출할 수 있다.</li>
+<li>또한, 단지 함수나 프로퍼티를 반환하는 역할을 수행하는 람다는 멤버 참조로 대치할 수 있다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.maxBy(Person::age)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>이처럼 람다 식을 사용하면 함수의 가독성을 높여준다. 그리고 코드가 더 짧아지며 이해하기가 쉽다.</li>
+</ul>
+<h2 id="람다-식의-문법"><a href="#람다-식의-문법" class="headerlink" title="람다 식의 문법"></a>람다 식의 문법</h2><ul>
+<li>람다는 값처럼 여기저기 전달할 수 있는 동작의 모임이다.</li>
+<li>람다를 따로 선언해서 변수에 저장할 수도 있지만, 함수에 인자로 넘기면서 바로 람다를 정의하는 경우가 대부분이다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; x: <span class="built_in">Int</span>, y: <span class="built_in">Int</span> -&gt; x + y &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>람다 식은 중괄호로 둘러싸여 있으며, 인자 목록 주변에 괄호가 없다.</li>
+<li>-&gt; (화살표)가 인자 목록과 람다 본문을 구분해준다.</li>
+<li>또한, 람다 식을 변수에 저장할 수 있으며, 저장된 변수를 다른 일반 함수처럼 다룰 수 있다.</li>
+<li>람다 호출에는 부가 비용이 들지 않는다. 기본 구성 요소와 비슷한 성능을 낸다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> sum = &#123; x: <span class="built_in">Int</span>, y: <span class="built_in">Int</span> -&gt; x + y &#125;</span><br><span class="line">println(sum(<span class="number">1</span>,<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+
+<p>도입부에서 살펴본 예제를 다시 확인해보자. 정식으로 람다를 작성하면 아래와 같은 코드이다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.maxBy(&#123;p: Person -&gt; p.age&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>중괄호 안에 있는 코드는 람다 식일고 그 람다 식을 maxBy 함수에 넘긴다. 람다 식은 Person 타입의 값을 인자로 받아서 인자의 age를 반환한다. 의미는 알겠지만,코드가 번잡하다. 우선 구분자가 많아 가독성이 떨어진다. 그리고 컴파일러가 문맥으로부터 유추할 수 있는 인자 타입을 굳이 적을 필요는 없다. 마지막으로 인자가 단 하나뿐인 경우 굳이 인자에 이름을 붙이지 않아도 된다.</p>
+<p>그럼 위의 코드를 조금 더 깔끔한 람다 식으로 개선해보자.</p>
+<ul>
+<li><p>코틀린에서는 함수 호출 시 맨 마지막 인자라 람다 식이라면 람다를 괄호 밖으로 뺄 수 있다. </p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.maxBy() &#123;p: Person -&gt; p.age&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>이처럼 람다가 어떤 함수의 유일한 인자이고 괄호 뒤에 람다를 썼다면 호출 시 빈 괄호를 없애도 된다.</p>
+</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.maxBy&#123;p: Person -&gt; p.age&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>이제 타입을 없애면 된다. 컴파일러가 타입을 유추할 수 있다면 굳이 명시할 필요가 없다. maxBy 함수의 경우 파라미터의 타입은 항상 컬렉션의 원소 타입과 같다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.maxBy &#123; p -&gt; p.age &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>마지막으로 람다의 파라미터가 하나뿐이고 컴파일러가 그 타입을 추론할 수 있는 경우 it을 사용해 더 간결하게 코드를 작성할 수 있다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.maxBy&#123; it.age &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong><code>Tip</code></strong><br><code>it</code>은 람다 파라미터의 이름을 따로 지정하지 않은 경우에 자동으로 만들어지는 이름이다. 이는 코드를 아주 간단하게 만들어준다. 하지만, 남용하면 안된다. <strong>특히 람다 안에 람다가 중첩되는 경우, 각 람다의 파라미터를 명시하는 편이 낫다</strong>. 파라미터를 명시하지 않으면 각각의 it이 가리키는 파라미터가 어떤 람다에 속했는지 파악하기 어려울 수 있다. 문맥에서 람다 파라미터의 의미나 파라미터의 타입을 쉽게 알 수 없는 경우에 파라미터를 명시적으로 선언하면 도움이 된다.</p>
+<ul>
+<li>람다를 변수에 저장할 때는 파라미터의 타입을 추론할 문맥이 존재하지 않기 때문에 파라미터 타입을 명시해야 한다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> getAge = &#123;p: Person -&gt; p.age&#125;</span><br><span class="line">people.maxBy(getAge)</span><br></pre></td></tr></table></figure>
+
+<h2 id="현재-영역에-있는-변수에-접근"><a href="#현재-영역에-있는-변수에-접근" class="headerlink" title="현재 영역에 있는 변수에 접근"></a>현재 영역에 있는 변수에 접근</h2><ul>
+<li>람다를 함수 안에서 정의하면 함수의 파라미터뿐 아니라 람다 정의의 앞에 선언된 로컬 변수까지 람다에서 모두 사용할 수 있다.</li>
+<li>자바와 다른 점 중 중요한 한가지는 코틀린 람다 안에서는 파이널 변수가 아닌 변수에 접근할 수 있다는 것이다. 또한 람다 안에서 바깥 변수를 변경해도 된다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printMessage</span><span class="params">(responses: <span class="type">Collection</span>&lt;<span class="type">String</span>&gt;)</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> clientErrors=<span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> serverErrors=<span class="number">0</span></span><br><span class="line"></span><br><span class="line">    responses.forEach &#123;</span><br><span class="line">        <span class="keyword">if</span>(it.startsWith(<span class="string">"4"</span>))&#123;</span><br><span class="line">            clientErrors++</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(it.startsWith(<span class="string">"5"</span>))&#123;</span><br><span class="line">            serverErrors++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    println(<span class="string">"<span class="variable">$clientErrors</span> client errors, <span class="variable">$serverErrors</span> server errors"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> responses = listOf(<span class="string">"200 OK"</span>, <span class="string">"418 I'm a teapot"</span>, <span class="string">"500 Internal Server Error"</span>)</span><br><span class="line">printMessage(responses)</span><br><span class="line">결과 : <span class="number">1</span> client errors, <span class="number">1</span> server errors</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>위에서 살펴본 prefix, clientErrors, serverErrors와 같이 람다 안에서 사용하는 외부 변수를 <strong>람다가 포획한 변수</strong>라고 부른다.</li>
+<li>기본적으로 함수 안에 정의된 로컬 변수의 생명주기는 함수가 반환되면 끝난다. 하지만, 어떠 함수가 자신의 로컬 변수를 포획한 람다를 반환하거나 다른 변수에 저장한다면 로컬 변수의 생명주기와 함수 생명주기가 달라질 수 있다. 포획한 람다를 저장해서 함수가 끝난 뒤에 실행해도 람다의 본문 코드는 여전히 포획한 변수를 읽거나 쓸 수 있다. </li>
+<li>파이널 변수를 포획한 경우에는 람다 코드를 변수 값과 함께 저장한다. </li>
+<li>파이널이 아닌 변수를 포획한 경우에는 변수를 특별한 래퍼로 감싸서 나중에 변경하거나 읽을 수 있게 한 다음, 래퍼에 대한 참조를 람다 코드와 함께 저장한다.</li>
+</ul>
+<h2 id="멤버-참조"><a href="#멤버-참조" class="headerlink" title="멤버 참조"></a>멤버 참조</h2><ul>
+<li><p>함수를 값으로 바꿀 수 있다. 이때 이중 콜론(::)을 사용한다.</p>
+</li>
+<li><p>::를 사용하는 식은 멤버 참조라고 부른다. 멤버 참조는 프로퍼티나 메소드를 단 하나만 호출하는 함수 값을 만들어준다. </p>
+</li>
+<li><p>아래 두 문장은 같은 식이다. 멤버 참조를 사용하는지와 람다 식을 사용하는지 차이만 있을 뿐이다.</p>
+</li>
+<li><p>또한, 최상위에 선언된(다른 클래스의 멤버가 아닌) 함수나 프로퍼티를 참조할 수도 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> getAge = Person::age</span><br><span class="line"><span class="keyword">val</span> getAge = &#123;p: Person -&gt; p.age&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">salute</span><span class="params">()</span></span> = println(<span class="string">"Salute!!"</span>)</span><br><span class="line">run(::salute)</span><br><span class="line">결과 : Salute!!</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>람다가 인자가 여럿인 다른 함수한테 작업을 위임하는 경우에 람다를 정의하지 않고 직접 위임 함수에 대한 참조를 제공하면 편리하다.</p>
+</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> action = &#123; person: Person, message: String -&gt; </span><br><span class="line">    sendMail(person, message)    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> action = ::sendMail</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>또한, 생성자 참조를 사용하면 클래스 생성 작업을 연기하거나 저장해 둘 수도 있다. :: 뒤에 클래스 이름을 넣으면 생성자 참조를 만들 수 있다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(<span class="keyword">val</span> name: String, <span class="keyword">val</span> age: <span class="built_in">Int</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> createPerson = ::Person <span class="comment">// Person의 인스턴스를 만드는 동작을 변수에 할당함으로써 값으로 저장한다.</span></span><br><span class="line"><span class="keyword">val</span> p = createPerson(<span class="string">"Lee"</span>,<span class="number">26</span>)</span><br><span class="line">println(p)</span><br><span class="line">결과 : Person(name=Lee, age=<span class="number">26</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>확장 함수도 멤버 참조를 사용할 수 있다.</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/12/Chap5-1/" data-id="ck1n8k035000zt03r24ws4x6k" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Victory Woo"
+        },
+        "headline": "[Kotlin] 람다",
+        "image": "http://victorywoolee/victorywoolee.github.io",
+        "keywords": "코틀린 인 액션 안드로이드 람다",
+        "genre": "Kotlin",
+        "datePublished": "2019-10-12",
+        "dateCreated": "2019-10-12",
+        "dateModified": "2019-10-12",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/10/12/Chap5-1/",
+        "description": "람다 또는 람다 식은 기본적으로 다른 함수에 넘길 수 있는 작은 코드 조각을 의미한다. 람다를 사용하면 쉽게 공통 구조를 라이브러리 함수로 뽑아낼 수 있다. 주로 컬렉션 처리에서 많이 사용된다.
+
+람다 식이 유용한 예제를 하나 살펴보고 문법에 대해서 알아보자.
+사람들로 이뤄진 리스트가 있고 그 중에서 연장자를 찾아보자.
+
+1234567891011121314",
+        "wordCount": 1198
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/victorywoolee" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/10/09/Chap4-4/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[Kotlin] object 키워드</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">7</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/10/12/Chap5-1/" class="title">[Kotlin] 람다</a></p>
+                            <p class="item-date"><time datetime="2019-10-12T06:22:11.000Z" itemprop="datePublished">2019-10-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/10/09/Chap4-4/" class="title">[Kotlin] object 키워드</a></p>
+                            <p class="item-date"><time datetime="2019-10-09T13:16:26.000Z" itemprop="datePublished">2019-10-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/10/09/Chap4-3/" class="title">[Kotlin] 데이터 클래스와 클래스 위임</a></p>
+                            <p class="item-date"><time datetime="2019-10-09T09:00:04.000Z" itemprop="datePublished">2019-10-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/10/09/Chap4-2/" class="title">[Kotlin] 뻔하지 않은 프로퍼티와 생성자</a></p>
+                            <p class="item-date"><time datetime="2019-10-09T05:01:27.000Z" itemprop="datePublished">2019-10-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/10/05/Android-Compose/" class="title">[Android] Compose</a></p>
+                            <p class="item-date"><time datetime="2019-10-05T08:07:49.000Z" itemprop="datePublished">2019-10-05</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Victory Woo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/10/12/Chap5-1/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

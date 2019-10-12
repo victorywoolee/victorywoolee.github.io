@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="VictoryWoo">
 <meta property="og:description" content="클래스 계층 정의1. 코틀린 인터페이스  추상 메소드 뿐 아니라 구현이 있는 메소드도 정의할 수 있다. 아무런 상태(필드)도 들어갈 수 없다. 인터페이스의 선언은 자바와 같으며, extends(상속)와 implements(구현)은 코틀린에서는 모두 콜론(:) 키워드를 사용해 클래스 확장과 인터페이스 구현을 모두 처리한다. override 변경자는 상위 클래">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-08T11:58:57.079Z">
+<meta property="og:updated_time" content="2019-10-12T05:53:56.163Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Kotlin] 클래스와 인터페이스">
 <meta name="twitter:description" content="클래스 계층 정의1. 코틀린 인터페이스  추상 메소드 뿐 아니라 구현이 있는 메소드도 정의할 수 있다. 아무런 상태(필드)도 들어갈 수 없다. 인터페이스의 선언은 자바와 같으며, extends(상속)와 implements(구현)은 코틀린에서는 모두 콜론(:) 키워드를 사용해 클래스 확장과 인터페이스 구현을 모두 처리한다. override 변경자는 상위 클래">
@@ -286,7 +286,7 @@
 <ul>
 <li>클래스 계층을 만들되 그 계층에 속한 클래스의 수를 제한하고 싶은 경우 중첩 클래스를 쓰면 편리하다.</li>
 </ul>
-<h2 id="봉인됭-클래스"><a href="#봉인됭-클래스" class="headerlink" title="봉인됭 클래스"></a>봉인됭 클래스</h2><ul>
+<h2 id="봉인된-클래스"><a href="#봉인된-클래스" class="headerlink" title="봉인된 클래스"></a>봉인된 클래스</h2><ul>
 <li>클래스 계층 정의 시 계층 확장 제한</li>
 <li>아래에서는 상위 클래스인 Expr에 숫자를 표현하는 Num과 덧셈 연산을 표현하는 Sum이라는 두 하위 클래스가 존재한다.</li>
 <li>When 식에서 이 모든 하위 클래스를 처리하면 편리하지만, When 식에서 Num과 Sum이 아닌 경우를 처리하는 <strong>else 분기를 반드시 넣어야 한다.</strong><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Expr</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Num</span></span>(<span class="keyword">val</span> value: <span class="built_in">Int</span>): Expr</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sume</span></span>(<span class="keyword">val</span> left: Expr, <span class="keyword">val</span> right: Expr): Expr</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">eval</span><span class="params">(e: <span class="type">Expr</span>)</span></span> : <span class="built_in">Int</span> =</span><br><span class="line">    <span class="keyword">when</span>(e)&#123;</span><br><span class="line">    	<span class="keyword">is</span> Num -&gt; e.value</span><br><span class="line">    	<span class="keyword">is</span> Sum -&gt; eval(e.right) + eval(e.left)</span><br><span class="line">    	<span class="keyword">else</span> -&gt; </span><br><span class="line">    		<span class="keyword">throw</span> IllegalArgumentException(<span class="string">"Unknown expression"</span>)</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
@@ -314,7 +314,7 @@
 
 
 
-    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/04/Chap4-1/" data-id="ck1n1sros000mxy3r51elj2j5" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/04/Chap4-1/" data-id="ck1n8k02x000ht03rsiy449yk" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -390,7 +390,7 @@
         "genre": "Kotlin",
         "datePublished": "2019-10-04",
         "dateCreated": "2019-10-04",
-        "dateModified": "2019-10-08",
+        "dateModified": "2019-10-12",
         "url": "http://victorywoolee/victorywoolee.github.io/2019/10/04/Chap4-1/",
         "description": "클래스 계층 정의1. 코틀린 인터페이스
 
@@ -489,7 +489,7 @@ override 변경자는 상위 클래",
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">6</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">7</span></li></ul>
         </div>
     </div>
 
@@ -503,6 +503,15 @@ override 변경자는 상위 클래",
         <h3 class="widget-title">recents</h3>
         <div class="widget">
             <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/10/12/Chap5-1/" class="title">[Kotlin] 람다</a></p>
+                            <p class="item-date"><time datetime="2019-10-12T06:22:11.000Z" itemprop="datePublished">2019-10-12</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -540,15 +549,6 @@ override 변경자는 상위 클래",
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Clean-Code/">Clean Code</a></p>
-                            <p class="item-title"><a href="/2019/10/04/CleanCode08/" class="title">[CleanCode] 8장</a></p>
-                            <p class="item-date"><time datetime="2019-10-04T13:24:51.000Z" itemprop="datePublished">2019-10-04</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -558,7 +558,7 @@ override 변경자는 상위 클래",
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
         </div>
     </div>
 
