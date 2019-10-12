@@ -6,26 +6,28 @@
     
 
     
-    <title>[CleanCode] 8장 | VictoryWoo</title>
+    <title>[Kotlin] 컬렉션 함수형 API | VictoryWoo</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="Clean Code,경계">
+        <meta name="keywords" content="코틀린 인 액션,안드로이드,컬렉션 함수형 API">
     
     <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
-    <meta name="description" content="외부 코드 사용하기 인터페이스 제공자와 인터페이스 사용자 사이에는 특유의 긴장이 존재한다. 패키지 제공자나 프레임워크 제공자는 적용성을 최대한 넓히려 애쓴다. 더 많은 환경에서 돌아가야 더 많은 고객이 구매하기 때문이다.  반면, 사용자는 자신의 요구에 집중하는 인터페이스를 바란다. 이런 긴장으로 인해 시스템 경계에서 문제가 생길 소지가 많다. Map은 굉">
-<meta name="keywords" content="Clean Code,경계">
+    <meta name="description" content="이번에는 함수형 프로그래밍과도 관련이 있는 내용을 배울 것이다. 컬렉션을 사용할 때 아주 편리하게 사용할 수 있는 것들도 있다.  함수형 프로그래밍에서는 람다나 다른 함수를 인자로 받거나 함수를 반환하는 함수를 고차 함수라고 한다. 고차 함수는 기본 함수를 조합해서 새로운 연산을 정의하거나, 다른 고차 함수를 통해 조합된 함수를 또 조합해서 더 복잡한 연산">
+<meta name="keywords" content="코틀린 인 액션,안드로이드,컬렉션 함수형 API">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[CleanCode] 8장">
-<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/10/04/CleanCode08/index.html">
+<meta property="og:title" content="[Kotlin] 컬렉션 함수형 API">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/10/12/Chap5-2/index.html">
 <meta property="og:site_name" content="VictoryWoo">
-<meta property="og:description" content="외부 코드 사용하기 인터페이스 제공자와 인터페이스 사용자 사이에는 특유의 긴장이 존재한다. 패키지 제공자나 프레임워크 제공자는 적용성을 최대한 넓히려 애쓴다. 더 많은 환경에서 돌아가야 더 많은 고객이 구매하기 때문이다.  반면, 사용자는 자신의 요구에 집중하는 인터페이스를 바란다. 이런 긴장으로 인해 시스템 경계에서 문제가 생길 소지가 많다. Map은 굉">
+<meta property="og:description" content="이번에는 함수형 프로그래밍과도 관련이 있는 내용을 배울 것이다. 컬렉션을 사용할 때 아주 편리하게 사용할 수 있는 것들도 있다.  함수형 프로그래밍에서는 람다나 다른 함수를 인자로 받거나 함수를 반환하는 함수를 고차 함수라고 한다. 고차 함수는 기본 함수를 조합해서 새로운 연산을 정의하거나, 다른 고차 함수를 통해 조합된 함수를 또 조합해서 더 복잡한 연산">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-05T01:46:20.302Z">
+<meta property="og:image" content="http://victorywoolee/image/groupBy.jpeg">
+<meta property="og:updated_time" content="2019-10-12T09:20:42.185Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[CleanCode] 8장">
-<meta name="twitter:description" content="외부 코드 사용하기 인터페이스 제공자와 인터페이스 사용자 사이에는 특유의 긴장이 존재한다. 패키지 제공자나 프레임워크 제공자는 적용성을 최대한 넓히려 애쓴다. 더 많은 환경에서 돌아가야 더 많은 고객이 구매하기 때문이다.  반면, 사용자는 자신의 요구에 집중하는 인터페이스를 바란다. 이런 긴장으로 인해 시스템 경계에서 문제가 생길 소지가 많다. Map은 굉">
+<meta name="twitter:title" content="[Kotlin] 컬렉션 함수형 API">
+<meta name="twitter:description" content="이번에는 함수형 프로그래밍과도 관련이 있는 내용을 배울 것이다. 컬렉션을 사용할 때 아주 편리하게 사용할 수 있는 것들도 있다.  함수형 프로그래밍에서는 람다나 다른 함수를 인자로 받거나 함수를 반환하는 함수를 고차 함수라고 한다. 고차 함수는 기본 함수를 조합해서 새로운 연산을 정의하거나, 다른 고차 함수를 통해 조합된 함수를 또 조합해서 더 복잡한 연산">
+<meta name="twitter:image" content="http://victorywoolee/image/groupBy.jpeg">
     
 
     
@@ -138,19 +140,19 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/Clean-Code/">Clean Code</a>
+    <a class="page-title-link" href="/categories/Kotlin/">Kotlin</a>
     </h1>
 </div>
 
                         <div class="main-body-content">
-                            <article id="post-CleanCode08" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-Chap5-2" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        [CleanCode] 8장
+        [Kotlin] 컬렉션 함수형 API
         </h1>
     
 
@@ -160,8 +162,8 @@
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2019/10/04/CleanCode08/" class="article-date">
-            <time datetime="2019-10-04T13:24:51.000Z" itemprop="datePublished">2019-10-04</time>
+        <a href="/2019/10/12/Chap5-2/" class="article-date">
+            <time datetime="2019-10-12T08:31:25.000Z" itemprop="datePublished">2019-10-12</time>
         </a>
     </div>
 
@@ -170,51 +172,65 @@
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Clean-Code/">Clean Code</a>, <a class="tag-link" href="/tags/경계/">경계</a>
+        <a class="tag-link" href="/tags/안드로이드/">안드로이드</a>, <a class="tag-link" href="/tags/컬렉션-함수형-API/">컬렉션 함수형 API</a>, <a class="tag-link" href="/tags/코틀린-인-액션/">코틀린 인 액션</a>
     </div>
 
             </div>
         
         
         <div class="article-entry" itemprop="articleBody">
-            <h2 id="외부-코드-사용하기"><a href="#외부-코드-사용하기" class="headerlink" title="외부 코드 사용하기"></a>외부 코드 사용하기</h2><ul>
-<li>인터페이스 제공자와 인터페이스 사용자 사이에는 특유의 긴장이 존재한다. 패키지 제공자나 프레임워크 제공자는 적용성을 최대한 넓히려 애쓴다. 더 많은 환경에서 돌아가야 더 많은 고객이 구매하기 때문이다. </li>
-<li>반면, 사용자는 자신의 요구에 집중하는 인터페이스를 바란다. 이런 긴장으로 인해 시스템 경계에서 문제가 생길 소지가 많다.</li>
-<li>Map은 굉장히 다양한 인터페이스로 수많은 기능을 제공한다. Map이 제공하는 기능성과 유연성은 확실히 유용하지만, 그만큼 위험부담이 크다.</li>
-<li>ex)<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Map sensors = <span class="keyword">new</span> HashMap(); <span class="comment">// Map 생성</span></span><br><span class="line">Sensor s = (Sensor) sensors.get(sensorId); <span class="comment">// Sensor 객체를 가져온다.</span></span><br></pre></td></tr></table></figure>
+            <p>이번에는 함수형 프로그래밍과도 관련이 있는 내용을 배울 것이다. 컬렉션을 사용할 때 아주 편리하게 사용할 수 있는 것들도 있다. </p>
+<p>함수형 프로그래밍에서는 람다나 다른 함수를 인자로 받거나 함수를 반환하는 함수를 <strong>고차 함수</strong>라고 한다. 고차 함수는 기본 함수를 조합해서 새로운 연산을 정의하거나, 다른 고차 함수를 통해 조합된 함수를 또 조합해서 더 복잡한 연산을 쉽게 정의할 수 있다는 장점이 있다. 이런 식으로 고차 함수와 단순한 함수를 조합해서 코드를 작성하는 기법을 <code>컴비네이터 패턴</code>이라고 브르고, 이 패턴에서 복잡한 연산을 만들기 위해 값이나 함수를 조합할 때 사용하는 고차 함수를 <strong>컴비네이터</strong>라 한다.</p>
+<h2 id="필수적인-함수"><a href="#필수적인-함수" class="headerlink" title="필수적인 함수"></a>필수적인 함수</h2><p><strong>1. filter</strong></p>
+<ul>
+<li><code>filter</code> : 컬렉션을 이터레이션(반복)하면서 주어진 람다에 각 원소를 넘겨서 람다가 true를 반환하는 원소만 모은다. 즉, 필터로 true를 반환하는 원소만 모은다.</li>
+<li>결과는 입력 컬렉션의 원소 중에서 <strong>주어진 술어(참, 거짓을 반환하는 함수를 술어라고 한다.)</strong>를 만족하는 원소만으로 이뤄진 새로운 컬렉션이다. </li>
+<li>filter는 컬렉션에서 원치 않는 원소를 제거한다.</li>
+</ul>
+<p><strong>2. map</strong></p>
+<ul>
+<li><code>map</code> : 주어진 람다를 컬렉션의 각 원소에 적용한 결과를 모아서 새 컬렉션을 만든다. 즉, 값을 변환해주는 함수이다.</li>
+<li>map 함수는 어떤 값을 다른 타입 혹은 값으로 변환하고자 할 때 유용하게 사용할 수 있다.</li>
+</ul>
+<p>이런 메소드는 멤버 참조도 적용할 수 있고 연쇄적으로 호출할 수 있다는 장점이 있다. 아래는 나이가 30살 이상인 사람의 이름을 출력하는 구문이다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.filter&#123; it.age &gt; <span class="number">30</span> &#125;.map(Person::name)</span><br></pre></td></tr></table></figure>
 
+<p>다음은 목록에서 가장 나이 많은 사람의 이름을 알고 싶다. 먼저, 목록에 있는 사람들의 나이의 최댓값을 구하고 나이가 그 최댓값과 같은 모든 사람을 반환하면 된다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.filter &#123; it.age == people.maxBy(Person::age)!!.age &#125;</span><br></pre></td></tr></table></figure>
+
+<p>하지만, 위의 코드는 최댓값을 구하는 작업을 반복한다는 단점이 있다. 100명이 있다면 100번 최댓값을 찾는 연산을 반복한다. 따라서 아래처럼 미리 변수로 찾아놓은 후 filter에서 비교하는 편이 좋다. 꼭 필요하지 않은 경우 굳이 계산을 반복하지 않는게 좋다. </p>
+<p>람다를 인자로 받는 함수에 람다를 넘기면 겉으로 볼 때는 단순해 보이는 식이 내부 로직의 복잡도로 인해 실제로는 엄청나게 불합리한 계산식이 될 때가 있다. 따라서 코드를 작성할 때 어떤 일을 하는지 명확히 이해해야 한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> maxAge = people.maxBy(Person::age)!!.age</span><br><span class="line">people.filter &#123; it.age == maxAge &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="all-any-count-find-함수"><a href="#all-any-count-find-함수" class="headerlink" title="all, any, count, find 함수"></a>all, any, count, find 함수</h2><ul>
+<li>컬렉션에 대해 자주 수행하는 연산으로 컬렉션의 모든 원소가 어떤 조건을 만족하는지 판단하거나 컬렉션 안에 어떤 조건을 만족하는 원소가 있는지 판단하는 연산들이 있다.</li>
+<li><code>all</code> : 컬렉션 안에 있는 모든 원소가 어떤 조건을 만족하는지 판단한다.</li>
+<li><code>any</code> : 컬렉션 안에 있는 어떤 원소가 어떠한 조건을 만족하는지 판단한다.</li>
+<li><code>count</code> : 조건을 만족하는 원소의 개수를 반환</li>
+<li><code>find</code> : 조건을 만족하는 첫 번째 원소를 반환 (조건을 만족하는 원소가 하나라도 있는 경우, 가장 먼저 조건을 만족한다고 확인된 원소를 반환) <ul>
+<li>find는 firstOrNull과 같다. 조건을 만족하는 원소가 없으면 null이 나온다. </li>
+</ul>
 </li>
 </ul>
-<p>위와 같은 코드가 한 번이 아니라 여러 차례 나온다. 즉, Map이 반환하는 Object를 올바른 유형으로 변환할 책임은 Map을 사용하는 클라이언트에 있다. 그래도 코드는 올바르게 동작한다. 하지만, 깨끗한 코드라 보기 어렵다. 제네릭을 사용하면 코드 가독성이 높아진다.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Sensor&gt; sensors = <span class="keyword">new</span> HashMap&lt;Sensor&gt;();</span><br><span class="line">Sensor s = sensors.get(sensorId);</span><br></pre></td></tr></table></figure>
+<p><strong>함수를 적재적소에 사용하라: count와 size</strong></p>
+<p>count가 있지만, size가 익숙해서 자주 사용할 수 있다. 그래서 컬렉션을 필터링한 결과의 크기를 가져올 때 아래처럼 사용한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">println(people.filter(canBeInClub27).size)</span><br><span class="line">결과:<span class="number">1</span></span><br></pre></td></tr></table></figure>
 
-<p>하지만, 위의 방법도 결국 사용자에게 필요하지 않은 기능까지 제공한다는 문제가 남아있다. <code>Map&lt;String, Sensor&gt;</code><br>아래는 Map을 조금 더 깔끔하게 사용한 코드다. Sensors 사용자는 제네릭이 사용되었는지 여부에 신경 쓸 필요가 없다. 제네릭의 사용 여부는 Sensors 안에서 결정한다.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sensors</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Map sensors = <span class="keyword">new</span> HashMap();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Sensor <span class="title">getById</span><span class="params">(String id)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (Sensor) sensors.get(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>하지만 이렇게 처리하면 조건을 만족하는 모든 원소가 들어가는 중간 컬렉션이 생긴다. <strong>반면, count는 조건을 만족하는 원소의 개수만을 추적하지 조건을 만족하는 원소를 따로 저장하지 않는다.</strong> 따라서 count가 훨씬 효과적이다. </p>
+<h2 id="groupBy"><a href="#groupBy" class="headerlink" title="groupBy"></a>groupBy</h2><ul>
+<li>리스트를 여러 그룹으로 이루어진 맵으로 변경한다.</li>
+<li>컬렉션의 모든 원소를 어떤 특성에 따라 여러 그룹으로 나누고 싶을 때 사용하면 좋다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> people = listOf(Person(<span class="string">"lee"</span>, <span class="number">26</span>), Person(<span class="string">"kim"</span>, <span class="number">25</span>), Person(<span class="string">"Bob"</span>,<span class="number">30</span>), Person(<span class="string">"Carol"</span>,<span class="number">31</span>))</span><br><span class="line"></span><br><span class="line">println(people.groupBy&#123; it.age &#125;)</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>경계 인터페이스인 Map은 Sensors 안으로 숨긴다. 따라서 Map 인터페이스가 변하더라도 나머지에는 영향을 미치지 않는다. 제네릭을 사용하든 말든 문제가 되지 않는다. Sensors 클래스 안에서 객체 유형을 관리하고 변환하기 때문이다.</li>
-<li>또한, Sensors 클래스는 프로그램에 필요한 인터페이스만 제공한다. 그래서 코드는 이해하기 쉽지만 오용하기는 어렵다. Sensors 클래스는 나머지 프로그램이 설계 규칙과 비즈니스 규칙을 따르도록 강제할 수 있다.</li>
-<li>Map과 같은 경계 인터페이스를 사용할 때는 이를 이용하는 클래스나 클래스 계열 밖으로 노출되지 않도록 주의한다. Map 인스턴스를 공개 API의 인수로 넘기거나 반환값으로 사용하지 않는다.</li>
+<li>위 연산의 결과는 컬렉션의 원소를 구분하는 특성이 age가 되며 키이다. 그리고 키 값에 따른 각 그룹이 값인 맵이다. 여기서는 Person 객체의 모임이다. </li>
+<li>age를 키 값으로 하며, 키에 따라서 그룹으로 분류된 리스트가 존재한다.</li>
 </ul>
-<h2 id="경계-살피고-익히기"><a href="#경계-살피고-익히기" class="headerlink" title="경계 살피고 익히기"></a>경계 살피고 익히기</h2><ul>
-<li>외부 코드를 익히기는 어렵다. 외부 코드를 통합하기도 어렵다.</li>
-<li>곧바로 우리쪽 코드를 작성해 외부 코드를 호출하는 대신 먼저 간단한 테스트 케이스를 작성해 외부 코드를 익히면 어떨까? 이를 <code>학습 테스트</code>라 부른다.</li>
-<li>학습 테스트는 프로그램에서 사용하려는 방식대로 외부 API를 호출한다. 통제된 환경에서 API를 제대로 이해하는지를 확인하는 셈이다. 학습 테스트는 API를 사용하려는 목적에 초점을 맞춘다.</li>
-</ul>
-<h2 id="학습-테스트는-공짜-이상이다"><a href="#학습-테스트는-공짜-이상이다" class="headerlink" title="학습 테스트는 공짜 이상이다"></a>학습 테스트는 공짜 이상이다</h2><ul>
-<li>학습 테스트에 드는 비용은 없다. 오히려 필요한 지식만 확보하는 손쉬운 방법이다. 이해도를 높여준다.</li>
-<li>투자하는 노력보다 얻는 성과가 크다.</li>
-<li>학습 테스트를 이용한 학습이 필요하든 그렇지 않든, 실제 코드와 동일한 방식으로 인터페이스를 사용하는 테스트 케이스가 필요하다. 이런 경계 테스트가 있다면 패키지의 새 버전으로 이전하기 쉬워진다. 그렇지 않다면 낡은 버전을 필요 이상으로 오랫동안 사용하려는 유혹에 빠지게 된다.</li>
-</ul>
-<h2 id="아직-존재하지-않는-코드를-사용하기"><a href="#아직-존재하지-않는-코드를-사용하기" class="headerlink" title="아직 존재하지 않는 코드를 사용하기"></a>아직 존재하지 않는 코드를 사용하기</h2><ul>
-<li>경계와 관련해 또 다른 유형은 아는 코드와 모르는 코드를 분리하는 경계다.</li>
-<li>아직 존재하지 않는 코드를 위해 인터페이스를 사용해 설계를 먼저 한다.</li>
-<li>우리가 바라는 인터페이스를 구현하면 우리가 인터페이스를 전적으로 통제한다는 장점이 생긴다. 또한 코드 가독성도 높아지고 코드 의도도 분명해진다. </li>
-</ul>
-<h2 id="깨끗한-경계"><a href="#깨끗한-경계" class="headerlink" title="깨끗한 경계"></a>깨끗한 경계</h2><ul>
-<li>경계에 위치하는 코드는 깔끔히 분리한다. 또한 기대치를 정의하는 테스트 케이스도 작성한다. </li>
-<li>통제가 불가능한 외부 패키지에 의존하는 대신 통제가 가능한 우리 코드에 의존하는 편이 훨씬 좋다. 자칫하면 외부 코드에 휘둘리고 만다.</li>
-<li>외부 패키지를 호출하는 코드를 가능한 줄여 경계를 관리하자. 새로운 클래스로 경계를 감싸거나 Adapter 패턴을 사용해 우리가 원하는 인터페이스를 패키지가 제공하는 인터페이스로 변환하자. 어느 방법이든 코드 가독성이 높아지며, 경계 인터페이스를 사용하는 일관성도 높아지며, 외부 패키지가 변했을 때, 변경할 코드도 줄어든다. </li>
+<img src="/image/groupBy.jpeg" width="600"> 
+
+<ul>
+<li>각 그룹은 리스트다. 따라서 groupBy의 결과 타입은 Map&lt;Int, List<person>&gt;이다.</person></li>
 </ul>
 
         </div>
@@ -223,7 +239,7 @@
 
 
 
-    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/04/CleanCode08/" data-id="ck1nbcqgk0032y33r27ml7s62" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/12/Chap5-2/" data-id="ck1nbcqg50025y33rxkadqi9f" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -293,19 +309,17 @@
             "@type": "Person",
             "name": "Victory Woo"
         },
-        "headline": "[CleanCode] 8장",
-        "image": "http://victorywoolee/victorywoolee.github.io",
-        "keywords": "Clean Code 경계",
-        "genre": "Clean Code",
-        "datePublished": "2019-10-04",
-        "dateCreated": "2019-10-04",
-        "dateModified": "2019-10-05",
-        "url": "http://victorywoolee/victorywoolee.github.io/2019/10/04/CleanCode08/",
-        "description": "외부 코드 사용하기
-인터페이스 제공자와 인터페이스 사용자 사이에는 특유의 긴장이 존재한다. 패키지 제공자나 프레임워크 제공자는 적용성을 최대한 넓히려 애쓴다. 더 많은 환경에서 돌아가야 더 많은 고객이 구매하기 때문이다. 
-반면, 사용자는 자신의 요구에 집중하는 인터페이스를 바란다. 이런 긴장으로 인해 시스템 경계에서 문제가 생길 소지가 많다.
-Map은 굉",
-        "wordCount": 548
+        "headline": "[Kotlin] 컬렉션 함수형 API",
+        "image": "http://victorywoolee/victorywoolee.github.io/image/groupBy.jpeg",
+        "keywords": "코틀린 인 액션 안드로이드 컬렉션 함수형 API",
+        "genre": "Kotlin",
+        "datePublished": "2019-10-12",
+        "dateCreated": "2019-10-12",
+        "dateModified": "2019-10-12",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/10/12/Chap5-2/",
+        "description": "이번에는 함수형 프로그래밍과도 관련이 있는 내용을 배울 것이다. 컬렉션을 사용할 때 아주 편리하게 사용할 수 있는 것들도 있다. 
+함수형 프로그래밍에서는 람다나 다른 함수를 인자로 받거나 함수를 반환하는 함수를 고차 함수라고 한다. 고차 함수는 기본 함수를 조합해서 새로운 연산을 정의하거나, 다른 고차 함수를 통해 조합된 함수를 또 조합해서 더 복잡한 연산",
+        "wordCount": 550
     }
 </script>
 
@@ -369,20 +383,10 @@ Map은 굉",
         
 <nav id="article-nav">
     
-        <a href="/2019/10/05/Android-Compose/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            [Android] Compose
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2019/10/04/CleanCode07/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2019/10/12/Android-SDK/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">[CleanCode] 7장</p>
+        <p class="article-nav-title">Android_SDK</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -505,7 +509,7 @@ Map은 굉",
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/10/04/CleanCode08/';
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/10/12/Chap5-2/';
     
     (function() {
     var dsq = document.createElement('script');
