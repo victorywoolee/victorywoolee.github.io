@@ -23,7 +23,7 @@
 <meta property="og:description" content="이번에는 함수형 프로그래밍과도 관련이 있는 내용을 배울 것이다. 컬렉션을 사용할 때 아주 편리하게 사용할 수 있는 것들도 있다.  함수형 프로그래밍에서는 람다나 다른 함수를 인자로 받거나 함수를 반환하는 함수를 고차 함수라고 한다. 고차 함수는 기본 함수를 조합해서 새로운 연산을 정의하거나, 다른 고차 함수를 통해 조합된 함수를 또 조합해서 더 복잡한 연산">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://victorywoolee/image/groupBy.jpeg">
-<meta property="og:updated_time" content="2019-10-12T09:20:42.185Z">
+<meta property="og:updated_time" content="2019-10-13T04:46:23.504Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Kotlin] 컬렉션 함수형 API">
 <meta name="twitter:description" content="이번에는 함수형 프로그래밍과도 관련이 있는 내용을 배울 것이다. 컬렉션을 사용할 때 아주 편리하게 사용할 수 있는 것들도 있다.  함수형 프로그래밍에서는 람다나 다른 함수를 인자로 받거나 함수를 반환하는 함수를 고차 함수라고 한다. 고차 함수는 기본 함수를 조합해서 새로운 연산을 정의하거나, 다른 고차 함수를 통해 조합된 함수를 또 조합해서 더 복잡한 연산">
@@ -232,6 +232,15 @@
 <ul>
 <li>각 그룹은 리스트다. 따라서 groupBy의 결과 타입은 Map&lt;Int, List<person>&gt;이다.</person></li>
 </ul>
+<h2 id="flatMap-flatten"><a href="#flatMap-flatten" class="headerlink" title="flatMap, flatten"></a>flatMap, flatten</h2><ul>
+<li>중첩된 컬렉션 안의 원소 처리</li>
+<li>flatMap : 인자로 주어진 람다를 컬렉션의 모든 객체에 적용하고(또는 매핑하고) 람다를 적용한 결과 얻어지는 여러 리스트를 한 리스트로 한데 모은다.</li>
+<li>다음의 예를 확인해보자.<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> books = listOf(Book(<span class="string">"Thursday Next"</span>, listOf(<span class="string">"Jasper Fforde"</span>)),</span><br><span class="line">                    Book(<span class="string">"Mort"</span>, listOf(<span class="string">"Terry Pratchett"</span>)),</span><br><span class="line">                    Book(<span class="string">"Good Omens"</span>, listOf(<span class="string">"Terry Pratchett"</span>,<span class="string">"Neil Gaiman"</span>)))</span><br><span class="line">println(books.flatMap &#123; it.authors &#125;.toSet())</span><br><span class="line">결과 : [Jasper Fforde, Terry Pratchett, Neil Gaiman]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>위의 코드에서 책을 여러 작가가 함께 쓸 수도 있다. book.authors 프로퍼티는 작가를 모아둔 컬렉션이다. <strong>flatMap 함수는 모든 책의 작가를 평평한 리스트 하나로 모은다.</strong> 그리고 <code>toSet</code>은 flatMap의 결과 리스트에서 중복을 없애고 집합으로 만든다. 따라서 최종 출력에서는 Terry Pratchett를 한 번만 볼 수 있다.</p>
+<p>리스트의 리스트가 있는데 모든 중첩된 리스트의 원소를 한 리스트로 모아야 한다면(위의 경우처럼) <code>flatMap</code>을 떠올릴 수 있을 것이다. 하지만, 특별히 변환해야 할 내용이 없다면 리스트의 리스트를 평ㄹ평하게 펼치기만 하면 된다. 그런 경우에는 listOfLists.flatten()처럼 <code>flatten()</code> 함수를 사용할 수 있다.</p>
 
         </div>
         <footer class="article-footer">
@@ -239,7 +248,7 @@
 
 
 
-    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/12/Chap5-2/" data-id="ck1nbcqg50025y33rxkadqi9f" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/12/Chap5-2/" data-id="ck1oidfk70019l53ryon23064" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -315,11 +324,11 @@
         "genre": "Kotlin",
         "datePublished": "2019-10-12",
         "dateCreated": "2019-10-12",
-        "dateModified": "2019-10-12",
+        "dateModified": "2019-10-13",
         "url": "http://victorywoolee/victorywoolee.github.io/2019/10/12/Chap5-2/",
         "description": "이번에는 함수형 프로그래밍과도 관련이 있는 내용을 배울 것이다. 컬렉션을 사용할 때 아주 편리하게 사용할 수 있는 것들도 있다. 
 함수형 프로그래밍에서는 람다나 다른 함수를 인자로 받거나 함수를 반환하는 함수를 고차 함수라고 한다. 고차 함수는 기본 함수를 조합해서 새로운 연산을 정의하거나, 다른 고차 함수를 통해 조합된 함수를 또 조합해서 더 복잡한 연산",
-        "wordCount": 550
+        "wordCount": 742
     }
 </script>
 
@@ -383,6 +392,16 @@
         
 <nav id="article-nav">
     
+        <a href="/2019/10/13/Chap5-3/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            [Kotlin] 지연(Lazy) 계산 컬렉션 연산
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
     
         <a href="/2019/10/12/Android-SDK/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
@@ -400,7 +419,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">8</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">9</span></li></ul>
         </div>
     </div>
 
@@ -414,6 +433,15 @@
         <h3 class="widget-title">recents</h3>
         <div class="widget">
             <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/10/13/Chap5-3/" class="title">[Kotlin] 지연(Lazy) 계산 컬렉션 연산</a></p>
+                            <p class="item-date"><time datetime="2019-10-13T04:46:39.000Z" itemprop="datePublished">2019-10-13</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -451,15 +479,6 @@
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
-                            <p class="item-title"><a href="/2019/10/09/Chap4-3/" class="title">[Kotlin] 데이터 클래스와 클래스 위임</a></p>
-                            <p class="item-date"><time datetime="2019-10-09T09:00:04.000Z" itemprop="datePublished">2019-10-09</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -469,7 +488,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
         </div>
     </div>
 

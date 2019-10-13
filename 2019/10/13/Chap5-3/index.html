@@ -6,26 +6,28 @@
     
 
     
-    <title>[Android] Gradle | VictoryWoo</title>
+    <title>[Kotlin] 지연(Lazy) 계산 컬렉션 연산 | VictoryWoo</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="Android,Gradle,Build">
+        <meta name="keywords" content="코틀린 인 액션,안드로이드,컬렉션 함수형 API">
     
     <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
-    <meta name="description" content="Grdle이란? 빌드 배포 도구 안드로이드 스튜디오와 빌드 시스템은 서로 독립적이다. 안드로이드 스튜디오 : 코드의 편집을 담당 Gradle : 빌드 빌드 프로세스를 자동화하고 관리, 유연한 맞춤형 빌드 구성을 정의할 수 있다.  3가지의 Gradle 파일이 있다. 1. Gradle 설정 파일(settings.gradle)  로트 프로젝트 디렉토리에 존재한">
-<meta name="keywords" content="Android,Gradle,Build">
+    <meta name="description" content="전에 살펴본 map이나 filter 같은 몇가지 컬렉션 함수는 결과 컬렉션을 즉시 생성한다. 이는 컬렉션 함수를 연쇄시켜 사용하면 매 단계마다 계산 중간 결과를 새로운 컬렉션에 임시로 담는것을 뜻한다. 시퀀스를 사용하면 중간 임시 컬렉션을 사용하지 않고도 컬렉션 연산을 연쇄시켜 사용할 수 있다. 1people.map(Person::name).filter &amp;">
+<meta name="keywords" content="코틀린 인 액션,안드로이드,컬렉션 함수형 API">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Android] Gradle">
-<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/09/21/Android-Gradle/index.html">
+<meta property="og:title" content="[Kotlin] 지연(Lazy) 계산 컬렉션 연산">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/10/13/Chap5-3/index.html">
 <meta property="og:site_name" content="VictoryWoo">
-<meta property="og:description" content="Grdle이란? 빌드 배포 도구 안드로이드 스튜디오와 빌드 시스템은 서로 독립적이다. 안드로이드 스튜디오 : 코드의 편집을 담당 Gradle : 빌드 빌드 프로세스를 자동화하고 관리, 유연한 맞춤형 빌드 구성을 정의할 수 있다.  3가지의 Gradle 파일이 있다. 1. Gradle 설정 파일(settings.gradle)  로트 프로젝트 디렉토리에 존재한">
+<meta property="og:description" content="전에 살펴본 map이나 filter 같은 몇가지 컬렉션 함수는 결과 컬렉션을 즉시 생성한다. 이는 컬렉션 함수를 연쇄시켜 사용하면 매 단계마다 계산 중간 결과를 새로운 컬렉션에 임시로 담는것을 뜻한다. 시퀀스를 사용하면 중간 임시 컬렉션을 사용하지 않고도 컬렉션 연산을 연쇄시켜 사용할 수 있다. 1people.map(Person::name).filter &amp;">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-21T07:57:08.567Z">
+<meta property="og:image" content="http://victorywoolee/image/lazy.jpeg">
+<meta property="og:updated_time" content="2019-10-13T06:22:36.397Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Android] Gradle">
-<meta name="twitter:description" content="Grdle이란? 빌드 배포 도구 안드로이드 스튜디오와 빌드 시스템은 서로 독립적이다. 안드로이드 스튜디오 : 코드의 편집을 담당 Gradle : 빌드 빌드 프로세스를 자동화하고 관리, 유연한 맞춤형 빌드 구성을 정의할 수 있다.  3가지의 Gradle 파일이 있다. 1. Gradle 설정 파일(settings.gradle)  로트 프로젝트 디렉토리에 존재한">
+<meta name="twitter:title" content="[Kotlin] 지연(Lazy) 계산 컬렉션 연산">
+<meta name="twitter:description" content="전에 살펴본 map이나 filter 같은 몇가지 컬렉션 함수는 결과 컬렉션을 즉시 생성한다. 이는 컬렉션 함수를 연쇄시켜 사용하면 매 단계마다 계산 중간 결과를 새로운 컬렉션에 임시로 담는것을 뜻한다. 시퀀스를 사용하면 중간 임시 컬렉션을 사용하지 않고도 컬렉션 연산을 연쇄시켜 사용할 수 있다. 1people.map(Person::name).filter &amp;">
+<meta name="twitter:image" content="http://victorywoolee/image/lazy.jpeg">
     
 
     
@@ -138,19 +140,19 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/Android/">Android</a>
+    <a class="page-title-link" href="/categories/Kotlin/">Kotlin</a>
     </h1>
 </div>
 
                         <div class="main-body-content">
-                            <article id="post-Android-Gradle" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-Chap5-3" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        [Android] Gradle
+        [Kotlin] 지연(Lazy) 계산 컬렉션 연산
         </h1>
     
 
@@ -160,8 +162,8 @@
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2019/09/21/Android-Gradle/" class="article-date">
-            <time datetime="2019-09-21T06:39:20.000Z" itemprop="datePublished">2019-09-21</time>
+        <a href="/2019/10/13/Chap5-3/" class="article-date">
+            <time datetime="2019-10-13T04:46:39.000Z" itemprop="datePublished">2019-10-13</time>
         </a>
     </div>
 
@@ -170,92 +172,83 @@
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/Build/">Build</a>, <a class="tag-link" href="/tags/Gradle/">Gradle</a>
+        <a class="tag-link" href="/tags/안드로이드/">안드로이드</a>, <a class="tag-link" href="/tags/컬렉션-함수형-API/">컬렉션 함수형 API</a>, <a class="tag-link" href="/tags/코틀린-인-액션/">코틀린 인 액션</a>
     </div>
 
             </div>
         
         
         <div class="article-entry" itemprop="articleBody">
-            <h2 id="Grdle이란"><a href="#Grdle이란" class="headerlink" title="Grdle이란?"></a>Grdle이란?</h2><ul>
-<li>빌드 배포 도구</li>
-<li>안드로이드 스튜디오와 빌드 시스템은 서로 독립적이다.</li>
-<li>안드로이드 스튜디오 : 코드의 편집을 담당</li>
-<li>Gradle : 빌드</li>
-<li>빌드 프로세스를 자동화하고 관리, 유연한 맞춤형 빌드 구성을 정의할 수 있다.</li>
-</ul>
-<p>3가지의 Gradle 파일이 있다.</p>
-<p><strong>1. Gradle 설정 파일(settings.gradle)</strong></p>
-<ul>
-<li>로트 프로젝트 디렉토리에 존재한다.</li>
-<li>어떤 모듈을 포함할지를 Gradle에 알려준다.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">include &apos;:app&apos;</span><br></pre></td></tr></table></figure>
+            <p>전에 살펴본 map이나 filter 같은 몇가지 컬렉션 함수는 <strong>결과 컬렉션을 <code>즉시</code> 생성한다.</strong> 이는 컬렉션 함수를 연쇄시켜 사용하면 매 단계마다 계산 중간 결과를 새로운 컬렉션에 임시로 담는것을 뜻한다. <code>시퀀스</code>를 사용하면 중간 임시 컬렉션을 사용하지 않고도 컬렉션 연산을 연쇄시켜 사용할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">people.map(Person::name).filter &#123; it.startsWith(<span class="string">"A"</span>) &#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong>2. 최상위 빌드 파일(build.gradle)</strong></p>
 <ul>
-<li>루트 프로젝트 디렉토리에 최상위 파일로 <strong>프로젝트의 모든 모듈에 적용되는 빌드 구성</strong>을 정의한다.</li>
-<li>모든 모듈에 <code>공통</code>되는 Gradle 저장소와 의존성을 정의하기 위해 <strong>buildscript</strong> 블록을 사용한다.</li>
+<li>코틀린 문서에는 map과 filter가 리스트를 반환한다고 명시되어 있다. 이는 위의 연쇄 호출이 리스트를 2개 만든다는 뜻이다. 한 리스트는 filter의 결과를, 다른 리스트는 map의 결과를 담는다. </li>
+<li>원본 리스트의 개수가 적으면 큰 문제가 되지 않지만, 원소가 수백만개가 되면 효율이 떨어진다. </li>
+<li>이를 더 효율적으로 만들기 위해서는 각 연산이 컬렉션을 직접 사용하는 대신 <strong>시퀀스</strong>를 사용하게 만들어야 한다.</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">buildscript&#123;</span><br><span class="line">    repositories&#123;</span><br><span class="line">        // gradle이 종속성을 검색하거나 다운로드하는 데 사용하는 레포지토리를 구성</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies&#123;</span><br><span class="line">        // gradle이 사용하는 종속성을 정의</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">allprojects&#123;</span><br><span class="line">    //  타사 플러그인 또는 라이브러리와 같이 모든 모듈이 사용하는 레포지토리 및 종속성을 구성하는 곳</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">people.asSequence()</span><br><span class="line">    .map(Person::name)</span><br><span class="line">    .filter &#123; it.startsWith(<span class="string">"A"</span>) &#125;</span><br><span class="line">    .toList()</span><br></pre></td></tr></table></figure>
 
-<p><strong>3. 모듈 수준 빌드 파일(build.gradle)</strong></p>
 <ul>
-<li>해당 파일이 위치하는 특정 모듈의 빌드 설정을 구성</li>
-<li>최상위 파일을 재정의할 수 있다.</li>
+<li>위의 코드는 원본 컬렉션을 시퀀스로 변환한다. 그리고 시퀀스도 컬렉션과 똑같은 API를 제공하기 때문에 데이터를 가공할 수 있다. 마지막으로 결과 시퀀스를 다시 리스트로 변환한다.</li>
+<li>중간 결과를 저장하는 컬렉션이 생기지 않기 때문에 원소가 많은 경우 성능이 훨씬 좋아진다.</li>
+<li><code>Sequence</code> 인터페이스의 강점은 그 인터페이스 위에 구현된 연산이 계산을 수행하는 방법 때문에 생긴다. 시퀀스의 원소는 필요할 때 비로소 계산된다. 따라서 중간 처리 결과를 저장하지 않고도 연산을 연쇄적으로 적용해서 효율적으로 계산을 수행할 수 있다. </li>
+<li><code>asSequence</code> 확장 함수를 호출해 컬렉션을 시퀀스로 바꾸고 시퀀스를 리스트로 다시 변환할 때는 <code>toList()</code>를 사용한다.</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: &apos;com.android.application&apos;</span><br><span class="line">// top-level에 선언되어야 하며, 안드로이드 플러그인을 gradle에 적용한다.</span><br><span class="line"></span><br><span class="line">android&#123;</span><br><span class="line">    // 안드로이드와 관련된 빌드 설정을 한다.</span><br><span class="line">    defaultConfig&#123;</span><br><span class="line">        // AndroidManifest.xml에서 사용하는 설정에 대해 동적인 옵션을 주고 싶을 때, 이 블록 내에서 포함시킨다.</span><br><span class="line">        // 예를 들면, versionCode, versionName 등</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    buildTypes&#123;</span><br><span class="line">        // debug, release와 같이 빌드 타입을 지정할 수 있다.</span><br><span class="line">        // 이외에도 alpha, beta 등등</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    flavorDimensions &quot;api&quot; // product flavor에 대한 그룹</span><br><span class="line">    productFlavors&#123;</span><br><span class="line">        // 버전을 맞춤 설정하여 다양한 코드 및 리소스를 사용할 수 있으며, 모든 앱 버전에 공통되는 부분을 공유하거나 재사용할 수 있다.</span><br><span class="line">        // flavorDimensions을 생성하고 동기화 진행</span><br><span class="line">        // 자신이 빌드 및 실행하고자 하는 것으로 변경 가능하다.</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    lintOptions&#123;</span><br><span class="line">        // 특정 lint 옵션을 구성할 수 있다.</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    testOptions&#123;</span><br><span class="line">        // text를 어떻게 실행하는지 방법에 대한 옵션을 지정한다.</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies&#123;</span><br><span class="line">    // 종속성을 관리한다.</span><br><span class="line">    // 라이브러리를 추가하기 위해 수동으로 검색 및 다운로드 하지 않고 사용 가능하다.</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>큰 컬렉션에 대해서 연산을 연쇄시킬 때는 시퀀스를 사용하는 것을 규칙으로 삼아라.</strong> 관련된 부분은 뒤에서 조금 더 자세하게 다룰 예정이다. 뒤에서는 중간 컬렉션을 생성함에도 불구하고 코틀린에서 즉시 계산 컬렉션에 대한 연산이 더 효율적인 이유를 설명할 것이다. 하지만, 컬렉션에 들어있는 원소가 많으면 중간 원소를 재배열하는 비용이 커지기 때문에 지연 계산이 더 낫다.</p>
+<h2 id="시퀀스-연산-실행"><a href="#시퀀스-연산-실행" class="headerlink" title="시퀀스 연산 실행"></a>시퀀스 연산 실행</h2><ul>
+<li>시퀀스에 대한 연산은 <strong>중간 연산</strong>과 <strong>최종 연산</strong>으로 나뉜다.</li>
+<li><code>중간 연산</code> : 다른 시퀀스를 반환한다. 그 시퀀스는 최초 시퀀스의 원소를 변환하는 방법을 알고 있다.</li>
+<li><code>최종 연산</code> : 결과를 반환한다. 결과는 최초 컬렉션에 대해 변환을 적용한 시퀀스로부터 일련의 계산을 수행해 얻을 수 있는 컬렉션이나 원소, 숫자 또는 객체다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sequence.map&#123; ... &#125;.filter &#123; ... &#125;.toList()</span><br></pre></td></tr></table></figure>
 
-<p><strong>build variants</strong></p>
 <ul>
-<li>단일 프로젝트에서 다양한 버전의 앱을 생성하기 위해 사용한다.</li>
-<li>각 build variants는 빌드할 수 있는 다른 버전의 앱을 나타낸다.</li>
-<li>build type과 product flavor에 구성된 설정, 코드 및 리소스를 조합한 결과</li>
+<li>위의 예제 코드에서 map과 filter를 적용한 부분이 중간 연산에 해당되고 마지막에 toList를 적용한 부분이 최종 연산에 해당된다.</li>
+<li>중간 연산은 항상 지연 계산된다. 아래에서 확인해보자.</li>
 </ul>
-<p><strong>proguard</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">listOf(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>).asSequence()</span><br><span class="line">    .map&#123; print(<span class="string">"map(<span class="variable">$it</span>) "</span>) it * it &#125;</span><br><span class="line">    .filter&#123; print(<span class="string">"filter(<span class="variable">$it</span>) "</span>) it % <span class="number">2</span> == <span class="number">0</span> &#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>빌드 프로세스 중에 클래스를 축소하고 난독화 처리하기 위해 사용한다.</li>
-<li>불필요한 메소드를 제거하여 멀티덱스를 피할 수 있다.</li>
-<li><code>난독화</code> : 특정 언어로 작성된 코드를 읽기 어렵게 만드는 작업<ul>
-<li>디컴파일시 난독화가 되어 코드를 읽기 어렵다.</li>
+<li>위 코드를 실행하면 결과가 출력되지 않는다. 이는 map과 filter 변환이 늦춰져서 결과를 얻을 필요가 있을 때 즉, 최종 연산이 호출될 때 적용된다는 뜻이다.</li>
+<li>그래서 마지막에 toList를 호출해 최종 연산을 수행해주면 다음과 같은 결과를 얻을 수 있다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map(<span class="number">1</span>) filter(<span class="number">1</span>) map(<span class="number">2</span>) filter(<span class="number">4</span>) map(<span class="number">3</span>) filter(<span class="number">9</span>) map(<span class="number">4</span>) filter(<span class="number">16</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>다음의 코드와 결과를 보고 시퀀스의 연산 순서에 대해서 생각해보자.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">println(listOf(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>).asSequence()</span><br><span class="line">    .map&#123; it * it &#125;</span><br><span class="line">    .find&#123; it&gt;<span class="number">3</span> &#125;)</span><br><span class="line">결과:<span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>같은 연산을 컬렉션에 수행한 경우<ul>
+<li>map의 결과가 먼저 평가돼어 최초 컬렉션의 모든 원소가 map을 통해서 변환된다.</li>
+<li>두 번째 단계에서는 map을 적용해서 얻은 중간 컬렉션으로부터 술어를 만족하는 원소를 찾는다. </li>
 </ul>
 </li>
-<li><code>멀티 덱스</code> : 안드로이드 앱을 구성하는 코드는 컴파일되어 덱스 파일로 만들어진다. 하나의 덱스파일은 최대 65536개의 메소드만 참조 가능하다. 이를 초과하면 여러 개의 덱스 파일이 생성된다.<ul>
-<li>멀티 덱스를 사용할 수도 있지만, 빌드 과정에서 앱 내의 파일을 여러 개의 덱스 파일로 나누어야 하므로 빌드 속도가 느려지고 APK의 용량이 커지다.</li>
+<li>같은 연산을 시퀀스를 적용한 경우<ul>
+<li>지연 계산으로 인해 모든 연산은 각 원소에 대해 순차적으로 적용된다.</li>
+<li>즉, 첫 번째 원소가 변환된 다음에 filter를 통해 걸러지는 처리가 되고 다시 두 번째 원소가 처리되며, 이와 같은 처리가 모든 원소에 대해 적용된다.</li>
+<li>따라서 지연 계산으로 인해 원소 중 일부의 계산은 이뤄지지 않는다.</li>
 </ul>
 </li>
+<li>아래 결과는 즉시 계산과 지연 계산을 수행했을 때의 결과를 보여준다.</li>
 </ul>
-<h2 id="APK와-App-Bundle"><a href="#APK와-App-Bundle" class="headerlink" title="APK와 App Bundle"></a>APK와 App Bundle</h2><ul>
-<li>APK : Android Package</li>
-<li>App Bundle : Application Bundle</li>
-<li>두 가지 모두 여러 개의 흩뿌려져 있는 코드들을 안드로이드 기반 기기에서 독립적으로 실행 가능하도록 묶음으로 만드는 역할을 한다.</li>
-</ul>
-<p><strong>APK가 커지는 이유</strong></p>
-<ol>
-<li>멀티 스크린을 지원하기 위해 이미지와 같은 리소스들이 증가</li>
-<li>다국어를 지원하는 앱인 경우 String 파일 증가</li>
-<li>자주 사용되지 않는 기능들의 증가</li>
-</ol>
-<p>안드로이드 App Bundle은 새로운 업로드 방법으로 앱의 크기를 줄일 수 있다.<br>기존에는 Play Console에 APK을 업로드하여 배포를 진행했지만, 새로운 배포 방법은 서명된 App Bundle을 Play Console로 배포하면 사용자의 기기에 맞는 언어, 리소스, CPU 아키텍처에 맞는 부분만 빌드하여 생성하기 때문에 사용자가 다운로드 받는 APK 용량을 줄일 수 있다.</p>
-<p><strong>App Bundle?</strong></p>
+<img src="/image/lazy.jpeg" width="600"> 
+
 <ul>
-<li>App Bundle은 APK와 비슷하지만 모든 코드, 리소스, CPU 아키텍처와 메타 데이터를 압축한 Zip 파일이다. 그래서 Google Play는 App Bundle에서 사용자 기기에 필요한 코드와 리소스만을 선택해 빌드될 수 있는 것이다.</li>
-<li>App Bundle을 빌드하면 .aab 파일이 생성된다. 빌드된 aab 파일을 Play Store에 업로드하면 Play Console이 사용자 각각의 디바이스에 최적화된 APK를 빌드한다.</li>
+<li>위에서 확인할 수 있듯이 <strong>컬렉션</strong>을 사용하면 리스트가 다른 리스트로 변환된다. 그래서 map 연산은 3,4를 포함해 모든 원소를 변환한다. 그 후 find가 술어를 만족하는 첫 번째 원소인 4를 찾는다.</li>
+<li><strong>시퀀스</strong>를 사용하면 find 호출이 원소를 하나씩 처리하기 시작한다. 최초 <strong>시퀀스</strong>로부터 수를 하나 가져와서 map에 지정된 변환을 수행한 다음에 find에 지정된 술어를 만족하는지 검사한다. 그래서 결과를 찾으면 남은 원소에 대해 연산을 하지 않아도 된다.</li>
 </ul>
-<ul>
-<li><code>Dynamic Delivery?</code><ul>
-<li>사용자 기기에 필요한 리소스만을 다운로드 가능하게 해준다.</li>
-<li>Android 5.0(SDK 21) 이상부터 사용할 수 있다.</li>
-<li>Split APK 매커니즘을 이용한다. 이는 분리된 APK를 하나의 앱으로 만들어주는 것으로 여러가지 기능을 분리하고 나중에 기능이 필요할 때 다운로드 받아 설치된다.</li>
-<li>따라서 Dynamic Delivery로 Google Play는 각 기기의 맞는 리소스만 빌드를 하고 기기에 설치되도록 한 다음에 사용자가 특정 기능을 필요로 할 때, 부분적으로 다운 받아서 사용할 수 있게 해주기 때문에 앱 용량을 줄일 수 있다.</li>
-</ul>
-</li>
-<li><strong>Base APK</strong> : 모든 APK가 접근할 수 있는 코드와 리소스가 포함된 APK이다. 앱의 기본 기능을 제공하고 사용자가 앱 다운로드를 요청하면 가장 처음 다운로드 받는 APK.</li>
-<li><strong>Configuration APK</strong> : 기기에 설치될 때, 각 기기에 최적화된 화면 밀도(dpi)나 CPU 아키텍처, 다국어, 리소스와 네이티브 라이브러리가 포함된 APK이다. Google Play에서 자동으로 생성해준다.</li>
-<li><strong>Dynamic feature APK</strong> : 사용자가 기기에 처음 설치할 때 필요하지 않지만, 나중에 추가로 설치할 수 있는 코드와 리소스가 들어있는 APK. 즉, 필요에 따라 동적으로 APK를 설치하여 사용자에게 추가 기능을 제공할 수 있다.</li>
-</ul>
-<p>기본적으로 Google Play는 Base APK와 Configuration APK를 설치한다.<br>예를 들어, 과거에는 다국어와 화면 사이즈를 대응하는 앱인 경우 APK를 빌드하고 서명 후 Play Console에 배포했다. 하지만, 지금은 App Bundle을 Google Play에 업로드하면 Google Play는 App Bundle의 메타데이터와 리소스에서 영어, xxhdpi 리소스만 빌드하여 base+en+xxhdpi으로 조합된 APK를 만든다.</p>
-<p>이로 인해 사용자는 더 작고 최적화된 설치 파일을 다운로드 받을 수 있다.</p>
+<p>컬렉션에 대해 수행하는 연산의 순서도 성능에 영향을 끼친다. 다음의 코드를 보면 확실하게 알 수 있다. 아래는 이름이 어떤 길이보다 짧은 사람의 명단을 얻고 싶은 코드이다. map과 filter를 적용하는데 순서에 따라서 성능의 차이가 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> people = listOf(Person(<span class="string">"Lee"</span>,<span class="number">26</span>), Person(<span class="string">"Kim"</span>,<span class="number">35</span>), Person(<span class="string">"Bob"</span>,<span class="number">31</span>),Person(<span class="string">"Park"</span>,<span class="number">30</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. map 다음에 filter 수행</span></span><br><span class="line">println(people.asSequence()</span><br><span class="line">    .map(Person::name)</span><br><span class="line">    .filter &#123; it.length &lt; <span class="number">4</span> &#125;</span><br><span class="line">    .toList())</span><br><span class="line">결과 : [Lee, Kim, Bob]</span><br><span class="line"><span class="comment">// 2. filter 다음에 map 수행</span></span><br><span class="line">println(people.asSequence()</span><br><span class="line">    .filter &#123; it.length &lt; <span class="number">4</span> &#125;</span><br><span class="line">    .map(Person::name)</span><br><span class="line">    .toList())</span><br><span class="line">결과 : [Lee, Kim, Bob]</span><br></pre></td></tr></table></figure>
+
+<img src="/image/diff_order.jpeg" width="600">
+
+<p>map을 먼저 하면 모든 원소를 변환한다. 하지만, filter를 먼저 하면 부적절한 원소를 먼저 제외하기 때문에 그런 원소는 변환되지 않으며, 변환 횟수가 줄어들어 성능상 이점을 갖는다.</p>
+<p><strong>자바 스트림과 코틀린 시퀀스 비교</strong></p>
+<p>자바 8 스트림이 코틀린 시퀀스와 비슷한 개념으로 보인다. 코틀린에서 같은 개념을 따로 구현해 제공하는 이유는 안드로이드 등에서 예전 버전의 자바를 사용하는 경우 자바 8에 있는 스트림이 없기 때문이다. </p>
+<p>또한, 자바 8을 사용하면 현재 코틀린 컬렉션과 시퀀스에서 제공하지 않는 중요한 기능을 사용할 수 있다. 스트림 연산을 여러 CPU에서 병렬적으로 실행하는 기능이다. 필요에 따라서 적절하게 선택하면 된다.</p>
 
         </div>
         <footer class="article-footer">
@@ -263,7 +256,7 @@
 
 
 
-    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/09/21/Android-Gradle/" data-id="ck1oidfjr0006l53r5z0x2xga" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/13/Chap5-3/" data-id="ck1oidfkd001tl53rg4fvnuan" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -333,26 +326,17 @@
             "@type": "Person",
             "name": "Victory Woo"
         },
-        "headline": "[Android] Gradle",
-        "image": "http://victorywoolee/victorywoolee.github.io",
-        "keywords": "Android Gradle Build",
-        "genre": "Android",
-        "datePublished": "2019-09-21",
-        "dateCreated": "2019-09-21",
-        "dateModified": "2019-09-21",
-        "url": "http://victorywoolee/victorywoolee.github.io/2019/09/21/Android-Gradle/",
-        "description": "Grdle이란?
-빌드 배포 도구
-안드로이드 스튜디오와 빌드 시스템은 서로 독립적이다.
-안드로이드 스튜디오 : 코드의 편집을 담당
-Gradle : 빌드
-빌드 프로세스를 자동화하고 관리, 유연한 맞춤형 빌드 구성을 정의할 수 있다.
-
-3가지의 Gradle 파일이 있다.
-1. Gradle 설정 파일(settings.gradle)
-
-로트 프로젝트 디렉토리에 존재한",
-        "wordCount": 932
+        "headline": "[Kotlin] 지연(Lazy) 계산 컬렉션 연산",
+        "image": "http://victorywoolee/victorywoolee.github.io/image/lazy.jpeg",
+        "keywords": "코틀린 인 액션 안드로이드 컬렉션 함수형 API",
+        "genre": "Kotlin",
+        "datePublished": "2019-10-13",
+        "dateCreated": "2019-10-13",
+        "dateModified": "2019-10-13",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/10/13/Chap5-3/",
+        "description": "전에 살펴본 map이나 filter 같은 몇가지 컬렉션 함수는 결과 컬렉션을 즉시 생성한다. 이는 컬렉션 함수를 연쇄시켜 사용하면 매 단계마다 계산 중간 결과를 새로운 컬렉션에 임시로 담는것을 뜻한다. 시퀀스를 사용하면 중간 임시 컬렉션을 사용하지 않고도 컬렉션 연산을 연쇄시켜 사용할 수 있다.
+1people.map(Person::name).filter &",
+        "wordCount": 839
     }
 </script>
 
@@ -416,20 +400,10 @@ Gradle : 빌드
         
 <nav id="article-nav">
     
-        <a href="/2019/09/22/Android-ripple/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            [Android] ripple
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2019/09/21/Git-Flow/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2019/10/12/Chap5-2/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">[Git] Git Flow 전략</p>
+        <p class="article-nav-title">[Kotlin] 컬렉션 함수형 API</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -552,7 +526,7 @@ Gradle : 빌드
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/09/21/Android-Gradle/';
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/10/13/Chap5-3/';
     
     (function() {
     var dsq = document.createElement('script');
