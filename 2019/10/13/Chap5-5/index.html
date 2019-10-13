@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>[Kotlin] 수신 객체 지정 람다 | VictoryWoo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="코틀린 인 액션,안드로이드,수신 객체 지정 람다,with, apply">
+    
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
+    <meta name="description" content="이번에는 with과 apply에 대해서 알아본다. 매우 유용하며 코틀린 람다의 독특한 기능을 이해할 수 있다. 이 기능은 바로 수신 객체를 명시하지 않고 람다의 본문 안에서 다른 객체의 메소드를 호출할 수 있게 하는 것이다. 그런 람다를 수신 객체 지정 람다라고 부른다. 기존에 필자가 알고 있던 이 함수들은 범위 지정 함수라고 알고 있었고 with, app">
+<meta name="keywords" content="코틀린 인 액션,안드로이드,수신 객체 지정 람다,with, apply">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Kotlin] 수신 객체 지정 람다">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/10/13/Chap5-5/index.html">
+<meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="이번에는 with과 apply에 대해서 알아본다. 매우 유용하며 코틀린 람다의 독특한 기능을 이해할 수 있다. 이 기능은 바로 수신 객체를 명시하지 않고 람다의 본문 안에서 다른 객체의 메소드를 호출할 수 있게 하는 것이다. 그런 람다를 수신 객체 지정 람다라고 부른다. 기존에 필자가 알고 있던 이 함수들은 범위 지정 함수라고 알고 있었고 with, app">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-13T09:00:33.766Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Kotlin] 수신 객체 지정 람다">
+<meta name="twitter:description" content="이번에는 with과 apply에 대해서 알아본다. 매우 유용하며 코틀린 람다의 독특한 기능을 이해할 수 있다. 이 기능은 바로 수신 객체를 명시하지 않고 람다의 본문 안에서 다른 객체의 메소드를 호출할 수 있게 하는 것이다. 그런 람다를 수신 객체 지정 람다라고 부른다. 기존에 필자가 알고 있던 이 함수들은 범위 지정 함수라고 알고 있었고 with, app">
+    
+
+    
+        <link rel="alternate" href="/" title="VictoryWoo" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">VictoryWoo&#39;s Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Android/">Android</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clean-Code/">Clean Code</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ETC/">ETC</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Kotlin/">Kotlin</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Kotlin/">Kotlin</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Chap5-5" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [Kotlin] 수신 객체 지정 람다
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/10/13/Chap5-5/" class="article-date">
+            <time datetime="2019-10-13T07:59:27.000Z" itemprop="datePublished">2019-10-13</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/with-apply/">with, apply</a>, <a class="tag-link" href="/tags/수신-객체-지정-람다/">수신 객체 지정 람다</a>, <a class="tag-link" href="/tags/안드로이드/">안드로이드</a>, <a class="tag-link" href="/tags/코틀린-인-액션/">코틀린 인 액션</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>이번에는 with과 apply에 대해서 알아본다. 매우 유용하며 코틀린 람다의 독특한 기능을 이해할 수 있다. 이 기능은 바로 <strong>수신 객체를 명시하지 않고 람다의 본문 안에서 다른 객체의 메소드를 호출할 수 있게 하는 것이다.</strong> 그런 람다를 <code>수신 객체 지정 람다</code>라고 부른다.</p>
+<p>기존에 필자가 알고 있던 이 함수들은 범위 지정 함수라고 알고 있었고 with, apply, let, run과 같은 함수들이 있었다. 이번에 with과 apply는 책의 내용과 필자가 알고 있는 내용을 종합해서 정리하며 나머지 함수들도 정리할 예정이다.</p>
+<h2 id="with"><a href="#with" class="headerlink" title="with"></a>with</h2><ul>
+<li>객체의 이름을 반복하지 않고 그 객체에 대해 다양한 연산을 수행할 수 있다.</li>
+<li>with() 함수를 사용하면 위의 기능을 사용할 수 있다.</li>
+<li>인자로 받은 객체를 이어지는 블록(람다)의 수신 객체로 만든다. 그래서 람다 본문에서는 this를 사용해 수신 객체에 접근할 수 있다. 또한, this를 생략하고 수신 객체의 프로퍼티나 메소드에 접근하는 것도 가능하다.</li>
+<li>블록(람다)의 값을 반환한다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">alphabet</span><span class="params">()</span></span>: String&#123;</span><br><span class="line">    <span class="keyword">val</span> sb = StringBuilder()</span><br><span class="line">    <span class="keyword">return</span> with(sb)&#123;</span><br><span class="line">        <span class="keyword">for</span>(letter <span class="keyword">in</span> <span class="string">'A'</span>..<span class="string">'Z'</span>)&#123;</span><br><span class="line">            <span class="keyword">this</span>.append(letter)</span><br><span class="line">        &#125;</span><br><span class="line">        append(<span class="string">"\n Now I know the alphabet! "</span>)</span><br><span class="line">        <span class="keyword">this</span>.toString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>메소드를 호출하려는 수신 객체를 지정한다. 그리고 블록 안에서 원하는 함수나 프로퍼티에 접근할 수 있다. <code>this</code>를 명시해서 앞에서 지정한 수신 객체의 메소드를 호출하거나 this를 생략하고 호출할 수도 있다. 그리고 람다는 값을 반환할 수도 있다.</li>
+</ul>
+<p><strong>Tip - 메소드 이름 충돌</strong><br>with에게 인자로 넘긴 객체의 클래스(위의 코드에서는 StringBuilder)와 with을 사용하는 코드가 들어있는 클래스 안(위의 코드에는 없지만 alphabet() 함수를 포함하는 클래스)에 이름이 같은 메소드가 있으면 어떤 일이 생길까? 이와 같은 경우 <code>this</code> 참조 앞에 레이블을 붙이면 호출하고 싶은 메소드를 명확하게 정의할 수 있다.</p>
+<p>alphabet 함수가 OuterClass의 메소드라고 하자. StringBuilder가 아닌 바깥쪽 클래스 즉, OuterClass에 정의된 toString()을 호출하고 싶다면 다음 구문을 사용하면 된다.<br><code>this@OuterClass.toString()</code></p>
+<h2 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h2><ul>
+<li>with 함수와 비슷한 역할을 한다.</li>
+<li>주로 객체의 인스턴스를 만들면서 즉시 프로퍼티 중 일부를 초기화해야 하는 경우에 사용되며, with과의 차이점은 apply에게 전달된 객체(즉, 수신 객체)를 반환한다는 점이다.</li>
+<li>apply는 확장 함수로 정의되어 있다. apply의 수신 객체가 전달받은 람다의 수신 객체가 된다.</li>
+<li>코틀린에서는 어떤 클래스가 정의돼 있는 라이브러리의 특별한 지원 없이도 그 클래스 인스턴스에 대해 apply를 활용할 수 있다.</li>
+<li><strong>apply는 수신 객체 자체를 반환한다.</strong></li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">alphabet</span><span class="params">()</span></span> = StringBuilder().apply&#123;</span><br><span class="line">    <span class="keyword">for</span>(letter <span class="keyword">in</span> <span class="string">'A'</span>..<span class="string">'Z'</span>)&#123;</span><br><span class="line">        append(letter)</span><br><span class="line">    &#125;</span><br><span class="line">    append(<span class="string">"\n Now I know the alphabet! "</span>)</span><br><span class="line">&#125;.toString()</span><br></pre></td></tr></table></figure>
+
+<p>이처럼 수신 객체 지정 람다는 DSL(Domain Specific Language)을 만들 때 매우 유용한 도구이다. DSL에 대해서는 추후에 알아볼 예정이다.</p>
+<h2 id="요약"><a href="#요약" class="headerlink" title="요약"></a>요약</h2><ul>
+<li>람다를 사용하면 코드 조각을 다른 함수에게 인자로 넘길 수 있다.</li>
+<li>람다가 함수 인자인 경우 괄호 밖으로 람다를 빼낼 수 있고, 람다의 인자가 단 하나뿐인 경우 인자 이름을 지정하지 않고 it이라는 디폴트 이름으로 사용할 수 있다.</li>
+<li>람다 안에 있는 코드는 그 람다가 들어있는 바깥 함수의 변수를 읽거나 쓸 수 있다.</li>
+<li>::을 통해 멤버 참조를 사용할 수 있으며, 메소드, 생성자, 프로퍼티의 이름 앞에 붙여 쓸 수 있다. 이런 참조를 람다 대신 다른 함수에게 넘길 수 있다.</li>
+<li>filter, map, all, any 등의 함수를 사용하면 컬렉션에 대한 대부분의 연산을 직접 원소를 이터레이션하지 않고 수행할 수 있다.</li>
+<li>시퀀스를 사용하면 중간 결과를 담는 컬렉션을 생성하지 않고도 컬렉션에 대한 여러 연산을 조합할 수 있다.</li>
+<li>함수형 인터페이스(추상 메소드가 단 하나뿐인 SAM 인터페이스)를 인자로 받는 자바 함수를 호출할 경우, 람다를 함수형 인터페이스 인자 대신 넘길 수 있다.</li>
+<li>수신 객체 지정 람다를 사용하면 람다 안에서 미리 정해둔 수신 객체의 메소드를 직접 호출할 수 있다.</li>
+<li>with 함수를 사용하면 어떤 객체에 대한 참조를 반복해서 언급하지 않으면서 그 객체의 메소드를 호출할 수 있다. 그리고 이어지는 블록 즉, 람다를 반환한다.</li>
+<li>apply 함수를 사용하면 어떤 객체라도 빌더 스타일의 API를 사용해 생성하고 초기화할 수 있다. 그리고 수신 객체를 반환한다.</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/13/Chap5-5/" data-id="ck1ordmth001iwr3rvrot8stm" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Victory Woo"
+        },
+        "headline": "[Kotlin] 수신 객체 지정 람다",
+        "image": "http://victorywoolee/victorywoolee.github.io",
+        "keywords": "코틀린 인 액션 안드로이드 수신 객체 지정 람다 with, apply",
+        "genre": "Kotlin",
+        "datePublished": "2019-10-13",
+        "dateCreated": "2019-10-13",
+        "dateModified": "2019-10-13",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/10/13/Chap5-5/",
+        "description": "이번에는 with과 apply에 대해서 알아본다. 매우 유용하며 코틀린 람다의 독특한 기능을 이해할 수 있다. 이 기능은 바로 수신 객체를 명시하지 않고 람다의 본문 안에서 다른 객체의 메소드를 호출할 수 있게 하는 것이다. 그런 람다를 수신 객체 지정 람다라고 부른다.
+기존에 필자가 알고 있던 이 함수들은 범위 지정 함수라고 알고 있었고 with, app",
+        "wordCount": 633
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/victorywoolee" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/10/13/Chap5-4/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[Kotlin] 자바 함수형 인터페이스 활용</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">11</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/10/13/Chap5-5/" class="title">[Kotlin] 수신 객체 지정 람다</a></p>
+                            <p class="item-date"><time datetime="2019-10-13T07:59:27.000Z" itemprop="datePublished">2019-10-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/10/13/Chap5-4/" class="title">[Kotlin] 자바 함수형 인터페이스 활용</a></p>
+                            <p class="item-date"><time datetime="2019-10-13T06:33:19.000Z" itemprop="datePublished">2019-10-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/10/13/Chap5-3/" class="title">[Kotlin] 지연(Lazy) 계산 컬렉션 연산</a></p>
+                            <p class="item-date"><time datetime="2019-10-13T04:46:39.000Z" itemprop="datePublished">2019-10-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/10/12/Chap5-2/" class="title">[Kotlin] 컬렉션 함수형 API</a></p>
+                            <p class="item-date"><time datetime="2019-10-12T08:31:25.000Z" itemprop="datePublished">2019-10-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2019/10/12/Android-SDK/" class="title">Android_SDK</a></p>
+                            <p class="item-date"><time datetime="2019-10-12T08:31:19.000Z" itemprop="datePublished">2019-10-12</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Victory Woo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/10/13/Chap5-5/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
