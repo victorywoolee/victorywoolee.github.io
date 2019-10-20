@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>[Kotlin] 타입 시스템 - 널 가능성 | VictoryWoo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Android,Kotlin,Type">
+    
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
+    <meta name="description" content="코틀린은 자바와 달리 널에 대해서 민감하게 반응한다. 그래서 널이 될 수 있는 타입과 널이 될 수 없는 타입이 나눠져 있으며, 널과 관련한 문법을 제공해 개발자로 하여금 널과 관련된 처리를 하는데 편의성을 제공해준다. 이로 인해 가독성 또한 좋아진다. 널 가능성 널 가능성은 NullPointerException 오류(NPE)를 피할 수 있게 돕기 위한 코틀">
+<meta name="keywords" content="Android,Kotlin,Type">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Kotlin] 타입 시스템 - 널 가능성">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/10/19/Chap6-1/index.html">
+<meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="코틀린은 자바와 달리 널에 대해서 민감하게 반응한다. 그래서 널이 될 수 있는 타입과 널이 될 수 없는 타입이 나눠져 있으며, 널과 관련한 문법을 제공해 개발자로 하여금 널과 관련된 처리를 하는데 편의성을 제공해준다. 이로 인해 가독성 또한 좋아진다. 널 가능성 널 가능성은 NullPointerException 오류(NPE)를 피할 수 있게 돕기 위한 코틀">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-20T11:09:41.761Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Kotlin] 타입 시스템 - 널 가능성">
+<meta name="twitter:description" content="코틀린은 자바와 달리 널에 대해서 민감하게 반응한다. 그래서 널이 될 수 있는 타입과 널이 될 수 없는 타입이 나눠져 있으며, 널과 관련한 문법을 제공해 개발자로 하여금 널과 관련된 처리를 하는데 편의성을 제공해준다. 이로 인해 가독성 또한 좋아진다. 널 가능성 널 가능성은 NullPointerException 오류(NPE)를 피할 수 있게 돕기 위한 코틀">
+    
+
+    
+        <link rel="alternate" href="/" title="VictoryWoo" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">VictoryWoo&#39;s Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Android/">Android</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clean-Code/">Clean Code</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ETC/">ETC</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Kotlin/">Kotlin</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Kotlin/">Kotlin</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Chap6-1" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [Kotlin] 타입 시스템 - 널 가능성
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/10/19/Chap6-1/" class="article-date">
+            <time datetime="2019-10-19T14:20:47.000Z" itemprop="datePublished">2019-10-19</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/Kotlin/">Kotlin</a>, <a class="tag-link" href="/tags/Type/">Type</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>코틀린은 자바와 달리 널에 대해서 민감하게 반응한다. 그래서 널이 될 수 있는 타입과 널이 될 수 없는 타입이 나눠져 있으며, 널과 관련한 문법을 제공해 개발자로 하여금 널과 관련된 처리를 하는데 편의성을 제공해준다. 이로 인해 가독성 또한 좋아진다.</p>
+<h2 id="널-가능성"><a href="#널-가능성" class="headerlink" title="널 가능성"></a>널 가능성</h2><ul>
+<li>널 가능성은 <code>NullPointerException</code> 오류(<strong>NPE</strong>)를 피할 수 있게 돕기 위한 코틀린 타입 시스템의 특성이다.</li>
+<li>코틀린을 비롯한 최신 언어에서 null에 대한 접근 방법은 가능한 한 이 문제를 실행 시점에서 컴파일 시점으로 옮기는 것이다. 널<strong>이 될 수 있는지 여부를 타입 시스템에 추가함으로써 컴파일러가 여러 가지 오류를 컴파일 시 미리 감지해서 실행 시점에 발생할 수 있는 예외의 가능성을 줄일 수 있다.</strong></li>
+</ul>
+<p><strong>1. 널이 될 수 있는 타입</strong></p>
+<ul>
+<li>널이 될 수 있는 타입을 지원한다.</li>
+<li>널이 될 수 있는 타입은 프로그램 안의 프로퍼티나 변수에 null을 허용하게 만드는 방법이다.</li>
+<li>예시를 통해 이해해보자.</li>
+<li>다음은 자바로 짜여진 함수다.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">strLen</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> s.lenght();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>위 함수에 인자로 null을 넘기면 NPE가 발생한다. s가 널인지 검사를 해야할까?? 이 부분에 대해 생각해보면서 코틀린으로 작성된 함수를 보자.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">strLen</span><span class="params">(s: <span class="type">String</span>)</span></span> = s.length()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">strLen</span><span class="params">(s: <span class="type">String</span>?)</span></span> = s?.length()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>위 함수에 대해서는 null이거나 널이 될 수 있는 인자를 넘기는 것은 금지되며, 넘길 경우 NPE가 발생한다.</li>
+<li>strLen 함수의 파라미터 s의 타입은 String이며, 항상 String의 인스턴스여야 한다. 이때, <strong>컴파일러는 널이 될 수 있는 값을 strLen에게 인자로 넘기지 못하게 막는다.</strong> 따라서 strLen 함수가 실행 시점에 NPE을 발생시키지 않으리라 장담할 수 있다.</li>
+</ul>
+<p>String?, Int? 등 어떤 타이이든 타입 이름 뒤에 ?를 붙이면 그 타입의 변수나 프로퍼티에 null을 참조를 저장할 수 있다는 뜻이다.<br>?가 없는 타입은 그 변수가 null 참조를 저장할 수 없다는 뜻이다.</p>
+<ul>
+<li>모든 타입은 기본적으로 널이 될 수 없으며, 뒤에 ?가 붙어야 널이 될 수 있다.</li>
+<li>널이 될 수 있는 타입의 변수가 있다면 그에 대해 수행할 수 있는 연산이 제한된다.<ul>
+<li>널이 될 수 있는 타입인 변수에 대해 변수.메소드()처럼 메소드를 직접 호출할 수 없다. (널에 대한 검사 혹은 널이 될 수 있는 값에 대한 처리가 필요.)</li>
+<li>널이 될 수 있는 값을 널이 될 수 없는 타입의 변수에 대입할 수 없다.</li>
+<li>널이 될 수 있는 타입의 값을 널이 될 수 없는 파라미터를 받는 함수에 전달할 수 없다.</li>
+</ul>
+</li>
+<li>널이 될 수 있는 타입은 널을 검사할 때 사용될 수 있으며, 이는 뒤쪽에서 알아보도록 하자.</li>
+</ul>
+<p><strong>2. 타입의 의미</strong></p>
+<ul>
+<li>자바의 String 타입의 변수에는 String과 null이 모두 들어갈 수 있다. 이 두 종류의 값은 완전히 다르다.</li>
+<li>두 종류의 값에 대해 실행할 수 있는 연산도 완전히 다르다. 실제로 String이 들어있는 변수에 대해서는 String 클래스에 정의된 모든 메소드를 호출할 수 있다. 하지만, null이 들어있는 경우에는 사용할 수 있는 연산이 많지 않다.</li>
+<li>이는 자바의 타입 시스템이 널을 제대로 다루지 못한다는 뜻이다. <strong>변수에 선언된 타입이 있지만, 널 여부를 추가로 검사하기 전에는 그 변수에 대해 어떤 연산을 수행할 수 있을지 알 수 없다.</strong></li>
+<li>코틀린의 널이 될 수 있는 타입과 널이 될 수 없는 타입을 구분하면 <strong>각 타입의 값에 대해 어떤 연산이 가능할지 명확히 이해</strong>할 수 있고, 실행 시점에 예외를 발생시킬 수 있는 연산을 판단할 수 있다. 따라서 그런 연산을 아예 금지시키고 위 문제에 대한 종합적인 해법을 제공한다.</li>
+<li><code>주의</code> : 실행 시점에 널이 될 수 있는 타입이나 널이 될 수 없는 타입의 객체는 같다. 널이 될 수 있는 타입은 널이 될 수 없는 타입을 감싼 래퍼 타입이 아니다. 모든 검사는 컴파일 시점에 수행된다. 따라서 코틀린에서는 널이 될 수 있는 타입을 처리하는 데 별도의 실행 시점 부가 비용이 들지 않는다.</li>
+</ul>
+<p><strong>3. 안전한 호출 연산자 ?.</strong></p>
+<ul>
+<li>null 검사와 메소드 호출을 한 번의 연산으로 수행한다.</li>
+<li>호출하려는 값이 null이 아니라면 <code>?.</code>은 일반 메소드 호출처럼 작동한다.</li>
+<li>호출하려는 값이 null이면 이 호출은 무시되고 null이 결과 값이 된다.</li>
+<li>?. 연산자 사용 예시</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ?. 연산자를 사용하지 않고 if문을 사용했을 경우.</span></span><br><span class="line"><span class="keyword">if</span>(s == <span class="literal">null</span>)&#123;</span><br><span class="line">    s.toUpperCase()</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="literal">null</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// ?. 연산자를 사용했을 경우.</span></span><br><span class="line"><span class="comment">// allCaps는 널이 될 수 있는 타입이다.</span></span><br><span class="line"><span class="keyword">val</span> allCaps = s?.toUpperCase()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>주의해야 할 점은 안전한 호출의 결과 타입도 널이 될 수 있는 타입이라는 것이다. </li>
+<li>메소드 호출뿐 아니라 프로퍼티를 읽거나 쓸 때도 안전한 호출을 사용할 수 있다.</li>
+<li>널이 될 수 있는 중간 객체가 여럿 있다면 한 식 안에서 안전한 호출을 연쇄해서 함께 사용하면 편하다.</li>
+<li>자바에서 널 검사가 들어간 호출을 코틀린에서는 훨씬 간결하게 처리할 수 있다. 이로 인해 불필요한 if문의 사용을 줄일 수 있다.</li>
+</ul>
+<p><strong>4. 엘비스 연산자 ?:</strong></p>
+<ul>
+<li>null 대신 사용할 디폴트 값을 지정할 때 편리하게 사용할 수 있다. </li>
+<li>엘비스 연산자는 이항 연산자로 좌항을 계산한 값이 널인지 검사한다. 좌항 값이 널이 아니면 좌항 값을 결과로 하고, 좌항 값이 널이면 우항 값을 결과로 한다. </li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">(s: <span class="type">String</span>?)</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> t: String = s ?: <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>s가 널이면 빈 문자열을 t의 결과로 한다는 의미이다. 어떻게 보면 <strong>엘비스 연산자는 널을 특정 값으로 바꿔주는 역할을 하기도 한다.</strong></li>
+<li>엘비스 연산자를 객체가 널인 경우 널을 반환하는 안전한 호출 연산자와 함께 사용해서 객체가 널인 경우에 대비한 값을 지정하는 경우도 많다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">strLenSafe</span><span class="params">(s: <span class="type">String</span>?)</span></span>: <span class="built_in">Int</span> = s?.length ?: <span class="number">0</span></span><br><span class="line">println(strLenSafe(<span class="string">"abc"</span>))</span><br><span class="line">println(strLenSafe(<span class="literal">null</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 결과</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>코틀린에서는 return이나 throw 등의 연산도 식이다. 따라서 엘비스 연산자의 우항에 return, throw 등의 연산을 넣을 수 있고, 엘비스 연산자를 더욱 편하게 사용할 수 있다. 이런 패턴은 <strong>함수의 전제 조건을 검사하는 경우에 유용하다.</strong></li>
+</ul>
+<p><strong>5. 안전한 캐스트: as?</strong></p>
+<ul>
+<li>코틀린의 타입 캐스트 연산자인 as는 자바 타입 캐스트와 마찬가지로 대상 값을 as로 지정한 타입으로 바꿀 수 없으면 <code>ClassCastException</code>이 발생한다.</li>
+<li>as? 연산자는 어떤 값을 지정한 타입으로 캐스트한다. 값을 대상 타입으로 변환할 수 없으면 null을 반환한다.</li>
+<li><strong>타입 캐스트 연산자는 값을 주어진 타입으로 변환하려 시도하고 타입이 맞지 않으면 null을 반환한다.</strong></li>
+<li>안전한 캐스트는 일반적으로 캐스트를 수행한 뒤에 엘비스 연산자를 함께 사용하는 패턴이 일반적이다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(<span class="keyword">val</span> firstName: String, <span class="keyword">val</span> lastName: String)&#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">equals</span><span class="params">(o: <span class="type">Any</span>?)</span></span>: <span class="built_in">Boolean</span>&#123;</span><br><span class="line">        <span class="comment">// 타입이 일치하지 않으면 false를 반환한다. </span></span><br><span class="line">        <span class="keyword">val</span> otherPerson = o <span class="keyword">as</span>? Person ?: <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 안전한 캐스트를 하고 나면 otherPerson이 Person 타입으로 스마트 캐스트 된다.</span></span><br><span class="line">        <span class="keyword">return</span> otherPerson.firstName =- firstName &amp;&amp; otherPerson.lastName == lastName</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">hashCode</span><span class="params">()</span></span>: <span class="built_in">Int</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> firstName.hashCode() * <span class="number">37</span> + lastName.hashCode()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> p1 = Person(<span class="string">"Lee"</span>, <span class="string">"Seungwoo"</span>)</span><br><span class="line"><span class="keyword">val</span> p2 = Person(<span class="string">"Lee"</span>, <span class="string">"Seungwoo"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// == 연산자는 equals()를 호출한다.</span></span><br><span class="line">println(p1 == p2)</span><br><span class="line">println(p1.equals(<span class="number">42</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 결과</span></span><br><span class="line"><span class="literal">true</span></span><br><span class="line"><span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>타입을 캐스트한 다음에 해당 변수가 null을 반환하지 않으면 컴파일러는 어떤 값이 해당 타입이 맞다고 판단을 해서 자동으로 타입 캐스트를 진행한다. 이를 스마트 타입 캐스트라고 한다.</li>
+</ul>
+<p><strong>6. 널 아님 단언: !!</strong></p>
+<ul>
+<li>널이 될 수 있는 타입의 값을 다룰 때 사용할 수 있다.</li>
+<li>!!을 통해 어떤 값이든 널이 될 수 없는 타입으로 강제로 바꿀 수 있다. 실제 널에 대해서 !!를 적용하면 NPE가 발생한다.</li>
+<li>!!를 널에 대해 사용해서 발생하는 예외의 Stack trace에는 어떤 파일의 몇 번째 줄인지에 대한 정보는 들어있지만 어떤 식에서 예외가 발생했는지에 대한 정보가 들어있지 않다. 어떤 값이 널이었는지 확실히 하기 위해 여러 !! 단언문을 한 줄에 함께 쓰는 일을 피하는 것이 좋다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">person.company!!.address!!.country</span><br><span class="line"><span class="comment">// 이런식으로 코드를 작성하는 것을 피해야 한다.</span></span><br></pre></td></tr></table></figure>
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/19/Chap6-1/" data-id="ck1yw4p5n001fjr3rlups9v17" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Victory Woo"
+        },
+        "headline": "[Kotlin] 타입 시스템 - 널 가능성",
+        "image": "http://victorywoolee/victorywoolee.github.io",
+        "keywords": "Android Kotlin Type",
+        "genre": "Kotlin",
+        "datePublished": "2019-10-19",
+        "dateCreated": "2019-10-19",
+        "dateModified": "2019-10-20",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/10/19/Chap6-1/",
+        "description": "코틀린은 자바와 달리 널에 대해서 민감하게 반응한다. 그래서 널이 될 수 있는 타입과 널이 될 수 없는 타입이 나눠져 있으며, 널과 관련한 문법을 제공해 개발자로 하여금 널과 관련된 처리를 하는데 편의성을 제공해준다. 이로 인해 가독성 또한 좋아진다.
+널 가능성
+널 가능성은 NullPointerException 오류(NPE)를 피할 수 있게 돕기 위한 코틀",
+        "wordCount": 1237
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/victorywoolee" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/10/20/Chap6-2/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            [Kotlin] 타입 시스템 - 널 가능성2
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/10/19/Method-Name/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[ETC] Method 이름</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">13</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/10/20/Chap6-2/" class="title">[Kotlin] 타입 시스템 - 널 가능성2</a></p>
+                            <p class="item-date"><time datetime="2019-10-20T11:09:51.000Z" itemprop="datePublished">2019-10-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/10/19/Chap6-1/" class="title">[Kotlin] 타입 시스템 - 널 가능성</a></p>
+                            <p class="item-date"><time datetime="2019-10-19T14:20:47.000Z" itemprop="datePublished">2019-10-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ETC/">ETC</a></p>
+                            <p class="item-title"><a href="/2019/10/19/Method-Name/" class="title">[ETC] Method 이름</a></p>
+                            <p class="item-date"><time datetime="2019-10-19T04:28:36.000Z" itemprop="datePublished">2019-10-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/10/19/Android-TabLayout/" class="title">[Android] TabLayout</a></p>
+                            <p class="item-date"><time datetime="2019-10-19T04:24:13.000Z" itemprop="datePublished">2019-10-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ETC/">ETC</a></p>
+                            <p class="item-title"><a href="/2019/10/19/Compile-Build/" class="title">[ETC] Compile, Build</a></p>
+                            <p class="item-date"><time datetime="2019-10-19T03:12:59.000Z" itemprop="datePublished">2019-10-19</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Victory Woo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/10/19/Chap6-1/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
