@@ -6,23 +6,26 @@
     
 
     
-    <title>[Kotlin] 타입 시스템 - 널 가능성2 | VictoryWoo</title>
+    <title>[Android] ViewPager | VictoryWoo</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="Android,Kotlin,Type">
+        <meta name="keywords" content="Android,ViewPager,Fragment">
     
     <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
-    <meta name="keywords" content="Android,Kotlin,Type">
+    <meta name="description" content="이번 글은 Android의 ViewPager 전부에 관해 다루지 않고 특정 속성에 대해서 알아보려고 한다. ViewPager는 보통 Tab, Fragment와 함께 사용하여 탭 클릭 시 다른 화면으로 전환하기 위해서 사용하곤 한다. Fragment를 로드하는 상황에서 조금 더 효율적으로 로드하기 위해 사용하는 속성에 대해 알아보자. setOffscreenP">
+<meta name="keywords" content="Android,ViewPager,Fragment">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Kotlin] 타입 시스템 - 널 가능성2">
-<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/10/20/Chap6-2/index.html">
+<meta property="og:title" content="[Android] ViewPager">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/10/26/Android-ViewPager/index.html">
 <meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="이번 글은 Android의 ViewPager 전부에 관해 다루지 않고 특정 속성에 대해서 알아보려고 한다. ViewPager는 보통 Tab, Fragment와 함께 사용하여 탭 클릭 시 다른 화면으로 전환하기 위해서 사용하곤 한다. Fragment를 로드하는 상황에서 조금 더 효율적으로 로드하기 위해 사용하는 속성에 대해 알아보자. setOffscreenP">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-20T11:10:10.162Z">
+<meta property="og:updated_time" content="2019-10-26T08:42:06.710Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Kotlin] 타입 시스템 - 널 가능성2">
+<meta name="twitter:title" content="[Android] ViewPager">
+<meta name="twitter:description" content="이번 글은 Android의 ViewPager 전부에 관해 다루지 않고 특정 속성에 대해서 알아보려고 한다. ViewPager는 보통 Tab, Fragment와 함께 사용하여 탭 클릭 시 다른 화면으로 전환하기 위해서 사용하곤 한다. Fragment를 로드하는 상황에서 조금 더 효율적으로 로드하기 위해 사용하는 속성에 대해 알아보자. setOffscreenP">
     
 
     
@@ -135,19 +138,19 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/Kotlin/">Kotlin</a>
+    <a class="page-title-link" href="/categories/Android/">Android</a>
     </h1>
 </div>
 
                         <div class="main-body-content">
-                            <article id="post-Chap6-2" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-Android-ViewPager" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        [Kotlin] 타입 시스템 - 널 가능성2
+        [Android] ViewPager
         </h1>
     
 
@@ -157,8 +160,8 @@
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2019/10/20/Chap6-2/" class="article-date">
-            <time datetime="2019-10-20T11:09:51.000Z" itemprop="datePublished">2019-10-20</time>
+        <a href="/2019/10/26/Android-ViewPager/" class="article-date">
+            <time datetime="2019-10-26T07:53:54.000Z" itemprop="datePublished">2019-10-26</time>
         </a>
     </div>
 
@@ -167,21 +170,51 @@
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/Kotlin/">Kotlin</a>, <a class="tag-link" href="/tags/Type/">Type</a>
+        <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/Fragment/">Fragment</a>, <a class="tag-link" href="/tags/ViewPager/">ViewPager</a>
     </div>
 
             </div>
         
         
         <div class="article-entry" itemprop="articleBody">
-            
+            <p>이번 글은 Android의 ViewPager 전부에 관해 다루지 않고 특정 속성에 대해서 알아보려고 한다. ViewPager는 보통 Tab, Fragment와 함께 사용하여 탭 클릭 시 다른 화면으로 전환하기 위해서 사용하곤 한다. Fragment를 로드하는 상황에서 조금 더 효율적으로 로드하기 위해 사용하는 속성에 대해 알아보자.</p>
+<h2 id="setOffscreenPageLimit"><a href="#setOffscreenPageLimit" class="headerlink" title="setOffscreenPageLimit"></a>setOffscreenPageLimit</h2><p>필자는 ViewPager와 Fragment를 이용해서 좌우 Swipe가 가능한 화면을 구성해야 했다. 그리고 TabLayout도 함께 사용했다. 그리고 화면이 켜질 때 Fragment를 로드해야 한다. </p>
+<p>그런데 이 화면을 개발하다가 이상한 에러를 만났다. 그래서 필자는 Google에 검색했고, <code>setOffscreenPageLimit</code>이라는 속성을 사용해 숫자를 설정하면 된다는 답변만을 확인하고 사용되는 Fragment의 개수가 7개이기 때문에 7로 설정을 했다. 에러가 나지 않고 필자가 원하는 동작을 하긴 했지만, 저 속성이 무엇을 의미하는지 몰라 찾아보기로 했다.</p>
+<p>ViewPager는 디폴트 값으로 현재 보이는 페이지 좌우만 생성해놓고 사용하는 구조이다. 즉, 1번, 2번, 3번의 탭이 존재한다면 1번 탭에 있을 경우에는 2번 탭을 미리 생성해놓는다. 그리고 2번 탭에 있는 경우는 1번과 3번 탭을 미리 생성해놓는다. 3번 탭으로 오게 되면 2번 탭은 미리 생성하고 사용하지만, 1번 탭은 파괴한다. </p>
+<p>이유는 간단한데, 메모리를 효율적으로 사용하기 위함이다. 하지만, 유지해야 하는 페이지가 있는데, 이처럼 파괴된다면 원하는 앱을 구현하기 힘들다. 그래서 아래와 같은 속성을 사용하면 된다.</p>
+<ul>
+<li><code>setOffscreenPageLimit</code>는 <strong>View의 계층 구조에서 좌우에 유지해야 하는 페이지의 수를 설정할 수 있다. 이를 초과하는 페이지는 필요할 때, 어댑터에 의해서 다시 그려지게 된다.</strong></li>
+</ul>
+<ul>
+<li>즉, 이 속성은 최적화되어 제공된다. 페이지에 지원하거나 지연 로딩 메커니즘이 필요한 필요한 페이지의 갯수를 미리 알고 있는 경우, 해당 속성을 사용해 설정을 조정하면 페이징 애니메이션 및 상호 작용을 매끄럽게 구성할 수 있다. </li>
+</ul>
+<ul>
+<li>한 번에 모두 활성화할 수 있는 적은 수의 페이지(3~4)가 있는 경우, 해당 페이지 좌우로 새로 생성된 뷰 하위 트리의 레이아웃을 그리는데 소요되는 시간이 줄어들어 효율적이다.</li>
+</ul>
+<ul>
+<li>특히 페이지의 레이아웃이 복잡한 경우 이 Limit을 낮게 유지해야 한다. 이 설정의 기본값은 1이며, 좌우로 1개씩 미리 로딩한다는 의미이다.</li>
+</ul>
+<ul>
+<li>setOffscreenPageLimit을 3으로 설정한다면 좌우로 3개의 페이지를 미리 로딩해놓는다. 즉, 7개의 탭이 있고 그 중에서 4번째 탭에 위치해 있다면 좌우로 3개씩 페이지를 미리 로딩해 놓는 것이다. 메모리가 넉넉하다면 이렇게 하면 좋지만, 그렇지 않다면 2 정도로 해서 좌우로 2개씩의 페이지를 유지하는 것이 적당해 보인다. 이외의 페이지는 필요할 때 어댑터에 의해서 그려진다고 위에서 설명하였다.</li>
+</ul>
+<ul>
+<li>해당 속성을 사용해서 프래그먼트 혹은 페이지를 생성하는 데 있어서 메모리를 조금 더 효율적으로 사용할 수 있을 것이다.</li>
+</ul>
+<p>마지막으로 <code>setOffscreenPageLimit</code>에 0을 넣으면 어떻게 될까? 0을 넣는다는 것은 좌우의 페이지를 로딩하지 않고 페이지를 선택할 때마다 로딩하는 것을 의미한다. 하지만, 이 코드가 동작할까?? 결과는 아니다. 0을 넣어도 디폴트 값으로 지정된 1로 동작하게 되어 좌우에 1개의 페이지를 로드하게 된다. </p>
+<h2 id="setUserVisibleHint"><a href="#setUserVisibleHint" class="headerlink" title="setUserVisibleHint"></a>setUserVisibleHint</h2><ul>
+<li>다음 시간에..</li>
+</ul>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
+<li><a href="https://developer.android.com/reference/android/support/v4/view/ViewPager.html#setOffscreenPageLimit(int)" target="_blank" rel="noopener">Android Developer</a></li>
+</ul>
+
         </div>
         <footer class="article-footer">
             
 
 
 
-    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/20/Chap6-2/" data-id="ck27b397j002lrl3rb2mw8rvi" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/26/Android-ViewPager/" data-id="ck27b396x000jrl3rz94upwqi" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -251,16 +284,17 @@
             "@type": "Person",
             "name": "Victory Woo"
         },
-        "headline": "[Kotlin] 타입 시스템 - 널 가능성2",
+        "headline": "[Android] ViewPager",
         "image": "http://victorywoolee/victorywoolee.github.io",
-        "keywords": "Android Kotlin Type",
-        "genre": "Kotlin",
-        "datePublished": "2019-10-20",
-        "dateCreated": "2019-10-20",
-        "dateModified": "2019-10-20",
-        "url": "http://victorywoolee/victorywoolee.github.io/2019/10/20/Chap6-2/",
-        "description": "",
-        "wordCount": 1
+        "keywords": "Android ViewPager Fragment",
+        "genre": "Android",
+        "datePublished": "2019-10-26",
+        "dateCreated": "2019-10-26",
+        "dateModified": "2019-10-26",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/10/26/Android-ViewPager/",
+        "description": "이번 글은 Android의 ViewPager 전부에 관해 다루지 않고 특정 속성에 대해서 알아보려고 한다. ViewPager는 보통 Tab, Fragment와 함께 사용하여 탭 클릭 시 다른 화면으로 전환하기 위해서 사용하곤 한다. Fragment를 로드하는 상황에서 조금 더 효율적으로 로드하기 위해 사용하는 속성에 대해 알아보자.
+setOffscreenP",
+        "wordCount": 386
     }
 </script>
 
@@ -324,20 +358,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2019/10/26/Android-descendantFocusability/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            [Android] descendantFocusability 속성
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2019/10/19/Chap6-1/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2019/10/26/Android-descendantFocusability/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">[Kotlin] 타입 시스템 - 널 가능성</p>
+        <p class="article-nav-title">[Android] descendantFocusability 속성</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -460,7 +484,7 @@
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/10/20/Chap6-2/';
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/10/26/Android-ViewPager/';
     
     (function() {
     var dsq = document.createElement('script');
