@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>[CleanCode] 10장 | VictoryWoo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Clean Code,Class,클래스">
+    
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
+    <meta name="description" content="클래스 체계 표준 자바 관례에 따르면, 가장 먼저 변수 목록이 나온다. 정적(static) 공개(public) 상수가 있다면 맨 처음에 나온다. 다음으로 정적 비공개 변수가 나오며, 이어서 비공개 인스턴스 변수가 나온다. 공개 변수가 필요한 경우는 거의 없다. 변수 목록 다음에는 공개 함수가 나온다. 비공개 함수는 자신을 호출하는 공개 함수 직후에 넣는다.">
+<meta name="keywords" content="Clean Code,Class,클래스">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[CleanCode] 10장">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/10/27/CleanCode10/index.html">
+<meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="클래스 체계 표준 자바 관례에 따르면, 가장 먼저 변수 목록이 나온다. 정적(static) 공개(public) 상수가 있다면 맨 처음에 나온다. 다음으로 정적 비공개 변수가 나오며, 이어서 비공개 인스턴스 변수가 나온다. 공개 변수가 필요한 경우는 거의 없다. 변수 목록 다음에는 공개 함수가 나온다. 비공개 함수는 자신을 호출하는 공개 함수 직후에 넣는다.">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-27T08:54:41.201Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[CleanCode] 10장">
+<meta name="twitter:description" content="클래스 체계 표준 자바 관례에 따르면, 가장 먼저 변수 목록이 나온다. 정적(static) 공개(public) 상수가 있다면 맨 처음에 나온다. 다음으로 정적 비공개 변수가 나오며, 이어서 비공개 인스턴스 변수가 나온다. 공개 변수가 필요한 경우는 거의 없다. 변수 목록 다음에는 공개 함수가 나온다. 비공개 함수는 자신을 호출하는 공개 함수 직후에 넣는다.">
+    
+
+    
+        <link rel="alternate" href="/" title="VictoryWoo" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">VictoryWoo&#39;s Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Android/">Android</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clean-Code/">Clean Code</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ETC/">ETC</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Kotlin/">Kotlin</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Clean-Code/">Clean Code</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-CleanCode10" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [CleanCode] 10장
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/10/27/CleanCode10/" class="article-date">
+            <time datetime="2019-10-27T03:53:02.000Z" itemprop="datePublished">2019-10-27</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Class/">Class</a>, <a class="tag-link" href="/tags/Clean-Code/">Clean Code</a>, <a class="tag-link" href="/tags/클래스/">클래스</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="클래스-체계"><a href="#클래스-체계" class="headerlink" title="클래스 체계"></a>클래스 체계</h2><ul>
+<li>표준 자바 관례에 따르면, 가장 먼저 변수 목록이 나온다. 정적(static) 공개(public) 상수가 있다면 맨 처음에 나온다. 다음으로 정적 비공개 변수가 나오며, 이어서 비공개 인스턴스 변수가 나온다. 공개 변수가 필요한 경우는 거의 없다.</li>
+<li>변수 목록 다음에는 공개 함수가 나온다. 비공개 함수는 자신을 호출하는 공개 함수 직후에 넣는다. 즉, 추상화 단계가 순차적으로 내려간다. 그래서 프로그램은 신문 기사처럼 읽힌다.</li>
+</ul>
+<h2 id="클래스는-작아야-한다"><a href="#클래스는-작아야-한다" class="headerlink" title="클래스는 작아야 한다."></a>클래스는 작아야 한다.</h2><ul>
+<li>클래스를 만들 때 첫 번째 규칙은 <code>클래스는 작아야 한다</code>는 것이다. 두 번째 규칙도 크기이다. 작아야 한다.</li>
+<li>클래스가 맡은 책임을 기준으로 크기를 결정한다.</li>
+<li>클래스 이름은 해당 클래스의 책임을 기술해야 한다. 실제로 작명은 클래스 크기를 줄이는 첫 번째 관문이다. </li>
+<li>예를 들어, 클래스 이름에 Processor, Manager, Super 등과 같이 모호한 단어가 있다면 클래스에 여러 책임을 떠안겼다는 증거이다.</li>
+<li>또한, 클래스 설명은 만일(if), 그리고(and), 하며(or), 하지만(but)을 사용하지 않고서 25단어 내외로 가능해야 한다. </li>
+</ul>
+<p><strong>1. 단일 책임 원칙</strong></p>
+<ul>
+<li>클래스나 모듈을 변경할 이유가 단 하나뿐이어야 한다는 원칙이다.</li>
+<li>SRP는 <code>책임</code>이라는 개념을 정의하며 적절한 클래스 크기를 제시한다. 클래스는 책임, 즉 변경할 이유가 단 하나이어야 한다.</li>
+<li>책임, 즉 변경할 이유를 파악하려 애쓰다 보면 코드를 추상화하기도 쉬워진다. </li>
+<li>SRP는 객체 지향 설계에서 더욱 중요한 개념이지만, 이상하게도 클래스 설계자가 가장 무시하는 규칙 중 하나다. 소프트웨어를 돌아가게 만드는 활동과 소프트웨어를 깨끗하게 만드는 활동이 완전히 별개다. 우리는 두뇌 용량에 한계가 있어 깨끗하고 체계적인 소프트웨어보다 돌아가는 소프트웨어에 초점을 맞춘다. </li>
+<li>올바른 태도이지만, 문제는 우리들 대다수가 프로그램이 돌아가면 일이 끝났다고 여기는 데 있다. 깨끗하고 체계적인 소프트웨어라는 다음 관심사로 전화하지 않는다. 프로그램으로 되돌아가 만능 클래스를 단일 책임 클래스 여럿으로 분리하는 대신 다음 문제로 넘어가버린다.</li>
+<li>규모가 어느 수준에 이르는 시스템은 논리가 많고도 복잡하다. 이런 복잡성을 다루려면 체계적인 정리가 필요하다. 그래야 개발자가 무엇이 어디에 있는지 쉽게 찾느다. 그래야 변경을 가할 때 직접 영향이 미치는 컴포넌트만 이해해도 충분하다. 큼직한 다목적 클래스 몇 개로 이뤄진 시스템은 변경을 가할 때 당장 알 필요가 없는 사실까지 들이밀어 독자를 방해한다.</li>
+<li>큰 클래스 몇 개가 아니라 작은 클래스 여럿으로 이뤄진 시스템이 더 바람직하다. 작은 클래스는 각자 맡은 책임이 하나며, 변경할 이유가 하나며, 다른 작은 클래스와 협력해 시스템에 필요한 동작을 수행한다.</li>
+</ul>
+<p><strong>2. 응집도</strong></p>
+<ul>
+<li>클래스는 인스턴스 변수의 수가 작아야 한다. 각 클래스 메소드는 클래스 인스턴스 변수를 하나 이상 사용해야 한다. 일반적으로 메소드가 변수를 더 많이 사용할수록 메소드와 클래스는 응집도가 더 높다. 모든 인스턴스 변수를 메소드마다 사용하는 클래스는 응집도가 가장 높다.</li>
+<li>이처럼 응집도가 가장 높은 클래스는 가능하지도 바람직하지도 않다. 그렇지만 우리는 응집도가 높은 클래스를 선호한다. 응집도가 높다는 말은 클래스에 속한 메소드와 변수가 서로 의존하며 논리적인 단위로 묶인다는 의미기 때문이다.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Stack</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> topOfStack=<span class="number">0</span>;</span><br><span class="line">    List&lt;Integer&gt; elements = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> topOfStack;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> element)</span></span>&#123;</span><br><span class="line">        topOfStack++;</span><br><span class="line">        elements.add(element);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> <span class="keyword">throws</span> <span class="title">PoppedWhenEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(topOfStack == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> PoppedWhenEmpty();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> element = elements.get(--topOfStack);</span><br><span class="line">        elements.remove(topOfStack);</span><br><span class="line">        <span class="keyword">return</span> element;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위의 Stack 클래스는 응집도가 높다. size() 함수를 제외한 메소드가 모두 두 변수에 접근한다.</p>
+<ul>
+<li><strong>함수를 작게, 매개변수 목록을 짧게</strong>라는 전략을 따르다 보면 때때로 몇몇 메소드만이 사용하는 인스턴스 변수가 아주 많아진다. 이는 십중팔구 새로은 클래스로 쪼개야 한다는 신호다. 응집도가 높아지도록 변수와 메소드를 적절히 분리해 새로운 클래스 두세 개로 쪼개준다.</li>
+</ul>
+<p><strong>3. 응집도를 유지하면 작은 클래스 여럿이 나온다.</strong></p>
+<ul>
+<li>큰 함수를 작은 함수 여럿으로 나누기만 해도 클래스 수가 많아진다. 예를 들어, 변수가 많은 큰 함수가 하나 이싿. 큰 함수 일부를 작은 함수 하나로 빼내고 싶은데, 빼내려는 코드가 큰 함수에 정의된 변수 넷을 사용한다. 그렇다면 어떻게 해야 할까?</li>
+<li>변수 네 개를 새 함수의 인수로 넘기는 것은 좋은 방법이 아니다. 네 변수를 클래스 인스턴스 변수로 승격한다면 새 함수는 인수가 필요없다. 그만큼 함수를 쪼개기 쉬워진다. 하지만, 클래스가 응집력을 잃는다. 몇몇 함수만 사용하는 인스턴스 벼수가 점점 더 늘어나기 때문이다.</li>
+<li>몇몇 함수가 몇몇 변수만 사용한다면 독자적인 클래스로 분리해도 된다. 클래스가 응집력을 잃는다면 쪼개라. 이렇게 큰 함수를 작은 함수 여럿으로 쪼개다 보면 종종 작은 클래스 여럿으로 쪼갤 기회가 생긴다. 그러면서 프로그램에 점점 더 체계가 잡히고 구조가 투명해진다.</li>
+</ul>
+<h2 id="변경하기-쉬운-클래스"><a href="#변경하기-쉬운-클래스" class="headerlink" title="변경하기 쉬운 클래스"></a>변경하기 쉬운 클래스</h2><ul>
+<li>대다수 시스템은 지속적인 변경이 가해진다. 그리고 뭔가 변경할 때마다 시스템이 의도대로 동작하지 않을 위험이 따른다. 깨끗한 시스템은 클래스를 체계적으로 정리해 변경에 수반하는 위험을 낮춘다.</li>
+</ul>
+<h2 id="변경으로부터-격리"><a href="#변경으로부터-격리" class="headerlink" title="변경으로부터 격리"></a>변경으로부터 격리</h2><ul>
+<li>결합도가 낮다는 소리는 각 시스템 요소가 다른 요소로부터 그리고 변경으로부터 잘 격리되어 있다는 의미이다. 시스템 요소가 서로 잘 격리되어 있으면 각 요소를 이해하기 더 쉬워진다.</li>
+<li>결합도를 최소로 줄이면 자연스럽게 또 다른 클래스 설계 원칙인 <code>DIP(Dependency Inversion Principle)</code>를 따르는 클래스가 나온다. 본질적으로 <strong>DIP</strong>는 클래스가 상세한 구현이 아니라 추상화에 의존해야 한다는 원칙이다.</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/27/CleanCode10/" data-id="ck28rc2gu002f643r7fzqbebb" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Victory Woo"
+        },
+        "headline": "[CleanCode] 10장",
+        "image": "http://victorywoolee/victorywoolee.github.io",
+        "keywords": "Clean Code Class 클래스",
+        "genre": "Clean Code",
+        "datePublished": "2019-10-27",
+        "dateCreated": "2019-10-27",
+        "dateModified": "2019-10-27",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/10/27/CleanCode10/",
+        "description": "클래스 체계
+표준 자바 관례에 따르면, 가장 먼저 변수 목록이 나온다. 정적(static) 공개(public) 상수가 있다면 맨 처음에 나온다. 다음으로 정적 비공개 변수가 나오며, 이어서 비공개 인스턴스 변수가 나온다. 공개 변수가 필요한 경우는 거의 없다.
+변수 목록 다음에는 공개 함수가 나온다. 비공개 함수는 자신을 호출하는 공개 함수 직후에 넣는다.",
+        "wordCount": 836
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/victorywoolee" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/10/27/CleanCode09/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[CleanCode] 9장</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">13</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Clean-Code/">Clean Code</a></p>
+                            <p class="item-title"><a href="/2019/10/27/CleanCode10/" class="title">[CleanCode] 10장</a></p>
+                            <p class="item-date"><time datetime="2019-10-27T03:53:02.000Z" itemprop="datePublished">2019-10-27</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Clean-Code/">Clean Code</a></p>
+                            <p class="item-title"><a href="/2019/10/27/CleanCode09/" class="title">[CleanCode] 9장</a></p>
+                            <p class="item-date"><time datetime="2019-10-26T15:17:02.000Z" itemprop="datePublished">2019-10-27</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/10/26/Android-ViewPager/" class="title">[Android] ViewPager</a></p>
+                            <p class="item-date"><time datetime="2019-10-26T07:53:54.000Z" itemprop="datePublished">2019-10-26</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/10/26/Android-descendantFocusability/" class="title">[Android] descendantFocusability 속성</a></p>
+                            <p class="item-date"><time datetime="2019-10-26T07:29:48.000Z" itemprop="datePublished">2019-10-26</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/10/20/Chap6-2/" class="title">[Kotlin] 타입 시스템 - 널 가능성2</a></p>
+                            <p class="item-date"><time datetime="2019-10-20T11:09:51.000Z" itemprop="datePublished">2019-10-20</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">23</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Victory Woo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/10/27/CleanCode10/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
