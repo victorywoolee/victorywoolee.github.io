@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>[Android] Coroutine 2. Intro | VictoryWoo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Android,Corotine,비동기, 동기">
+    
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
+    <meta name="description" content="해당 글은 권태환님의 블로그를 참고하여 작성된 글입니다. 사실 RxJava는 안드로이드 개발에서 없어서는 안될 존재가 되었다. 많은 개발자들이 사용하고 있으며 다양한 라이브러리가 존재한다. 하지만, RxJava를 이해하는데 상당한 시간이 소요되며, 러닝커브도 꽤 높은 편이다. 그러면 다음의 코드를 보고 이해하기 위해서 필요한 개념이 무엇인지 알아보자. 12">
+<meta name="keywords" content="Android,Corotine,비동기, 동기">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android] Coroutine 2. Intro">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/10/27/Android-Coroutine2/index.html">
+<meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="해당 글은 권태환님의 블로그를 참고하여 작성된 글입니다. 사실 RxJava는 안드로이드 개발에서 없어서는 안될 존재가 되었다. 많은 개발자들이 사용하고 있으며 다양한 라이브러리가 존재한다. 하지만, RxJava를 이해하는데 상당한 시간이 소요되며, 러닝커브도 꽤 높은 편이다. 그러면 다음의 코드를 보고 이해하기 위해서 필요한 개념이 무엇인지 알아보자. 12">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-31T13:17:25.818Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android] Coroutine 2. Intro">
+<meta name="twitter:description" content="해당 글은 권태환님의 블로그를 참고하여 작성된 글입니다. 사실 RxJava는 안드로이드 개발에서 없어서는 안될 존재가 되었다. 많은 개발자들이 사용하고 있으며 다양한 라이브러리가 존재한다. 하지만, RxJava를 이해하는데 상당한 시간이 소요되며, 러닝커브도 꽤 높은 편이다. 그러면 다음의 코드를 보고 이해하기 위해서 필요한 개념이 무엇인지 알아보자. 12">
+    
+
+    
+        <link rel="alternate" href="/" title="VictoryWoo" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">VictoryWoo&#39;s Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Android/">Android</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clean-Code/">Clean Code</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ETC/">ETC</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Kotlin/">Kotlin</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Android/">Android</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Android-Coroutine2" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [Android] Coroutine 2. Intro
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/10/27/Android-Coroutine2/" class="article-date">
+            <time datetime="2019-10-27T13:40:14.000Z" itemprop="datePublished">2019-10-27</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/Corotine/">Corotine</a>, <a class="tag-link" href="/tags/비동기-동기/">비동기, 동기</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><strong>해당 글은 권태환님의 블로그를 참고하여 작성된 글입니다.</strong></p>
+<p>사실 RxJava는 안드로이드 개발에서 없어서는 안될 존재가 되었다. 많은 개발자들이 사용하고 있으며 다양한 라이브러리가 존재한다. 하지만, RxJava를 이해하는데 상당한 시간이 소요되며, 러닝커브도 꽤 높은 편이다.</p>
+<p>그러면 다음의 코드를 보고 이해하기 위해서 필요한 개념이 무엇인지 알아보자.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Flowable.range(<span class="number">0</span>,<span class="number">10</span>)</span><br><span class="line">        .observeOn(Schedulers.io())</span><br><span class="line">        .subscribeOn(Schedulers.io())</span><br><span class="line">        .map&#123; it+<span class="number">1</span> &#125;</span><br><span class="line">        .filter&#123; it &gt; <span class="number">4</span> &#125;</span><br><span class="line">        .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">        .subscribe(</span><br><span class="line">            &#123;</span><br><span class="line">                println(it)</span><br><span class="line">                <span class="comment">// UI에서 처리</span></span><br><span class="line">            &#125;,&#123;</span><br><span class="line">                it.printStackTrace()</span><br><span class="line">                <span class="comment">// 오류 처리</span></span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+
+<h2 id="RxJava에서-사전에-알아야-할-구문"><a href="#RxJava에서-사전에-알아야-할-구문" class="headerlink" title="RxJava에서 사전에 알아야 할 구문"></a>RxJava에서 사전에 알아야 할 구문</h2><ul>
+<li>Flowable : 리액티브 스트림을 구현하기 위한 패턴의 시작</li>
+<li>subscribeOn : 리액티브 스트림에서 사용할 기본 스케줄러이며, observeOn으로 스케줄러를 교체하기 전까지 기본으로 사용한다. 주로 어떤 작업을 어느 스레드에서 할지 정한다.</li>
+<li>obvserveOn : 스케줄러의 변경이 필요하면 observeOn을 이용해 스케줄러 교체가 가능하다. 다음 observeOn이 오기 전까지 유효하다. 주로 어떤 작업의 결과를 어느 스레드에 반영할지 정한다.</li>
+<li>map : 스트림에서 넘어온 데이터를 변환한다.</li>
+<li>filter : 스트림에서 넘어온 데이터에 filter를 걸 수 있다. 조건의 결과 값이 true인 경우에만 다음 구문을 실행한다.</li>
+<li>subsrcibe : 모든 리액티브 스트림은 subscribe 정의가 없으면 동작하지 않는다. 즉, 구독을 해야 데이터를 발행하며 받을 수 있다. subscribe 정의에서는 onNext, onError, onCompleted을 제공한다.</li>
+<li>Schedulers.io() : RxJava에서 사용하는 스케줄러이며, AndroidSchedulers.mainThread()를 별도로 제공한다.</li>
+</ul>
+<h2 id="Coroutine으로-작성한다면"><a href="#Coroutine으로-작성한다면" class="headerlink" title="Coroutine으로 작성한다면?"></a>Coroutine으로 작성한다면?</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">CoroutineScope(Dispatchers.Default).launch&#123;</span><br><span class="line">    (<span class="number">0</span>..<span class="number">9</span>).map&#123; it + <span class="number">1</span> &#125;</span><br><span class="line">            .filter&#123; it &gt; <span class="number">4</span> &#125;.forEach&#123;</span><br><span class="line">                launch(Dispatchers.Main)&#123;</span><br><span class="line">                    <span class="comment">// UI 처리.</span></span><br><span class="line">                    println(it)</span><br><span class="line">                    <span class="comment">// UI에서 출력한다.</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Corotine에서-알아야-할-것은"><a href="#Corotine에서-알아야-할-것은" class="headerlink" title="Corotine에서 알아야 할 것은?"></a>Corotine에서 알아야 할 것은?</h2><ul>
+<li><code>CoroutineScope</code> : Coroutine을 동작하기 위해서 CoroutineScope을 정의할 수 있다. CoroutineScope은 기본 스케줄러를 함께 지정해야 하며, RxJava의 subscribeOn과 같다.</li>
+<li><code>launch</code> : 코루틴으로 동작해야 할 코드 스콥을 지정한다. 이때, 이 스콥에서 사용할 스케줄러를 함께 지정할 수 있으며, 지정하지 않을 경우 CoroutineScope에서 지정한 스케줄러를 사용한다.</li>
+<li><code>Dispatchers</code> : 코루틴에서 사용할 스케줄러를 정의하며, Default(Work Thread), Main(UI Thread) 등을 지정할 수 있다.</li>
+</ul>
+<p>RxJava보다 알아야 할 구문이 적어 이해하기는 쉽다. 처음에는 RxJava보다 이해하기 쉽지만 시간이 지날수록 RxJava 만큼의 학습 비용이 든다.</p>
+<h2 id="비교"><a href="#비교" class="headerlink" title="비교"></a>비교</h2><p><strong>1. 코드의 첫 부분</strong></p>
+<ul>
+<li><p><code>RxJava</code></p>
+<ul>
+<li>RxJava는 용도별로 Reactive stream 형태를 제공한다. 아래와 같이 5가지를 제공하며, 이를 통해 스트림을 만들 수 있다.</li>
+<li><strong>Flowable, Observable, Single, Completable, Maybe</strong></li>
+</ul>
+</li>
+<li><p><code>Coroutine</code></p>
+<ul>
+<li>Coroutine은 interface로 정의되어있으며, 모든 Scope은 CoroutineScope을 최상위로 두고 있다. 이를 활용한 GlobalScope을 함께 제공한다. RxJava처럼 subscribe 호출시 동작하도록 하려면 suspend로 함수 정의를 해둘 수 있는데, 단순 CoroutineScope은 즉시 실행 및 event 대기를 한다.</li>
+<li>launch의 return 결과인 job을 통해 일시 정지, 종료, 취소, 시작 등을 제어할 수 있다.</li>
+<li><code>CoroutineScope</code> : 새로운 CoroutineScope을 생성할 수 있으며, 스케줄러를 함께 초기화해야 한다. CoroutineScope은 Activity의 생명주기에 따라 동작하도록 베이스 코드를 함께 사용하는 것을 추천하고 있다.</li>
+<li><code>GlobalScope</code> : CoroutineScope을 상속받아 구현되어 있으며, object인 싱글톤으로 만들어져 있다. GlobalScope은 Application의 생명주기에 따라 동작해야 하며, 서비스와 같은 형태에서 사용하는 것을 추천한다.</li>
+</ul>
+</li>
+</ul>
+<p>CoroutineScope, GlobalScope으로 객체를 생성하였다면, 코드 동작을 위한 액션을 지정해줘야 한다.</p>
+<ul>
+<li><code>launch</code> : 일반적인 코루틴을 사용할 때 쓰며, launch에서 스케줄러를 지정하지 않으면 CoroutineScope의 스케줄러를 따르며, 지정할 경우 블록 안에서만 스케줄러에 따라 동작한다.</li>
+<li><code>async</code> : async/await이 필요할 경우 사용할 수 있다.</li>
+<li><code>actor</code> : actor를 사용할 경우 이벤트 전달이 가능하며, suspend에서 데이터 전달과 send와 기본 Thread에서 이벤트 전달이 가능한 offer 두 가지를 제공한다. 이를 Android에서는 OnClick에 함께 사용할 수 있다.</li>
+</ul>
+<p><strong>2. 스케줄러 교체</strong></p>
+<ul>
+<li><p>RxJava : RxJava는 기본적으로 전체 스트림에서 사용할 기본 subscribeOn과 매번 교체할 수 있는 observeOn을 제공한다.</p>
+<ul>
+<li><code>subscribeOn</code> : Reactive-stream에서 기본적으로 사용할 스케줄러를 지정한다. observeOn으로 새로운 스케줄러를 지정하기 전까지 유지된다.</li>
+<li><code>observeOn</code> : Reactive-stream의 진행 중 UI/Background Thread를 언제나 교체할 수 있다. observeOn으로 스케줄러를 지정하면 스케줄러가 변경되며, 이후 stream에서 이를 따른다.</li>
+</ul>
+</li>
+<li><p>Coroutine : 코루틴은 CoroutineScope에서는 생성 시 Dispatchers를 지정하며, GlobalScope은 기본으로 EmptyCoroutineContext으로 지정되어 있다. 이 Dispatchers 정의는 RxJava의 subscribeOn과 동일하게 동작한다. 즉, 사용할 스케줄러를 지정하는 역할을 한다. 이후, RxJava의 observeOn과 동일한 행동을 원할 경우 launch()에서 새로운 Dispatches을 지정해주면 아래와 같이 지정할 수 있다.</p>
+<ul>
+<li>launch(Dispatches.Default) : Work 스레드를 사용해 동작한다.</li>
+<li>launch(Dispatches.Main) : Main 스레드를 사용해 동작한다.</li>
+</ul>
+</li>
+</ul>
+<p>위의 정의의 Dispatches 선택에 따라 UI/Background Thread의 형태를 지정할 수 있다. launch에서 Dispatches를 지정하지 않으면, 상위(CoroutineScope, GlobalScopr)의 기본 Dispatches에 따라 동작한다.</p>
+<p>이 동작은 observeOn과 동일한 결과를 가지지만, RxJava처럼 이후 스트림까지 영향을 받지는 않는다.</p>
+<p><strong>3. Releas 하기</strong></p>
+<ul>
+<li>RxJava : subscribe가 호출되면 disposable을 반환한다. Disposable을 묶어서 Android의 생명주기의 onDestroy에서 <code>disposable.clear</code>를 호출해 기본 Reactive-stream을 종료할 수 있다.</li>
+<li>Coroutine : Job이 반환되거나, coroutineContext에 job을 함께 지정할 수 있는데 아래와 같이 할 수 있다.</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> job : Job = Job()</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> coroutineContext: CoroutineContext</span><br><span class="line">    <span class="keyword">get</span>() = DispatchersProvider.main + job</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// onDestroy에서 job을 cancel할 수 있다.</span></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDestroy</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onDestroy()</span><br><span class="line"></span><br><span class="line">    job.cancel()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
+<li><a href="https://thdev.tech/kotlin/2018/11/07/RxJava-To-Kotlin-Coroutine/" target="_blank" rel="noopener">RxJava와 Kotlin Coroutines 비교해보기</a></li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/27/Android-Coroutine2/" data-id="ck2eoabed0001t73rsus6gspd" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Victory Woo"
+        },
+        "headline": "[Android] Coroutine 2. Intro",
+        "image": "http://victorywoolee/victorywoolee.github.io",
+        "keywords": "Android Corotine 비동기, 동기",
+        "genre": "Android",
+        "datePublished": "2019-10-27",
+        "dateCreated": "2019-10-27",
+        "dateModified": "2019-10-31",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/10/27/Android-Coroutine2/",
+        "description": "해당 글은 권태환님의 블로그를 참고하여 작성된 글입니다.
+사실 RxJava는 안드로이드 개발에서 없어서는 안될 존재가 되었다. 많은 개발자들이 사용하고 있으며 다양한 라이브러리가 존재한다. 하지만, RxJava를 이해하는데 상당한 시간이 소요되며, 러닝커브도 꽤 높은 편이다.
+그러면 다음의 코드를 보고 이해하기 위해서 필요한 개념이 무엇인지 알아보자.
+12",
+        "wordCount": 1022
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/victorywoolee" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/10/27/Android-Coroutine1/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[Android] Coroutine 1. Intro</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">13</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/10/27/Android-Coroutine2/" class="title">[Android] Coroutine 2. Intro</a></p>
+                            <p class="item-date"><time datetime="2019-10-27T13:40:14.000Z" itemprop="datePublished">2019-10-27</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/10/27/Android-Coroutine1/" class="title">[Android] Coroutine 1. Intro</a></p>
+                            <p class="item-date"><time datetime="2019-10-27T11:58:06.000Z" itemprop="datePublished">2019-10-27</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Clean-Code/">Clean Code</a></p>
+                            <p class="item-title"><a href="/2019/10/27/CleanCode10/" class="title">[CleanCode] 10장</a></p>
+                            <p class="item-date"><time datetime="2019-10-27T03:53:02.000Z" itemprop="datePublished">2019-10-27</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Clean-Code/">Clean Code</a></p>
+                            <p class="item-title"><a href="/2019/10/27/CleanCode09/" class="title">[CleanCode] 9장</a></p>
+                            <p class="item-date"><time datetime="2019-10-26T15:17:02.000Z" itemprop="datePublished">2019-10-27</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/10/26/Android-ViewPager/" class="title">[Android] ViewPager</a></p>
+                            <p class="item-date"><time datetime="2019-10-26T07:53:54.000Z" itemprop="datePublished">2019-10-26</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">25</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Victory Woo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/10/27/Android-Coroutine2/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

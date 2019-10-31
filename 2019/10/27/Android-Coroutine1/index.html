@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>[Android] Coroutine 1. Intro | VictoryWoo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Android,Corotine,비동기, 동기">
+    
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
+    <meta name="description" content="코루틴에 대해서 알아보려고 한다. 공부를 시작하면서 함께 작성할 포스팅이 될 예정이다.먼저, 공부 방법에 대해서 적어보려 한다.  먼저, 한글로 된 블로그로 어떤 개념이고 언제 사용하는지 감을 잡으려고 한다. 태환님 블로그 [날로먹는 Coroutine] #1 - Basic   그리고 공식 문서와 잘 정리된 해외 블로그의 글을 참고하려 한다. Kotlin C">
+<meta name="keywords" content="Android,Corotine,비동기, 동기">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android] Coroutine 1. Intro">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/10/27/Android-Coroutine1/index.html">
+<meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="코루틴에 대해서 알아보려고 한다. 공부를 시작하면서 함께 작성할 포스팅이 될 예정이다.먼저, 공부 방법에 대해서 적어보려 한다.  먼저, 한글로 된 블로그로 어떤 개념이고 언제 사용하는지 감을 잡으려고 한다. 태환님 블로그 [날로먹는 Coroutine] #1 - Basic   그리고 공식 문서와 잘 정리된 해외 블로그의 글을 참고하려 한다. Kotlin C">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-27T13:40:02.402Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android] Coroutine 1. Intro">
+<meta name="twitter:description" content="코루틴에 대해서 알아보려고 한다. 공부를 시작하면서 함께 작성할 포스팅이 될 예정이다.먼저, 공부 방법에 대해서 적어보려 한다.  먼저, 한글로 된 블로그로 어떤 개념이고 언제 사용하는지 감을 잡으려고 한다. 태환님 블로그 [날로먹는 Coroutine] #1 - Basic   그리고 공식 문서와 잘 정리된 해외 블로그의 글을 참고하려 한다. Kotlin C">
+    
+
+    
+        <link rel="alternate" href="/" title="VictoryWoo" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">VictoryWoo&#39;s Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Android/">Android</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clean-Code/">Clean Code</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ETC/">ETC</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Kotlin/">Kotlin</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Android/">Android</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Android-Coroutine1" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [Android] Coroutine 1. Intro
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/10/27/Android-Coroutine1/" class="article-date">
+            <time datetime="2019-10-27T11:58:06.000Z" itemprop="datePublished">2019-10-27</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/Corotine/">Corotine</a>, <a class="tag-link" href="/tags/비동기-동기/">비동기, 동기</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>코루틴에 대해서 알아보려고 한다. 공부를 시작하면서 함께 작성할 포스팅이 될 예정이다.<br>먼저, 공부 방법에 대해서 적어보려 한다.</p>
+<ul>
+<li>먼저, 한글로 된 블로그로 어떤 개념이고 언제 사용하는지 감을 잡으려고 한다.<ul>
+<li><a href="https://thdev.tech/kotlin/2018/10/04/Kotlin-Coroutines/" target="_blank" rel="noopener">태환님 블로그</a></li>
+<li><a href="http://blog.naver.com/mym0404/221603580011" target="_blank" rel="noopener">[날로먹는 Coroutine] #1 - Basic</a></li>
+</ul>
+</li>
+<li>그리고 공식 문서와 잘 정리된 해외 블로그의 글을 참고하려 한다.<ul>
+<li><a href="https://kotlinlang.org/docs/reference/coroutines/coroutines-guide.html" target="_blank" rel="noopener">Kotlin</a></li>
+<li><a href="https://medium.com/androiddevelopers/coroutines-on-android-part-i-getting-the-background-3e0e54d20bb" target="_blank" rel="noopener">Coroutines on Android (part I): Getting the background</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="Coroutine"><a href="#Coroutine" class="headerlink" title="Coroutine"></a>Coroutine</h2><ul>
+<li><code>서브 루틴</code> <ul>
+<li>개발을 하다 보면 중복 코드를 자연스럽게 함수로 만들어 호출해서 사용한다. 굳이 동일한 코드를 여러 장소에 두어 사용할 필요가 없고, 수정 시 수정 범위를 최소화하기 위해서이기도 하다. </li>
+<li>Frgment를 replace하는 함수를 만들어두고, replace가 필요한 여러 곳에서 활용이 가능하도록 만들 수 있다.</li>
+<li>이런 형태를 Subroutine이라 부른다. 위키에 따르면 언어별로 부르는 용어가 다양한데, Java에서는 function이라 부른다. 결과적으로 서브루틴은 함수를 호출하고, 서브루틴의 모든 처리가 완료되어야 다음 줄의 코드를 실행할 수 있다.</li>
+</ul>
+</li>
+<li><code>코루틴</code><ul>
+<li>서브루틴의 확장 개념인 코루틴은 다음과 같은 장점을 가지고 있다.</li>
+</ul>
+<ol>
+<li>여러 다른 지점에서 입력과 종료가 일어난다.</li>
+<li>실행을 일시 중지하고 호출자 또는 다른 코루틴으로 이동할 수 있다. 호출자는 언제든 다시 코루틴을 실행시킬 수 있다.</li>
+</ol>
+</li>
+</ul>
+<p>단순하게 보면 Thread처럼 보일 수 있지만, Thread보다 훨씬 저렴한 비용으로 동작한다. Subroutine처럼 함수 형태로 코드를 작성해 가독성이 높다.</p>
+<h2 id="Coroutine과-Thread"><a href="#Coroutine과-Thread" class="headerlink" title="Coroutine과 Thread"></a>Coroutine과 Thread</h2><p>Java Thread는 하나의 프로세스에서 여러 개의 작업을 실행할 수 있지만 OS의 Native Thread에 직접 링크되어 동작하여 많은 시스템 자원을 사용한다. Thread간 전환 시에도 CPU의 상태 체크가 필요하므로 그만큼의 비용이 발생한다.</p>
+<p>반면, Coroutine은 즉시 실행하는 게 아니며, Thread와 다르게 OS의 영향을 받지 않아 그만큼 비용이 들어가지 않는다. 그리고 개발자가 직접 루틴을 언제 실행할지, 언제 종료할지 모두 지정이 가능하다. 이렇게 생성한 루틴은 작업 전환 시에 시스템의 영향을 받지 않아 그에 따른 비용은 발생하지 않는다. 또한, suspension 포인트를 개발자가 지정하기 때문에 무작위로 종료할 순 없다.</p>
+<p>다음은 Stack OverFlow에 달린 댓글에 대해서 번역해서 작성한 내용이다. 번역한 내용과 필자의 생각을 조금 덧붙여서 설명하겠다.</p>
+<p>코틀린 코루틴은 다른 언어의 코루틴과 조금 다르다. 기본적으로 스택과 스택리스 두 가지 유형의 코루틴이 존재한다. <strong>코틀린은 스택리스 코루틴을 구현한다.</strong> 즉, 코루틴 자체에는 스택이 없으며 코루틴이 수행할 수 있는 작업이 약간은 제한된다.</p>
+<ul>
+<li><strong>코루틴은 경량화된 스레드와 같다는 것은 무슨 의미일까?</strong><ul>
+<li>코틀린의 코루틴은 스레드와 마찬가지로 다른 코루틴과 동시에 실행되는 일련의 동작을 나타낸다.</li>
+<li>코틀린의 코루틴에 자체 스택이 없으며 기본 스레드에 매핑되지 않으며 프로세서에서 Context Switching이 필요하지 않음을 의미한다. 그래서 비용이 적게 든다.</li>
+</ul>
+</li>
+<li><strong>차이점은 무엇일까?</strong><ul>
+<li><code>스레드</code> : 선점형 멀티 태스킹(보통), 스레드는 해당 os의 기본 스레드에 직접 연결되며 os에 의해 관리된다. 그리고 상당한 양의 리소르를 소비한다. 특히, 스택에 많은 메모리를 소비한다. 그렇기 때문에 100k의 스레드를 만들 수 없다. 메모리가 부족할 수도 있다. 스레드 간 전환에는 OS 커널 디스패처가 포함되며 소비되는 CPU 주기 측면에서 꽤 비싼 작업이다.</li>
+<li><code>코루틴</code> : 협력적으로 멀티 태스킹, 사용자가 관리한다. 순전히 사용자 수준의 언어 추상화이다. 기본 리소스를 연결하지 않으며 가장 간단한 경우 JVM 힙에서 비교적 작은 개체 하나만 사용한다. 그렇게 때문에 100k 코루틴을 쉽게 만들 수 있다. 코루틴 간 전환에는 OS 커널이 전혀 필요하지 않다. 일반 함수를 호출하는 것만큼 저렴할 수 있다.</li>
+</ul>
+</li>
+<li><strong>코틀린의 코루틴은 실제로 병렬로(동시에) 실행되는가?</strong><ul>
+<li>각 코루틴을 자체 스레드에서 실행하거나 모든 코루틴을 하나의 스레드 또는 일부 고정 스레드풀에서 실행할 수 있다.</li>
+<li>코루틴은 실행되거나 중지될 수 있다. 일시 중지된 코루틴은 어느 특정 스레드와 연결되어 있지 않다. 하지만, 실행중인 코루틴은 일부 스레드에 연결되어 있다. (스레드를 사용하는 것이 OS 프로세르 내부에서 무언가를 실행하는 유일한 방법이다.)</li>
+<li>다른 코루틴들 모두가 동일한 스레드에서 실행되는지 또는 다른 스레드에서 실행되는지는 온전히 코루틴을 사용하는 프로그래머의 손에 달려있다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
+<li><a href="https://stackoverflow.com/questions/43021816/difference-between-thread-and-coroutine-in-kotlin" target="_blank" rel="noopener">Stack Overflow</a></li>
+<li><a href="https://thdev.tech/kotlin/2018/10/04/Kotlin-Coroutines/" target="_blank" rel="noopener">Kotlin Coroutines을 알아보고, 안드로이드에 library 적용하기</a></li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/27/Android-Coroutine1/" data-id="ck2eoabe90000t73r08tn054f" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Victory Woo"
+        },
+        "headline": "[Android] Coroutine 1. Intro",
+        "image": "http://victorywoolee/victorywoolee.github.io",
+        "keywords": "Android Corotine 비동기, 동기",
+        "genre": "Android",
+        "datePublished": "2019-10-27",
+        "dateCreated": "2019-10-27",
+        "dateModified": "2019-10-27",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/10/27/Android-Coroutine1/",
+        "description": "코루틴에 대해서 알아보려고 한다. 공부를 시작하면서 함께 작성할 포스팅이 될 예정이다.먼저, 공부 방법에 대해서 적어보려 한다.
+
+먼저, 한글로 된 블로그로 어떤 개념이고 언제 사용하는지 감을 잡으려고 한다.
+태환님 블로그
+[날로먹는 Coroutine] #1 - Basic
+
+
+그리고 공식 문서와 잘 정리된 해외 블로그의 글을 참고하려 한다.
+Kotlin
+C",
+        "wordCount": 518
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/victorywoolee" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/10/27/Android-Coroutine2/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            [Android] Coroutine 2. Intro
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/10/27/CleanCode10/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[CleanCode] 10장</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">13</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/10/27/Android-Coroutine2/" class="title">[Android] Coroutine 2. Intro</a></p>
+                            <p class="item-date"><time datetime="2019-10-27T13:40:14.000Z" itemprop="datePublished">2019-10-27</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/10/27/Android-Coroutine1/" class="title">[Android] Coroutine 1. Intro</a></p>
+                            <p class="item-date"><time datetime="2019-10-27T11:58:06.000Z" itemprop="datePublished">2019-10-27</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Clean-Code/">Clean Code</a></p>
+                            <p class="item-title"><a href="/2019/10/27/CleanCode10/" class="title">[CleanCode] 10장</a></p>
+                            <p class="item-date"><time datetime="2019-10-27T03:53:02.000Z" itemprop="datePublished">2019-10-27</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Clean-Code/">Clean Code</a></p>
+                            <p class="item-title"><a href="/2019/10/27/CleanCode09/" class="title">[CleanCode] 9장</a></p>
+                            <p class="item-date"><time datetime="2019-10-26T15:17:02.000Z" itemprop="datePublished">2019-10-27</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/10/26/Android-ViewPager/" class="title">[Android] ViewPager</a></p>
+                            <p class="item-date"><time datetime="2019-10-26T07:53:54.000Z" itemprop="datePublished">2019-10-26</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">25</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Victory Woo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/10/27/Android-Coroutine1/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
