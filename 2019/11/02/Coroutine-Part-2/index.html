@@ -22,10 +22,12 @@
 <meta property="og:site_name" content="VictoryWoo">
 <meta property="og:description" content="이전 포스팅에 이어서 두 번째 시리즈이다. 직접 번역하는 것과 구글 번역기를 통해 번역된 내용을 기반으로 정리하고 있다. 그래서 정확하지 않은 부분이 있을 수 있다. 그렇다면 필자에게 알려주면 고맙겠다. Keeping track of coroutines1편 포스팅에서 코루틴이 해결하는 큰 문제를 알아봤다. 요약하면 코루틴은 두 가지 일반적인 프로그래밍 문제">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-02T14:38:05.238Z">
+<meta property="og:image" content="http://victorywoolee/image/lots_of_work.gif">
+<meta property="og:updated_time" content="2019-11-03T09:41:13.809Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android] Coroutine. 2">
 <meta name="twitter:description" content="이전 포스팅에 이어서 두 번째 시리즈이다. 직접 번역하는 것과 구글 번역기를 통해 번역된 내용을 기반으로 정리하고 있다. 그래서 정확하지 않은 부분이 있을 수 있다. 그렇다면 필자에게 알려주면 고맙겠다. Keeping track of coroutines1편 포스팅에서 코루틴이 해결하는 큰 문제를 알아봤다. 요약하면 코루틴은 두 가지 일반적인 프로그래밍 문제">
+<meta name="twitter:image" content="http://victorywoolee/image/lots_of_work.gif">
     
 
     
@@ -186,7 +188,121 @@
 <p>이러한 문제를 해결하기 위해 코루틴은 suspend와 resume을 추가하여 기본적인 함수를 기반으로 한다. 그리고 특정 스레드의 모든 코루틴이 일시 중단되면(suspend) 스레드는 자유로워져 다른 작업을 수행할 수 있다.</p>
 <p>그러나 코루틴 자체는 수행중인 작업을 추적하는데 도움이 되지 않는다. 많은 수의 코루틴(수백 또는 수천)을 가지고 있고 동시에 모두 정지시키는 것이 좋다. 그리고 코루틴은 비용이 저렴하지만, 파일을 읽거나 네트워크를 요청하는 것과 같이 수행하는 작업은 종종 비용이 많이 든다.</p>
 <p>코드를 사용해 수동으로 천 개의 코루틴을 추적하는 것은 매우 어렵다. 모든 항목을 추적하고 수동으로 완료 또는 취소하도록 할 수 있지만, 이와 같은 코드는 지루하고 오류가 발생하기 쉽다. 그리고 코드가 완벽하지 않으면 코루틴을 잃어버릴 것이다. 이를 <code>work leak</code>이라 부른다.</p>
-<p><code>work leak</code>은 작업 누출이라고 하며 메모리 누출과 비슷하지만, 더 나쁘다. 잃어버린 코루틴이다. 메모리 누수 외에도 작업 누수가 CPU, 디스크를 사용하거나 네트워크 요청을 시작하다록 자체적으로 resume될 수 있다.</p>
+<p><code>work leak</code>은 작업 누출이라고 하며 메모리 누출과 비슷하지만, 더 나쁘다. 잃어버린 코루틴이다. 메모리 누수 외에도 작업 누수가 CPU, 디스크를 사용하거나 네트워크 요청을 시작하도록 자체적으로 resume될 수 있다.</p>
+<p>유출된 코루틴은 메모리, CPU, 디스크를 낭비하거나 필요하지 않은 네트워크 요청을 시작할 수도 있다.</p>
+<p>코루틴의 유출을 방지하기 위해 Kotlin은 <code>Structured concurrency</code>를 도입했다. Structured concurrency는 언어의 특징과 모범 사례들의 조합으로 따라한다면 코루틴에서 실행 중인 작업 모두를 추적하는 데 도움이 된다.</p>
+<p>안드로이드에서는 Structured concurrency를 사용해 세 가지 작업을 수행할 수 있다.</p>
+<ol>
+<li>더 이상 필요하지 않으면 작업을 취소할 수 있다.</li>
+<li>실행 중인 동안 작업을 추적할 수 있다.</li>
+<li>코루틴이 실패하면 에러 신호가 발생한다.</li>
+</ol>
+<p>이제 이들 각각에 대해 알아보고 Structured concurrency이 어떻게 코루틴 및 유출 작업을 잃지 않도록 하는데 도움이 되는지 알아보자.</p>
+<h2 id="Cancel-work-with-scopes"><a href="#Cancel-work-with-scopes" class="headerlink" title="Cancel work with scopes"></a>Cancel work with scopes</h2><p>코틀린에서 코루틴은 <code>CoroutineScope</code>이라 불리는 곳에서 실행되어야만 한다. CoroutineScope은 코루틴 뿐 아니라 suspended된 코루틴도 추적한다. Part 1에서 언급한 Dispatchers와 달리 코루틴을 실행하지 않으면 추적하지 않아도 된다.</p>
+<p>모든 코루틴을 추적하기 위해서 Kotlin은 CoroutineScope 없이 코루틴을 시작하는 것을 허용하지 않는다. 즉, 코루틴을 추적하려면 CoroutineScope으로 코루틴을 시작해야 한다는 의미이다. CoroutineScope은 초강력한 힘을 갖춘 경량 버전의 ExecutorService와 비슷하다고 생각할 수 있다. 그것은 Part 1에서 살펴본 일시 정지하고 다시 시작하는 새로운 코루틴을 시작할 수 있는 능력을 부여한다.</p>
+<p><strong>CoroutineScope</strong>은 모든 코루틴을 추적하고 그 안에서 시작된 모든 코루틴을 취소할 수도 있다. 이것은 사용자가 떠날 때 화면에서 시작된 모든 것을 정리하기 원하는 Android 개발에 적합하다.</p>
+<p><strong>강조할 점은 CoroutineScope은 모든 코루틴을 추적하고 그 안에서 시작된 모든 코루틴을 취소할 수 있다는 것이다.</strong></p>
+<h2 id="Starting-new-coroutines"><a href="#Starting-new-coroutines" class="headerlink" title="Starting new coroutines"></a>Starting new coroutines</h2><p>어디에서나 suspend 함수를 호출할 수는 없다. suspend, resume 메커니즘을 사용하려면 일반 함수에서 코루틴으로 전환해야 한다.</p>
+<p>코루틴을 시작하기 위한 두 가지 방법이 있으며, 그들을 서로 사용법이 다르다.</p>
+<ol>
+<li><code>launch</code> : 빌더는 새로운 코루틴을 시작할 것이다. 그리고 이에 대해 망각한다. 이것이 의미하는 바는 호출자에게 결과를 반환하지 않는다는 것이다.</li>
+<li><code>async</code> : 빌더는 새로운 코루틴을 시작할 것이다. 그리고 <strong>await</strong>이라는 suspend 기능으로 결과를 반환할 수 있다.</li>
+</ol>
+<p>거의 대부분의 경우, 일반적인 함수에서 코루틴을 시작하는 방법에 대한 적절한 답은 launch를 사용하는 것이다. 일반 함수에서 await을 호출할 수 있는 방법이 없으므로(suspend 함수를 직접 호출할 수는 없음) 코루틴의 주요 항목으로 비동기를 사용하는 것은 별로 의미가 없다. 비동기를 사용하는 것이 적절한지는 추후에 살펴봐야 할 것이다.</p>
+<p>대신 launch를 호출해서 코루틴을 시작하라면 <strong>CoroutineScope</strong>을 사용해야 한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scope.launch&#123;</span><br><span class="line">    // This block starts a new coroutine in the scope.</span><br><span class="line">    // It can call suspend functions</span><br><span class="line">    fetchDocs()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>launch가 일반 함수에서 코루틴 세계로 코드를 가져오는 다리 역할을 한다고 생각할 수 있다. launch의 몸체 부분 안에서 suspend 함수를 호출하고 main safety를 만들 수 있다.</p>
+<p><strong>중요하게 생각할 것은 launch가 일반 함수에서 코루틴으로 갈 수 있도록 이어주는 다리라는 점이다.</strong></p>
+<p><strong>주의</strong></p>
+<ul>
+<li><strong>launch</strong>와 <strong>async</strong>의 큰 차이점은 예외를 처리하는 방법이다. aysnc는 결과 또는 예외를 얻기 위해 결국 await를 호출하므로 기본적으로 예외를 throw하지 않는다. 즉, 비동기를 사용하여 새로운 코루틴을 시작하면 예외가 자동으로 삭제된다.</li>
+</ul>
+<p><strong>launch</strong> 및 <strong>async</strong>는 CoroutineScope에서만 사용할 수 있으므로 생성한 모든 코루틴은 항상 scope에 의해 추적된다. Kotlin은 추적되지 않은 코루틴을 만들 수 없으므로 <code>work leak</code>을 피할 수 있다.</p>
+<h2 id="Start-in-the-ViewModel"><a href="#Start-in-the-ViewModel" class="headerlink" title="Start in the ViewModel"></a>Start in the ViewModel</h2><p>만약에 CoroutineScope에서 시작된 모든 코루틴을 추적하고 launch를 사용해 새로운 코루틴을 생성한다면 launch를 호출하고 scope을 어디에 두어야 할까?? 그리고 scope에서 시작된 모든 코루틴을 취소하는 것이 언제 제일 합리적일까?? 이에 대한 의문이 생기고 궁금하다. </p>
+<p>자, 필자는 안드로이드 개발자이기 때문에 안드로이드 개발 위주로 설명을 한다. Android에서는 종종 CoroutineScope을 사용자의 화면과 연결하는 것이 좋다. 이를 통해 더 이상 사용자와 관련이 없는 Activities, Fragments에 대해 코루틴 leak 또는 추가 작업을 수행하지 않아도 된다. <strong>사용자가 화면을 벗어나면 화면과 관련된 CoroutineScope이 모든 작업을 취소할 수 있다.</strong></p>
+<blockquote>
+<p><strong>Structured concurrency는 scope이 취소될 때 모든 코루틴이 취소되도록 한다.</strong></p>
+</blockquote>
+<p>코루틴을 Android Architecture Components(이하 AAC)와 통합할 때 일반적으로 ViewModel에서 코루틴을 시작하려 한다. 이곳은 가장 중요한 작업이 시작된 이후의 자연스러운 장소이며, 모든 코루틴을 회전시키는 데 대해 걱정할 필요가 없다.</p>
+<p>ViewModel에서 코루틴을 사용하려면 <em>lifecycle-viewmodel-ktx:2.1.0-alpha04.viewModelScope</em>의 viewModelScope 확장 속성을 사용하여 AndroidX Lifecycle에서 릴리즈되고 현재는 알파 상태이다. 라이브러리가 현재 알파이므로 버그가 있을 수 있으며 최종 릴리즈 전에 API가 변경될 수 있다. 이 부분을 주의해야 한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyViewModel</span></span>(): ViewModel()&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">userNeedsDocs</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// start a new coroutine in a viewModel</span></span><br><span class="line">        viewModelScope.launch&#123;</span><br><span class="line">            fetchDocs()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위에서 본 viewModelScope는 이 ViewModel이 지워질 때(즉, onCleared() 콜백이 호출될 때) 시작된 모든 코루틴을 자동으로 취소한다. 문서를 모두 가져오지 않고 사용자가 앱을 닫은 경우에 일반적으로 올바른 동작이다. 취소하지 않는다면 요청을 완료하기 위해 배터리를 낭비하고 있을 것이다.</p>
+<p>그리고 더 많은 safety를 위해 CoroutineScope은 자체적으로 전파된다. 따라서 시작한 코루틴이 다른 코루틴을 계속 시작하면 둘 다 동일한 범위에 있게 된다. 즉, 의존하는 라이브러리가 viewModelScope에서 코루틴을 시작하더라도 취소할 수 있는 방법이 있다.</p>
+<p><strong>주의</strong></p>
+<ul>
+<li>코루틴이 일시 중단될 때 CancellationException 예외를 발생시켜 코루틴을 협력적으로 취소한다. Throwable과 같은 최상위 예외를 포착하는 예외 처리기는 이 예외를 포착한다. 예외 처리기에서 예외를 사용하거나 일시 중단하지 않으면 코루틴이 반 취소된 상태로 유지된다.</li>
+</ul>
+<p>viewModel만큼 실행하기 위해 코루틴이 필요한 경우 viewModelScope를 사용하여 일반 함수에서 코루틴으로 전환해야 한다. 그런 다음 viewModelScope이 자동으로 코루틴을 취소하므로 누출을 만들지 않고 무한 루프를 작성하는 것이 좋다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">runForever</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// start a new coroutine in the viewModel</span></span><br><span class="line">    viewModelScope.launch&#123;</span><br><span class="line">        <span class="comment">// cancelled when the viewModel is cleared</span></span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">            delay(<span class="number">1000</span>)</span><br><span class="line">            <span class="comment">// do something every second</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>viewModelScope을 사용하면 무한 루프를 포함한 모든 작어비 더 이상 필요하지 않을 때 취소되도록 할 수 있다.</p>
+<h2 id="Keep-track-of-work"><a href="#Keep-track-of-work" class="headerlink" title="Keep track of work"></a>Keep track of work</h2><p>하나의 코루틴을 시작하는 것이 좋으며 실제로 필요한 모든 코드를 처리할 수 있다. 예를 들어, 코루틴을 시작하고 네트워크 요청을 하고 데이터베이스에 결과를 쓴다.</p>
+<p>하지만, 때때로 좀 더 복잡해야 할 때도 있다. 코루틴에서 두 개의 네트워크 요청을 동시에 수행하려고 한다고 가정하면 더 많은 코루틴을 시작해야 한다.</p>
+<p>그러면 더 많은 코루틴을 만들기 위해 suspend 함수는 coroutineScope이라는 빌더나 혹은 그의 사촌인 supervisorScope을 사용한다. 솔직히 이 API는 혼란스럽다. <strong>coroutineScope builder</strong>와 <strong>CoroutineScope</strong>은 이름에 하나의 문자 차이만 있음에도 불구하고 서로 다르다.</p>
+<p>어느 곳에서나 새로운 코루틴을 시작하는 것은 잠재적인 work leak을 만드는 한 가지 방법이다. 호출자는 코루틴이 어떻게 작업을 추적할 수 없다면 새로운 코루틴에 대해 알지 못할 수 있다. </p>
+<p>이를 해결하기 위해 <code>structured concurrency가 도움이 된다. 즉, suspend 함수가 리턴될 때 모든 작업이 완료된다는 보장을 제공한다.</code></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">fetchTwoDocs</span><span class="params">()</span></span>&#123;</span><br><span class="line">    coroutineScope&#123;</span><br><span class="line">        launch &#123; fetchDocs(<span class="number">1</span>) &#125;</span><br><span class="line">        async &#123; fetchDocs(<span class="number">2</span>) &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이 예에서는 네트워크에서 동시에 두 개의 문서를 가져온다. 첫 번째는 launch로 시작된 코루틴에서 가져오며 <strong>fire and forget</strong>이라고도 하며 즉, 결과를 호출자에게 반환하지 않는다.</p>
+<p>두 번째는 async와 함께 가져온 문서다. 그래서 문서를 호출자에게 반환한다. 이 예제는 두 문서 모두에 비동기를 사용하기 때문에 조금 이상하다. 그러나 필요한 것에 따라 launch 및 async를 혼합하고 일치시킬 수 있음을 보여주고자 한 것이다.</p>
+<p><strong>coroutineScope 및 supervisorScope을 사용하면 suspend 함수에서 코루틴을 안전하게 시작할 수 있다.</strong></p>
+<p>그러나 이 코드는 새로운 코루틴을 명시적으로 기다리지 않는다. 코루틴이 실행되는 동안 fetchTwoDocs가 반환되는 것처럼 보인다.</p>
+<p>structured concurrency를 만들고 work leaks를 피하기 위해서 fetchTwoDocs와 같은 suspend 함수가 반환될 때, 모든 작업이 완료되도록 확실하게 해야 한다. 즉, fetchTwoDocs가 반환되기 전에 시작한 두 코루틴이 모두 완료되어야 한다.</p>
+<p>Kotlin은 coroutineScope 빌더를 사용해 fetchTwoDocs에서 작업이 누출되지 않도록 한다. coroutinScope 빌더는 그 안에서 시작된 모든 coroutine이 완료될 때까지 그 자체를 일시 중단한다. 이 때문에 coroutineScope 빌더에서 시작된 모든 코루틴이 완료될 때까지 fetchTwoDocs에서 결과를 반환할 수 있는 방법이 없다.</p>
+<h2 id="Lots-and-lots-of-work"><a href="#Lots-and-lots-of-work" class="headerlink" title="Lots and lots of work"></a>Lots and lots of work</h2><p>1,2개의 코루틴을 추적하는 방법을 살펴봤는데, 이제는 1000개의 코루틴을 추적해보려고 한다.</p>
+<img src="/image/lots_of_work.gif" width="600" height="500">
+
+
+<p>위의 예제는 1000개의 네트워크 요청을 동시에 만드는 것을 보여주고 있다. 실제 안드로이드 코드에서는 권장하지 않는 방식이다. 왜냐하면 앱이 많은 리소스를 필요로하기 때문이다.</p>
+<p>이 코드에서 coroutineScope 빌더 내에서 시작해 1000개의 코루틴을 시작한다. gif를 통해 상황이 어떻게 연결되는지 확인할 수 있다. suspend 함수를 사용하기 때문에 어딘가에서 일부 코드는 CoroutineScope을 사용해 코루틴을 생성해야 한다. 우리는 그 CoroutineScope에 대해 아무것도 모른다. viewModelScope 또는 다른 곳에서 정의된 다른 CoroutineScope일 수 있다. 호출 범위가 무엇이든 상관없이 coroutineScope 빌더는 이를 작성하는 새 범위의 상위로 사용한다.</p>
+<p>그런 다음 coroutineScope 블록 내에서 launch는 새로운 범위 내에서 코루틴을 시작한다. launch로 시작된 코루틴이 완료되면 새로운 범위가 코루틴을 추적한다. 마지막으로 coroutineScope 내에서 시작된 모든 코루틴이 완료되면 loadLots는 자유롭게 리턴된다.</p>
+<p><strong>Note</strong></p>
+<ul>
+<li>scope과 코루틴 간의 부모-자식 관계는 Job 객체를 사용해 생성된다. 그러나 종종 코루틴과 scope 사이의 관계를 그 수준으로 뛰어 들지 않고 생각할 수 있다.</li>
+</ul>
+<p><strong>기억해야 하는 것은 coroutineScope과 supervisorScope은 자식 코루틴들이 완료될 때까지 기다릴 것이라는 사실이다.</strong></p>
+<p>같은 말을 반복하는 것 같지만, 중요해서 그렇다고 생각한다. 많은 일이 있지만, 중요한 것은 coroutineScope 또는 supervisorScope를 사용해 suspend 함수에서 안전하게 코루틴을 시작할 수 있다는 것이다. 새로운 코루틴이 시작되더라도 새로운 코루틴이 완료될 때까지 항상 호출자를 일지 중지하기 때문에 실수로 누수가 발생하지 않는다.</p>
+<p>그리고 또 멋진 점이 있는데 coroutineScope이 자식 scope을 생성한다는 것이다. 그래서 부모의 scope이 취소되면 모든 새 코루틴으로 취소가 전달된다. 예를 들어, 호출자가 viewModelScope인 경우 사용자가 화면을 벗어나면 1000개의 코루틴이 모두 자동으로 취소된다. 이는 깔끔하다.</p>
+<p>에러에 대한 설명으로 넘어가기 전에 supervisorScope과 coroutineScope에 대해 마지막으로 살펴보는 것이 좋을 것 같다. 주요 차이점은 다음과 같다.</p>
+<ul>
+<li><code>coroutineScope</code> : 자식 중 어느 것이라도 실패할 때마다 coroutineScope은 취소될 것이다. 따라서 하나의 네트워크 요청이 실패하면 다른 모든 요청이 즉시 취소된다.</li>
+<li><code>supervisorScope</code> : 요청이 실패하더라도 다른 요청을 계속하기 위해서는 이를 사용할 수 있다. 다른 자식 중 하나가 실패해도 다른 자식을 취소하지 않는다.</li>
+</ul>
+<h2 id="Signal-errors-when-a-coroutine-fails"><a href="#Signal-errors-when-a-coroutine-fails" class="headerlink" title="Signal errors when a coroutine fails"></a>Signal errors when a coroutine fails</h2><p>코루틴에서 일반 함수와 마찬가지로 예외가 발생하여 오류가 생긴다. suspend 함수의 예외는 resume 하여 호출자에게 다시 발생한다. 일반 함수와 마찬가지로 오류를 처리하려고 시도하거나 제한하지 않고 원하는 경우, 다른 스타일로 오류 처리를 수행하도록 추상화를 작성할 수도 있다.</p>
+<p>그러나 코루틴에서 오류가 손실될 수 있는 상황이 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> unrelatedScope = MainScope()</span><br><span class="line"></span><br><span class="line"><span class="comment">// example of a lost error</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">lostError</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// async without structured concurrency</span></span><br><span class="line">    unrelatedScope.async&#123;</span><br><span class="line">        <span class="keyword">throw</span> InAsyncNoOneCanHearYou(<span class="string">"except"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위 코드는 Structured concurrency 없이 새로운 코루틴을 시작하는 관련 없는 코루틴 범위를 선언한다. 처음에는 Structured concurrency이 유형과 프로그래밍 방식의 조합이며 suspend 함수에 관련되지 않은 코루틴 범위를 도입하는 것이 Structured concurrency의 프로그래밍 방식을 따르지 않는다는 것을 기억해야 한다. 사실 이 부분은 무엇을 말하려는 건지 이해가 잘 가지 않는다.</p>
+<p>async는 결국 예외를 다시 던질 곳에서 await를 호출한다고 가정하기 때문에 이 코드에서 오류가 손실된다. 그러나 호출 대기를 절대하지 않으면 예외는 참을성 있게 기다리는 동안 영원히 저장된다.</p>
+<blockquote>
+<p><strong>Structured concurrency는 코루틴 오류가 발생했을 때 호출자 또는 scope에게 통지되도록 보장한다.</strong></p>
+</blockquote>
+<p>만약 위 코드에서 Structured concurrency를 사용한다면 에러는 정확하게 호출자에게 던져진다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">foudError</span><span class="params">()</span></span>&#123;</span><br><span class="line">    coroutineScope&#123;</span><br><span class="line">        async&#123;</span><br><span class="line">            <span class="keyword">throw</span> StructuredConcurrencyWill(<span class="string">"throw"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>coroutineScope은 모든 하위 항목이 완료될 때까지 기다리므로 실패시 알람을 받을 수도 있다. coroutineScope으로 시작된 코루틴에서 예외가 발생하면 coroutineScope은 이를 예외로 호출할 수 있다. supervisorScope 대신 coroutineScope을 사용하고 있기 때문에 예외가 발생하면 다른 모든 자식들도 즉시 취소된다.</p>
+<h2 id="Using-structured-concurrency"><a href="#Using-structured-concurrency" class="headerlink" title="Using structured concurrency"></a>Using structured concurrency</h2><p>이 포스팅에서 structured concurrency을 소개하고 작업 누출을 피하기 위해 코드가 Android ViewModel에 잘 맞는지 보았다. 또한, suspend 함수를 쉽게 추론하는 방법에 대해서도 이야기 해봤다. 결과를 반환하고 돌아오기 전에 작업을 완료하고 표면에 있는 예외 처리를 통해 오류를 알리는 것이다.</p>
+<p>대신 구조화되지 않은 동시성을 사용하면 호출자가 알지 못하는 코루틴이 실수로 작업을 유출하기 쉽다. 이 작업은 취소할 수 없으며 예외가 다시 발생한다고 보장할 수 없다. 이로 인해 코드가 더욱 놀라워지고 모호한 버그가 발생할 수 있다.</p>
+<p>새로운 관련되지 않은 CoroutineScope을 도입하거나 GlobalScope이라는 전역 범위를 사용하여 구조화되지 않은 동시성을 만들 수 있지만, 호출 벙뮈보다 오래 살기 위해 코루틴이 필요한 경우는 드물지만 unstructured concurrency를 고려해야 한다. 그런 다음 unstructured 코루틴을 추적하고 오류를 처리하며 좋은 취소 스토리를 갖도록 구조를 직접 추가하는 것이 좋다.</p>
+<p>structured concurrency에 대한 경험이 있는 경우 structured concurrency에 익숙해져야 한다. 구조와 보증은 suspend 함수와의 상호작용을 보다 안전하고 쉽게 만든다. 코드를 보다 쉽게 읽고 덜 놀라게 만들 수 있으므로 structured concurrency을 최대한 많이 사용하는 것이 좋다.</p>
+<p>이 포스팅의 도입부에서 structured concurrency이 우리를 위해 해결하는 세 가지를 나열했고, 다음과 같다.</p>
+<ol>
+<li>더 이상 필요하지 않으면 작업을 취소해라.</li>
+<li>실행 중인 동안 작업을 추적해라.</li>
+<li>코루틴이 실패하면 에러를 나타내라.</li>
+</ol>
+<p>structured concurrency은 우리에게 우리의 코드에 대한 보장을 제공하는 것을 달성한다. structured concurrency에 대한 보장은 다음과 같다.</p>
+<ul>
+<li>scope이 취소되면 모든 코루틴이 취소된다.</li>
+<li>suspend 함수가 리턴할 때 모든 작업이 완료된다.</li>
+<li>코루틴 오류가 발생하면 호출자 또는 scope에 알린다.</li>
+</ul>
+<p>structured concurrency 보장을 통해 코드를 보다 안전하고 쉽게 추론할 수 있으며 누출 작업을 피할 수 있다.</p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
+<li><a href="https://medium.com/androiddevelopers/coroutines-on-android-part-ii-getting-started-3bff117176dd" target="_blank" rel="noopener">Coroutines on Android (part II): Getting started</a></li>
+</ul>
 
         </div>
         <footer class="article-footer">
@@ -265,16 +381,16 @@
             "name": "Victory Woo"
         },
         "headline": "[Android] Coroutine. 2",
-        "image": "http://victorywoolee/victorywoolee.github.io",
+        "image": "http://victorywoolee/victorywoolee.github.io/image/lots_of_work.gif",
         "keywords": "Android Coroutine Basic",
         "genre": "Android",
         "datePublished": "2019-11-02",
         "dateCreated": "2019-11-02",
-        "dateModified": "2019-11-02",
+        "dateModified": "2019-11-03",
         "url": "http://victorywoolee/victorywoolee.github.io/2019/11/02/Coroutine-Part-2/",
         "description": "이전 포스팅에 이어서 두 번째 시리즈이다. 직접 번역하는 것과 구글 번역기를 통해 번역된 내용을 기반으로 정리하고 있다. 그래서 정확하지 않은 부분이 있을 수 있다. 그렇다면 필자에게 알려주면 고맙겠다.
 Keeping track of coroutines1편 포스팅에서 코루틴이 해결하는 큰 문제를 알아봤다. 요약하면 코루틴은 두 가지 일반적인 프로그래밍 문제",
-        "wordCount": 197
+        "wordCount": 2285
     }
 </script>
 
