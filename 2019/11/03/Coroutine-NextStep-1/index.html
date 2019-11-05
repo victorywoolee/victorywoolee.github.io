@@ -22,10 +22,12 @@
 <meta property="og:site_name" content="VictoryWoo">
 <meta property="og:description" content="이번 시리즈는 한글로 된 블로그를 참고해서 작성하는 시리즈이다. 이전 시리즈가 아직 끝나지 않았지만, 해당 시리즈를 시작했다. 이전에는 공식 문서에서 레퍼런스로 제공하는 블로그의 원본을 번역해서 작성했다.  아무래도 번역해서 작성하다 보니 정확한 의미 파악이 조금 어려웠고 이해가 안되는 부분도 많았다. 그래서 뭔가 개념이 잘 잡히지 않는 느낌이 있었다. 이">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-03T13:36:50.197Z">
+<meta property="og:image" content="http://victorywoolee/image/animation.gif">
+<meta property="og:updated_time" content="2019-11-05T14:24:39.498Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android] Coroutine을 위한 걸음마 #1">
 <meta name="twitter:description" content="이번 시리즈는 한글로 된 블로그를 참고해서 작성하는 시리즈이다. 이전 시리즈가 아직 끝나지 않았지만, 해당 시리즈를 시작했다. 이전에는 공식 문서에서 레퍼런스로 제공하는 블로그의 원본을 번역해서 작성했다.  아무래도 번역해서 작성하다 보니 정확한 의미 파악이 조금 어려웠고 이해가 안되는 부분도 많았다. 그래서 뭔가 개념이 잘 잡히지 않는 느낌이 있었다. 이">
+<meta name="twitter:image" content="http://victorywoolee/image/animation.gif">
     
 
     
@@ -180,7 +182,35 @@
             <p>이번 시리즈는 한글로 된 블로그를 참고해서 작성하는 시리즈이다. 이전 시리즈가 아직 끝나지 않았지만, 해당 시리즈를 시작했다. 이전에는 공식 문서에서 레퍼런스로 제공하는 블로그의 원본을 번역해서 작성했다. </p>
 <p>아무래도 번역해서 작성하다 보니 정확한 의미 파악이 조금 어려웠고 이해가 안되는 부분도 많았다. 그래서 뭔가 개념이 잘 잡히지 않는 느낌이 있었다. 이런 부분을 보완하고자 한글 블로그를 보고 정리를 해서 <strong>걸음마</strong>라는 시리즈를 만들었다. </p>
 <p>아무래도 이 시리즈를 먼저 보고 Document 시리즈를 보는게 나을 것이다.</p>
-<h2 id="코루틴"><a href="#코루틴" class="headerlink" title="코루틴"></a>코루틴</h2>
+<h2 id="코루틴"><a href="#코루틴" class="headerlink" title="코루틴"></a>코루틴</h2><p>코루틴은 코드의 비동기 실행을 도와주는 프로그래밍 패러다임이다. 마치 쓰레드처럼 말이다. 코루틴은 코틀린 언어에만 존재하는 개념이 아니다. 꽤 오래 전부터 존재했으며, 여러 프로그래밍 언어에서 코루틴을 구현해놓은 구현체가 있으며, 코틀린도 이를 1.3 버전부터 지원하기 시작했다.</p>
+<p>각각의 언어에서 코루틴이라는 패러다임에 맞춰서 프레임워크를 제공해주기 위해 구현한 방식은 조금씩 다르다. 필자가 다루려는 코루틴은 코틀린이 JVM 위에서 동작하는 언어이기 때문에 결국 쓰레드를 이용해서 구현이 되어있다. </p>
+<p>그래서 코틀린의 코루틴을 경량화된 쓰레드라고 부르기도 한다. 보통 프로그래밍 언어세ㅓ 함수 혹은 메소드는 두 가지 동작을 갖는다. 호출과 반환(invoke &amp; return)이다. 코루틴에서는 두 가지의 개념이 더 추가된다.</p>
+<ul>
+<li>suspend</li>
+<li>resume</li>
+</ul>
+<p>함수 실행 도중에 함수가 일시 정지되었다가, 다시 실행된다. 이게 코루틴의 핵심 개념이라고 보면 된다. 실행 도중에 suspend된 함수는 상태가 저장되었다가, 필요할 때 다시 resume될 수 있다.</p>
+<img src="/image/animation.gif" width="600" height="500">
+
+<p>메인 쓰레드에서 fetchDocs() 함수를 호출하고 함수 내부에서 get() 메소드를 호출해서 suspend된다. 이때 메인 쓰레드는 다시 자유로워져서 다른 동작(터치 이벤트 수신 등)을 받을 수 있게 된다. 그리고 get() 메소드가 끝나서 다시 resume 하게 되면, 메인 쓰레드에서 그 데이터를 받아서 사용할 수 있다.</p>
+<h2 id="코루틴의-사용-목적"><a href="#코루틴의-사용-목적" class="headerlink" title="코루틴의 사용 목적"></a>코루틴의 사용 목적</h2><p><strong>1. Long running task</strong></p>
+<p>긴 작업을 할 때 메인 쓰레드를 멈추게 하지 않을 수 있다. 이 부분에 있어 백그라운드 쓰레드를 사용하는 것과 차이가 없다고 생각할 수 있다. 하지만, 그 방식이 조금 다르다. </p>
+<p><strong>2. Main-safety</strong></p>
+<p>메인 쓰레드에서 오래 걸리는 작업을 실행하는 코루틴 코드를 실행시켜도 상관이 없게 한다. 방금 전에는 메인 쓰레드에서는 오래 걸리는 작업을 피하라고 했다. 뭔가 상반된다. 보통 쓰레드에서는 별도의 쓰레드를 만들고, 그 안에서 오래 걸리는 작업을 실행시킨다. 그러나 코루틴 프레임워크를 사용하면 메인 쓰레드에서 오래 걸리는 작업을 실행시켜도 알아서 쓰레드 관리가 되어지기 때문에 그럴 필요가 없다.</p>
+<p>즉, 쓰레드 관리가 더 쉬워진다.(이유는 코루틴이 내부적으로 알아서 적절한 쓰레드를 쓰기 때문이다.)</p>
+<p><strong>콜백 패턴을 제거할 코루틴</strong></p>
+<ul>
+<li>이 부분은 간단하게 넘어가도록 하겠다. 콜백 패턴은 좋은 패턴이지만, 복잡하다는 단점이 있다. 코루틴을 사용하면 콜백 패턴을 사용하지 않고 콜백 패턴의 장점을 취할 수 있다. </li>
+</ul>
+<h2 id="코루틴-vs-쓰레드"><a href="#코루틴-vs-쓰레드" class="headerlink" title="코루틴 vs 쓰레드"></a>코루틴 vs 쓰레드</h2><p>쓰레드는 컴퓨터 공학에서 의미하는 그 쓰레드이다. 한 프로세스에 여러 개의 쓰레드가 존재할 수 있으며, 프로세스 내에서 자원을 공유한다. 이는 컴퓨터 공학에서 OS 과목을 들었다면 모두 알 내용이다.</p>
+<p>그리고 요즘 하드웨어의 발전에 따라 멀티코어를 갖는 CPU들이 등장하며 멀티 프로세스 및 멀티 쓰레딩에 관한 성능이 중요해졌다. 앞서 코루틴의 목적 중 하나인 long running task에 있어서 쓰레드는 멀티 쓰레딩을 이용해서 여러 개의 쓰레드를 통해 동시에 작업을 진행시킨다.</p>
+<p>사실 코틀린에서 코루틴이란 쓰레드를 더 효율적으로 사용하게 해주는 일종의 도구일 뿌닝다. 쓰레드는 진짜 말 그대로 하드웨어가 지원을 해주는 한, <strong>동시에 여러 개의 작업이 실행된다.</strong> 혹은 한 번에 하나의 쓰레드만 실행이 가능한 하드웨어라고 해도, 쓰레드 하나하나를 만들 때 만들어진 쓰레드들이 스케줄러에 의해 번갈아가면서 실행이 된다.</p>
+<p>그래서 한 번에 1000개의 동시 작업을 해주고 싶다면 1000개의 쓰레드를 만들어줘야 한다. 그러나 코루틴은 조금 다르다. 한 번에 1000개의 동시 작업을 해주고 싶다고 해도 10개 정도의 쓰레드 혹은 1개로도 해결할 수 있다. 즉, 한 개의 쓰레드를 계속 돌려 쓰는 것이다.</p>
+<p>한 쓰레드에서 특정 작업이 suspend되면 그 시간에 다른 작업을 할 수 있기 때문이다. 그렇기 때문에 쓰레드와 달리 진짜로 동시에 실행되는 것이 아니라 순차적으로 실행이 되는 것이다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">repeat(<span class="number">1000</span>)&#123;</span><br><span class="line">    launch(Dispatchers.Default)&#123;</span><br><span class="line">        println(<span class="string">"Thread : <span class="subst">$&#123;Thread.currentThread().name&#125;</span>"</span>)</span><br><span class="line">        delay(<span class="number">500</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 결과</span></span><br><span class="line">Thread : DefaultDispatcher-worker-<span class="number">4</span> <span class="meta">@coroutine</span>#<span class="number">99993</span></span><br><span class="line">Thread : DefaultDispatcher-worker-<span class="number">5</span> <span class="meta">@coroutine</span>#<span class="number">99992</span></span><br><span class="line">Thread : DefaultDispatcher-worker-<span class="number">1</span> <span class="meta">@coroutine</span>#<span class="number">99990</span></span><br><span class="line">Thread : DefaultDispatcher-worker-<span class="number">9</span> <span class="meta">@coroutine</span>#<span class="number">99988</span></span><br><span class="line">Thread : DefaultDispatcher-worker-<span class="number">12</span> <span class="meta">@coroutine</span>#<span class="number">99987</span></span><br><span class="line">Thread : DefaultDispatcher-worker-<span class="number">6</span> <span class="meta">@coroutine</span>#<span class="number">99982</span></span><br><span class="line">Thread : DefaultDispatcher-worker-<span class="number">2</span> <span class="meta">@coroutine</span>#<span class="number">99981</span></span><br></pre></td></tr></table></figure>
+
+<p>정상 동작하며, 약 12개의 쓰레드로 작업을 처리한다. 코루틴이 아닌 일반적인 방법으로 작업을 수행했다면, 1000개의 쓰레드를 생성하려다 메모리가 부족해서 터졌을 것이다.</p>
+
         </div>
         <footer class="article-footer">
             
@@ -258,16 +288,16 @@
             "name": "Victory Woo"
         },
         "headline": "[Android] Coroutine을 위한 걸음마 #1",
-        "image": "http://victorywoolee/victorywoolee.github.io",
+        "image": "http://victorywoolee/victorywoolee.github.io/image/animation.gif",
         "keywords": "Android Kotlin Coroutine",
         "genre": "Android",
         "datePublished": "2019-11-03",
         "dateCreated": "2019-11-03",
-        "dateModified": "2019-11-03",
+        "dateModified": "2019-11-05",
         "url": "http://victorywoolee/victorywoolee.github.io/2019/11/03/Coroutine-NextStep-1/",
         "description": "이번 시리즈는 한글로 된 블로그를 참고해서 작성하는 시리즈이다. 이전 시리즈가 아직 끝나지 않았지만, 해당 시리즈를 시작했다. 이전에는 공식 문서에서 레퍼런스로 제공하는 블로그의 원본을 번역해서 작성했다. 
 아무래도 번역해서 작성하다 보니 정확한 의미 파악이 조금 어려웠고 이해가 안되는 부분도 많았다. 그래서 뭔가 개념이 잘 잡히지 않는 느낌이 있었다. 이",
-        "wordCount": 71
+        "wordCount": 656
     }
 </script>
 
