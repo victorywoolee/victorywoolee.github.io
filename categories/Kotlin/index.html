@@ -159,6 +159,72 @@
             <div class="category">
             <a class="article-category-link" href="/categories/Kotlin/">Kotlin</a>
             </div>
+            <div class="date"><time datetime="2019-11-23T09:22:02.000Z" itemprop="datePublished">2019-11-23</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/11/23/Chap6-4/">[Kotlin] 타입 시스템 - 타입2</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            Any, Any? 타입자바에서 Object가 최상위 타입이듯 코틀린에서는 Any 타입이 모든 널이 될 수 없는 타입의 조상 타입이다. 코틀린에서는 자바와 다르게 Any가 Int 등의 원시 타입을 포함한 모든 타입의 조상 타입이다. 
+유의해야 할 점은 Any가 널이 될 수 없는 타입인 것이다. 널이 들어갈 수 없으며 코틀린에서 널을 포함하는 모든 값을 대입할
+        </p>
+    </div>
+</article>
+    
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Kotlin/">Kotlin</a>
+            </div>
+            <div class="date"><time datetime="2019-11-23T02:21:46.000Z" itemprop="datePublished">2019-11-23</time></div>
+        </div>
+        
+    
+        <h1 class="article-title" itemprop="name">
+        <a href="/2019/11/23/Chap6-3/">[Kotlin] 타입 시스템 - 타입</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            코틀린의 원시 타입코틀린은 원시 타입과 래퍼 타입을 구분하지 않는다. 
+원시 타입 : Int, Boolean 등
+자바는 원시 타입과 참조 타입을 구분한다.
+
+원시 타입 -&gt; 변수에 그 값이 들어간다. (int 등)
+참조 타입 -&gt; 변수에 메모리 상의 객체 위치가 들어간다. 즉, 주소.(String 등)
+
+원시 타입의 값을 더 효율적으로 저장하고 
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+    
+    
+    
+    
+        <div class="article-row">
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Kotlin/">Kotlin</a>
+            </div>
             <div class="date"><time datetime="2019-10-20T11:09:51.000Z" itemprop="datePublished">2019-10-20</time></div>
         </div>
         
@@ -169,7 +235,8 @@
     
 
         <p class="article-excerpt">
-            
+            letlet을 이용해 널이 될 수 있는 식을 쉽게 다룰 수 있다. let 함수는 안전한 호출 연산자와 함께 사용하는 것이 일반적인 방법이다. 흔한 경우는 널이 될 수 있는 값을 널이 아닌 값만 인자로 받는 함수에게 넘기는 경우이다. 
+1234567fun sendEmailTo(email: String)&#123;&#125;val emial: String? =
         </p>
     </div>
 </article>
@@ -391,75 +458,6 @@ companion object(동반 객체)는 인스턴스 메소드는 아니지만, 어�
         </div>
     
 
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Kotlin/">Kotlin</a>
-            </div>
-            <div class="date"><time datetime="2019-10-09T09:00:04.000Z" itemprop="datePublished">2019-10-09</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/10/09/Chap4-3/">[Kotlin] 데이터 클래스와 클래스 위임</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            모든 클래스가 정의해야 하는 메소드
-자바와 마찬가지로 코틀린 클래스도 toString, equals, hashCode 등을 오버라이드할 수 있다. 그리고 코틀린은 이런 메소드 구현을 자동으로 생성해 줄 수 있다.
-한 가지 예를 통해서 이 메소드가 어떤 것인지에 대해 알아보자.
-
-1class Client(val name: String, val postalCo
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Kotlin/">Kotlin</a>
-            </div>
-            <div class="date"><time datetime="2019-10-09T05:01:27.000Z" itemprop="datePublished">2019-10-09</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/10/09/Chap4-2/">[Kotlin] 뻔하지 않은 프로퍼티와 생성자</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            생성자
-주 생성자 : 클래스를 초기화할 때 주로 사용하는 간략한 생성자로, 클래스 본문 밖에서 정의한다. (괄호 {} 밖에서 정의한다.)
-부 생성자 : 클래스 본문 안에서 정의한다. (괄호 {} 안에서 정의한다.)
-초기화 블록 : 초기화 로직을 추가할 수 있다.
-
-클래스 초기화
-클래스 이름 뒤에 오는 괄호롤 둘러싸인 부분은 주 생성자라고 부른다.
-주 생성자
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
 
     </div></section>
 
@@ -521,7 +519,7 @@ companion object(동반 객체)는 인스턴스 메소드는 아니지만, 어�
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">13</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">15</span></li></ul>
         </div>
     </div>
 
@@ -535,6 +533,24 @@ companion object(동반 객체)는 인스턴스 메소드는 아니지만, 어�
         <h3 class="widget-title">recents</h3>
         <div class="widget">
             <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/11/23/Chap6-4/" class="title">[Kotlin] 타입 시스템 - 타입2</a></p>
+                            <p class="item-date"><time datetime="2019-11-23T09:22:02.000Z" itemprop="datePublished">2019-11-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/11/23/Chap6-3/" class="title">[Kotlin] 타입 시스템 - 타입</a></p>
+                            <p class="item-date"><time datetime="2019-11-23T02:21:46.000Z" itemprop="datePublished">2019-11-23</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -563,24 +579,6 @@ companion object(동반 객체)는 인스턴스 메소드는 아니지만, 어�
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
-                            <p class="item-title"><a href="/2019/11/03/Coroutine-NextStep-2/" class="title">[Android] Coroutine을 위한 걸음마 #2</a></p>
-                            <p class="item-date"><time datetime="2019-11-03T11:55:09.000Z" itemprop="datePublished">2019-11-03</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
-                            <p class="item-title"><a href="/2019/11/03/Coroutine-NextStep-1/" class="title">[Android] Coroutine을 위한 걸음마 #1</a></p>
-                            <p class="item-date"><time datetime="2019-11-03T11:40:24.000Z" itemprop="datePublished">2019-11-03</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -590,7 +588,7 @@ companion object(동반 객체)는 인스턴스 메소드는 아니지만, 어�
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
         </div>
     </div>
 
