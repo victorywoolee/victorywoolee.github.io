@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>[Kotlin] 고차 함수 | VictoryWoo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Android,Kotlin,lambda">
+    
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
+    <meta name="description" content="고차 함수 정의다른 함수를 인자로 받거나 함수를 반환하는 함수를 고차 함수라고 한다. 코틀린에서는 람다나 함수 참조를 사용해 함수를 값으로 표현할 수 있다. 따라서 고차 함수는 람다나 함수 참조를 인자로 넘길 수 있거나 이를 반환하는 함수이다. 1. 함수 타입 람다를 인자로 받는 함수를 정의하기에 앞서 람다 인자의 타입을 어떻게 선언하는지 알아야 한다. 람">
+<meta name="keywords" content="Android,Kotlin,lambda">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Kotlin] 고차 함수">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/12/01/Chap8/index.html">
+<meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="고차 함수 정의다른 함수를 인자로 받거나 함수를 반환하는 함수를 고차 함수라고 한다. 코틀린에서는 람다나 함수 참조를 사용해 함수를 값으로 표현할 수 있다. 따라서 고차 함수는 람다나 함수 참조를 인자로 넘길 수 있거나 이를 반환하는 함수이다. 1. 함수 타입 람다를 인자로 받는 함수를 정의하기에 앞서 람다 인자의 타입을 어떻게 선언하는지 알아야 한다. 람">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-01T04:09:36.482Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Kotlin] 고차 함수">
+<meta name="twitter:description" content="고차 함수 정의다른 함수를 인자로 받거나 함수를 반환하는 함수를 고차 함수라고 한다. 코틀린에서는 람다나 함수 참조를 사용해 함수를 값으로 표현할 수 있다. 따라서 고차 함수는 람다나 함수 참조를 인자로 넘길 수 있거나 이를 반환하는 함수이다. 1. 함수 타입 람다를 인자로 받는 함수를 정의하기에 앞서 람다 인자의 타입을 어떻게 선언하는지 알아야 한다. 람">
+    
+
+    
+        <link rel="alternate" href="/" title="VictoryWoo" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">VictoryWoo&#39;s Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Android/">Android</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clean-Code/">Clean Code</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ETC/">ETC</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Kotlin/">Kotlin</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Kotlin/">Kotlin</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Chap8" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [Kotlin] 고차 함수
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/12/01/Chap8/" class="article-date">
+            <time datetime="2019-12-01T01:54:13.000Z" itemprop="datePublished">2019-12-01</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/Kotlin/">Kotlin</a>, <a class="tag-link" href="/tags/lambda/">lambda</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="고차-함수-정의"><a href="#고차-함수-정의" class="headerlink" title="고차 함수 정의"></a>고차 함수 정의</h2><p>다른 함수를 인자로 받거나 함수를 반환하는 함수를 <code>고차 함수</code>라고 한다. 코틀린에서는 람다나 함수 참조를 사용해 함수를 값으로 표현할 수 있다. 따라서 고차 함수는 람다나 함수 참조를 인자로 넘길 수 있거나 이를 반환하는 함수이다.</p>
+<p><strong>1. 함수 타입</strong></p>
+<p>람다를 인자로 받는 함수를 정의하기에 앞서 람다 인자의 타입을 어떻게 선언하는지 알아야 한다. 람다를 지역 변수에 할당하는 과정을 살펴보자.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> sum = &#123;x: <span class="built_in">Int</span>, y: <span class="built_in">Int</span> -&gt; x + y&#125;</span><br><span class="line"><span class="keyword">val</span> action = &#123;println(<span class="number">42</span>)&#125;</span><br></pre></td></tr></table></figure>
+
+<p>코틀린의 타입 추론을 통해 변수 타입을 지정하지 않아도 람다를 변수에 대입할 수 있다. 이때, 컴파일러는 sum, action이 함수 타입임을 추론한다. 위의 선언에서 각각의 변수에 구체적인 타입 선언을 추가해보자.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> sum : (<span class="built_in">Int</span>, <span class="built_in">Int</span>) -&gt; <span class="built_in">Int</span> = &#123;x, y -&gt; x+y&#125;</span><br><span class="line"><span class="keyword">val</span> action : () -&gt; <span class="built_in">Unit</span> = &#123;println(<span class="number">42</span>)&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위의 람다 sum은 Int 타입의 변수 2개를 파라미터로 받아 Int 값을 반환하는 함수이다. action은 인자를 받지 않고 아무 값도 반환하지 않는 함수이다. </p>
+<p>이처럼 함수 타입을 정의하기 위해서는 함수 파라미터의 타입을 괄호 안에 넣고, 그 뒤에 화살표(-&gt;)를 추가한 다음, 함수의 반환 타입을 지정하면 된다. 여기서 유의할 점은 아무 값도 반환하지 않은 Unit 타입일지라도 명시해줘야 한다는 것이다. 일반적으로 함수를 정의할 때, 반환 값이 없는 Unit 타입은 명시하지 않아도 되지만, 람다를 정의할 때는 반환 타입을 명시해야 컴파일러가 추론할 수 있다.</p>
+<p>또한, 함수 타입에서도 반환 타입을 널이 될 수 있는 타입으로 지정할 수 있다. 물론 널이 될 수 있는 함수 타입 변수를 정의할 수도 있다. 이 경우에는 함수 전체가 널이 될 수 있는 타입임을 선언하기 위해 함수 타입을 괄호로 감싸고 물음표를 붙인다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> canResultNull : (<span class="built_in">Int</span>, <span class="built_in">Int</span>) -&gt; <span class="built_in">Int</span>? = &#123;x,y -&gt; <span class="literal">null</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> funOrNull : ((<span class="built_in">Int</span>, <span class="built_in">Int</span>) -&gt; <span class="built_in">Int</span>)? = <span class="literal">null</span></span><br></pre></td></tr></table></figure>
+
+<p>함수 타입에서 파라미터 이름을 지정할 수도 있다. 비록 파라미터 이름은 타입 검사 시 무시된다. 그리고 이 함수 타입의 람다를 정의할 때, 파라미터 이름이 꼭 함수 타입 선언의 파라미터 이름과 일치하지 않아도 된다. 다만, 이렇게 할 경우에 가독성이 좋아지고 이 이름을 코드 완성에 사용할 수 있다는 장점이 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">request</span><span class="params">(url: <span class="type">String</span>, callback: (<span class="type">code</span>: <span class="type">Int</span>, <span class="type">content</span>: <span class="type">String</span>) -&gt; <span class="type">Unit</span>)</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> url = <span class="string">"http://kotl.in"</span></span><br><span class="line">request(url) &#123; code, content -&gt; ... &#125;</span><br><span class="line">request(url) &#123; code, page -&gt; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>실제 함수를 호출해보는 코드는 그리 어렵지 않다. 다음과 같다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">    twoAndThree &#123; x, y -&gt; x + y &#125;</span><br><span class="line">    twoAndThree &#123; a, b -&gt; a * b &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">twoAndThree</span><span class="params">(operation: (<span class="type">Int</span>, <span class="type">Int</span>) -&gt; <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> result = operation(<span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">    println(<span class="string">"The Result is <span class="variable">$result</span>"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 결과</span></span><br><span class="line">The Result <span class="keyword">is</span> <span class="number">5</span></span><br><span class="line">The Result <span class="keyword">is</span> <span class="number">6</span></span><br></pre></td></tr></table></figure>
+
+<p>main 함수에서 호출할 때, 람다를 넘기면 해당 람다는 operation 파라미터로 전달받은 람다(혹은 함수)를 호출한다.</p>
+<p><strong>2.자바에서 코틀린 함수 타입 사용</strong></p>
+<p>컴파일된 코드 안에서 함수 타입은 일반 인터페이스로 바뀐다. 즉, 함수 타입의 변수는 FunctionN 인터페이스를 구현하는 객체를 저장한다. 코틀린 표준 라이브러리는 함수 인자의 개수에 따라 Function0<r>(인자가 없는 함수), Function1&lt;P1, R&gt;(인자가 하나인 함수)등의 인터페이스를 제공한다. 각 인터페이스에는 invoke 메소드 정의가 하나 들어 있다. invoke 메소드를 호출하면 함수를 실행할 수 있다.</r></p>
+<p>자바 8을 사용한다면 람다를 넘기면 자동으로 함수 타입의 값으로 변환된다. 하지만, 자바 8 이전의 자바를 사용한다면 FunctionN 인터페이스를 구현해 invoke 메소드를 구현하는 무명 클래스를 넘기면 된다. 아무래도 코틀린처럼 깔끔하게 작성할 수는 없다. 자바를 사용한다면 얼른 코틀린으로 넘어가자~</p>
+<p>한 가지 더 주의해야 할 점이 있는데, 반환 타입이 Unit인 함수나 람다를 자바로 작성할 수도 있다. 하지만, 코틀린 Unit 타입에는 값이 존재하므로 자바에서는 그 값을 명시적으로 반환해줘야 한다. (String) -&gt; Unit 처럼 반환 타입이 Unit인 함수 타입의 파라미터 위치에 void를 반환하는 자바 람다를 넘길 수는 없다.</p>
+<p><strong>3.디폴트 값을 지정한 함수 타입 파라미터나 널이 될 수 있는 함수 타입 파라미터</strong></p>
+<p>함수 타입 파라미터도 디폴트 값을 지정할 수 있으며, 널이 될 수 있는 타입으로 지정할 수도 있다. 매번 람다를 넘기기 번거롭기 때문에 디폴트 값을 지정하면 편리하다. </p>
+<p>또한, 널이 될 수 있는 함수 타입을 사용할 수도 있다. 하지만, 널이 될 수 있는 함수 타입으로 함수를 받으면 직접 호출할 수 없다. NPE가 발생할 가능성이 있기 때문에 코틀린의 컴파일러는 이 함수 호출을 거부할 것이다. 따라서 null 여부를 명시적으로 검사해야 한다. </p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">(callback: (()-&gt; <span class="type">Unit</span>)?)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(callback !=<span class="literal">null</span>)&#123;</span><br><span class="line">        callback()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>여기서 함수 타입이 invoke 메소드를 구현하는 인터페이스라는 사실을 활용하면 이를 더 간략하게 쓸 수 있다. 일반 메소드처럼 invoke 메소드에 대해서 안전한 호출 구문을 적용하면 된다. <code>callback?.invoke()</code>를 사용하면 된다. </p>
+<p>그러면 이번 Chapter에서 공부했던 joinToString() 함수를 정의해보면 아래와 같다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> Collection<span class="type">&lt;T&gt;</span>.<span class="title">joinToString</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    seperator: <span class="type">String</span> = <span class="string">", "</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">    prefix: <span class="type">String</span> = <span class="string">""</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">    postfix: <span class="type">String</span> = <span class="string">""</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">    transform: ((<span class="type">T</span>) -&gt; <span class="type">String</span>)? = <span class="literal">null</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>: String &#123;</span><br><span class="line">    <span class="keyword">val</span> result = StringBuilder(prefix)</span><br><span class="line">    <span class="keyword">for</span> ((index, element) <span class="keyword">in</span> <span class="keyword">this</span>.withIndex()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (index &gt; <span class="number">0</span>) result.append(seperator)</span><br><span class="line">        <span class="keyword">val</span> str = transform?.invoke(element) ?: element.toString()</span><br><span class="line">        result.append(str)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    result.append(postfix)</span><br><span class="line">    <span class="keyword">return</span> result.toString()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">println(listOf&lt;String&gt;(<span class="string">"Lee"</span>, <span class="string">"Jung"</span>).joinToString(prefix = <span class="string">"&lt;"</span>, postfix = <span class="string">"&gt;"</span>, transform = &#123; it.toUpperCase() &#125;))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 결과</span></span><br><span class="line">&lt;LEE, JUNG&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>널이 될 수 있는 함수 타입의 파라미터를 선언하며, 전달받은 인자가 없을 경우에는 디폴트 값으로 null을 지정한다. </li>
+<li>안전한 호출 구문을 사용해 함수를 호출한다. </li>
+<li>널일 경우에는 엘비스 연산자를 사용해 람다를 인자로 받지 않은 경우 처리한다.</li>
+</ul>
+<p><strong>4.함수를 함수에서 반환</strong></p>
+<p>함수가 함수를 반환하는 경우도 유용하게 쓰인다. 프로그램의 상태나 다른 조건에 따라 달라질 수 있는 로직이 있다고 생각해보자. 예를 들어, 사용자가 선택한 배송 수단에 따라 배송비를 계산하는 방법이 달라질 수 있다. 이럴 때는 적잘한 로직을 선택해서 함수로 반환하는 함수를 정의해 사용할 수 있다. </p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="class"><span class="keyword">class</span> <span class="title">Delivery</span> </span>&#123; STANDARD, EXPEDITED &#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span></span>(<span class="keyword">val</span> itemCount: <span class="built_in">Int</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getShippingCostCalculator</span><span class="params">(delivery: <span class="type">Delivery</span>)</span></span>: (Order) -&gt; <span class="built_in">Double</span> &#123;</span><br><span class="line">    <span class="keyword">when</span> (delivery) &#123;</span><br><span class="line">        Delivery.STANDARD -&gt; <span class="keyword">return</span> &#123; order -&gt; <span class="number">6</span> + <span class="number">2.1</span> * order.itemCount &#125;</span><br><span class="line">        <span class="keyword">else</span> -&gt; <span class="keyword">return</span> &#123; order -&gt; <span class="number">1.2</span> + order.itemCount &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> calculator = getShippingCostCalculator(Delivery.STANDARD)</span><br><span class="line">println(calculator(Order(<span class="number">3</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 결과</span></span><br><span class="line"><span class="number">12.3</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>5.람다를 활용한 중복 제거</strong></p>
+<p>함수 타입과 람다 식은 재활용하기 좋은 코드를 만들 때 유용하게 쓸 수 있다. 람다를 사용하면 복잡한 구조를 피할 수 있고 중복 또한 간결하고 쉽게 제거할 수 있다.</p>
+<p>웹사이트 방문 기록을 분석하는 예제가 있다. SiteVisit에는 방문한 사이트의 경로, 사이트에서 머문 시간, 사용자의 OS 정보가 들어있다. OS는 enum을 통해 관리하자.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="class"><span class="keyword">class</span> <span class="title">OS</span> </span>&#123;WINDOWS, LINUX, MAC, IOS, ANDROID&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">SiteVisit</span></span>(</span><br><span class="line">    <span class="keyword">val</span> path: String,</span><br><span class="line">    <span class="keyword">val</span> duration: <span class="built_in">Double</span>,</span><br><span class="line">    <span class="keyword">val</span> os: OS</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> log = listOf(</span><br><span class="line">    SiteVisit(<span class="string">"/"</span>, <span class="number">34.0</span>, OS.WINDOWS),</span><br><span class="line">    SiteVisit(<span class="string">"/"</span>, <span class="number">22.0</span>, OS.MAC),</span><br><span class="line">    SiteVisit(<span class="string">"/login"</span>, <span class="number">12.0</span>, OS.WINDOWS),</span><br><span class="line">    SiteVisit(<span class="string">"/signup"</span>, <span class="number">8.0</span>, OS.IOS),</span><br><span class="line">    SiteVisit(<span class="string">"/"</span>, <span class="number">16.3</span>, OS.ANDROID)</span><br></pre></td></tr></table></figure>
+
+<p>윈도우 사용자와 맥 사용자의 평균 방문 시간을 구하고 싶다. 로직은 같지만, 사용자가 어떤 운영체제를 사용하느냐에 따라 결과만 바뀐다. 이럴 경우에는 OS를 파라미터로 받아서 함수를 정의하면 된다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> List<span class="type">&lt;SiteVisit&gt;</span>.<span class="title">averageDurationFor</span><span class="params">(os: <span class="type">OS</span>)</span></span> = </span><br><span class="line">    filter &#123;it.os == os&#125;.map(SiteVisit::Duration).average()</span><br></pre></td></tr></table></figure>
+
+<p>이를 통해 중복되는 코드를 별도의 함수로 추출해서 정의할 수 있다. 이제 윈도우 사용자건 맥 사용자건 평균 방문 시간을 구할 수 있다. 하지만, 모바일 사용자(IOS, ANDROID)의 경우에는 어떻게 해야 할까??</p>
+<p>이때는 두 플랫폼 모두에 속하는지 확인해야 하기 때문에 조건이 조금 달라져 위에서 정의한 함수를 사용할 수 없다. 또한, iOS 사용자의 /signup 페이지 평균 방문 시간과 같은 질의를 사용해 사용자의 방문 기록을 분석하고 싶을 때도 있다. 그러면 또 확장 함수를 정의해야 할까? 아니다. 너무 번거롭다. 이럴 때는 람다가 유용하다. <strong>함수 타입을 사용하면 필요한 조건을 파라미터로 받도록 뽑아낼 수 있다.</strong> </p>
+<p>````kotlin<br>fun List<sitevisit>.averageDurationFor(predicate: (SiteVisit) -&gt; Boolean) =<br>    filter(predicate).map(SiteVisit::Duration).average()</sitevisit></p>
+<p>println(log.averageDurationFor {it.os in setOf(OS.ANDROID, OS.IOS) })<br>// 결과 : 12.15</p>
+<p>println(log.averageDurationFor { it.os == OS.IOS &amp;&amp; it.path == “/signup” })<br>// 결과 : 8.0<br>``</p>
+<p>이처럼 코드 중복을 줄일 때, 함수 타입이 상당히 도움이 된다. 코드의 일부분을 복사해 붙여넣고 싶은 경우가 있다면 그 코드를 람다로 만들면 중복을 제거할 수 있을 것이다. 변수, 프로퍼티, 파라미터 등을 사용해 데이터의 중복을 없앨 수 있는 것처럼 람다를 사용하면 코드의 중복을 없앨 수 있다. </p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/12/01/Chap8/" data-id="ck3mhpvxw002m0r3r2m6ztx31" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Victory Woo"
+        },
+        "headline": "[Kotlin] 고차 함수",
+        "image": "http://victorywoolee/victorywoolee.github.io",
+        "keywords": "Android Kotlin lambda",
+        "genre": "Kotlin",
+        "datePublished": "2019-12-01",
+        "dateCreated": "2019-12-01",
+        "dateModified": "2019-12-01",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/12/01/Chap8/",
+        "description": "고차 함수 정의다른 함수를 인자로 받거나 함수를 반환하는 함수를 고차 함수라고 한다. 코틀린에서는 람다나 함수 참조를 사용해 함수를 값으로 표현할 수 있다. 따라서 고차 함수는 람다나 함수 참조를 인자로 넘길 수 있거나 이를 반환하는 함수이다.
+1. 함수 타입
+람다를 인자로 받는 함수를 정의하기에 앞서 람다 인자의 타입을 어떻게 선언하는지 알아야 한다. 람",
+        "wordCount": 1587
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/victorywoolee" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/12/01/Kotlin-NAN/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            [Kotlin] NaN?
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/11/30/CleanCode13/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[CleanCode] 13장</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">19</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/12/01/Kotlin-NAN/" class="title">[Kotlin] NaN?</a></p>
+                            <p class="item-date"><time datetime="2019-12-01T04:09:55.000Z" itemprop="datePublished">2019-12-01</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/12/01/Chap8/" class="title">[Kotlin] 고차 함수</a></p>
+                            <p class="item-date"><time datetime="2019-12-01T01:54:13.000Z" itemprop="datePublished">2019-12-01</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Clean-Code/">Clean Code</a></p>
+                            <p class="item-title"><a href="/2019/11/30/CleanCode13/" class="title">[CleanCode] 13장</a></p>
+                            <p class="item-date"><time datetime="2019-11-30T04:55:29.000Z" itemprop="datePublished">2019-11-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/11/24/Chap7-5/" class="title">[Kotlin] 위임 프로퍼티</a></p>
+                            <p class="item-date"><time datetime="2019-11-24T05:19:15.000Z" itemprop="datePublished">2019-11-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/11/24/Chap7-4/" class="title">[Kotlin] 구조 분해 선언과 Component 함수</a></p>
+                            <p class="item-date"><time datetime="2019-11-24T04:56:35.000Z" itemprop="datePublished">2019-11-24</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Victory Woo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/12/01/Chap8/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
