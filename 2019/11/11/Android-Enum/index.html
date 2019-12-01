@@ -23,7 +23,7 @@
 <meta property="og:description" content="최근에 앱 개발을 하면서 값을 관리해야 하고 간단한 값이기도 해서 Enum을 사용하려 했다. 두 개의 키 값을 관리했지만, 추후 확장성을 고려했을 때 Enum이 좋지 않을 수도 있다는 의견을 받아서 찾아본 내용을 바탕으로 정리하려 한다. 이 글은 Enum 사용 시 주의할 점과 어노테이션을 통해 이러한 점을 보완할 수 있는 방법에 대해 정리했다. 안드로이드">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://victorywoolee/image/android_memory_alloc.png">
-<meta property="og:updated_time" content="2019-11-11T14:09:43.400Z">
+<meta property="og:updated_time" content="2019-12-01T05:37:47.768Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android] Enum과 Typedef 어노테이션">
 <meta name="twitter:description" content="최근에 앱 개발을 하면서 값을 관리해야 하고 간단한 값이기도 해서 Enum을 사용하려 했다. 두 개의 키 값을 관리했지만, 추후 확장성을 고려했을 때 Enum이 좋지 않을 수도 있다는 의견을 받아서 찾아본 내용을 바탕으로 정리하려 한다. 이 글은 Enum 사용 시 주의할 점과 어노테이션을 통해 이러한 점을 보완할 수 있는 방법에 대해 정리했다. 안드로이드">
@@ -189,6 +189,58 @@
 <li>Enum은 앱의 코드(DEX) 크기와 런타임 메모리 사용량을 증가시킨다. </li>
 <li>앱의 DEX 크기가 증가된다는 건 APK 파일도 커지고 앱이 실행되었을 때, 사용하는 메모리의 양도 그만큼 늘어난다는 걸 의미한다. 또한 Enum은 Integer나 String에 비해 더 많은 메모리를 런타임에 사용한다.</li>
 </ul>
+<h2 id="Enum은-얼마나-DEX-크기를-더-증가시킬까"><a href="#Enum은-얼마나-DEX-크기를-더-증가시킬까" class="headerlink" title="Enum은 얼마나 DEX 크기를 더 증가시킬까?"></a>Enum은 얼마나 DEX 크기를 더 증가시킬까?</h2><p>The price of ENUMs (100 Days of Google Dev) 영상을 보면 그 차이를 분명하게 알 수 있다. 먼저 상수를 아래와 같이 Integer로 선언할 경우, DEX의 크기는 124bytes가 늘어난다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> VALUE1 = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> VALUE2 = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> VALUE3 = <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>반면에, 이를 Enum으로 선언하면 DEX의 크기는 1632bytes가 증가한다. 무려 약 13배 가량 차이가 난다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Value&#123;</span><br><span class="line">    VALUE1,</span><br><span class="line">    VALUE2,</span><br><span class="line">    VALUE3</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ENUM을 사용할 때 주의해야 한다. 왜냐하면 ENUM 사용으로 인한 DEX의 크기가 커지면 앱과 시스템이 사용하는 메모리는 줄어들게 된다. </p>
+<p>ENUM을 사용함으로써 증가하는 메모리의 양은 어찌보면 그렇게 크다고 여기지 않을 수도 있지만, ENUM을 무심코 사용하다보면 그 크기는 무시할 수 없다.</p>
+<h2 id="해결-방법"><a href="#해결-방법" class="headerlink" title="해결 방법"></a>해결 방법</h2><p><strong>1.Proguard 사용</strong></p>
+<p>프로가드를 사용하면 빌드 시 Enum을 Integer로 바꾸는 최적화를 수행해준다. 뿐만 아니라 Proguard는 다양한 기능을 제공한다. 난독화와 앱의 크기를 줄여주는 축소 등등. 이는 나중에 알아보자.</p>
+<p><strong>2.Typedef 어노테이션 사용</strong></p>
+<p>Enum의 대안으로 간단히 Integer를 사용함으로써 위의 이슈를 피해갈 수 있다. 하지만, Enum을 사용하면 컴파일 및 런타임에 타입 및 값을 체크할 수 있다.</p>
+<p>API 인자나 반환 값에 제약을 줌으로써 API가 오작동을 일으킬 여지를 최대한 줄이는 것은 좋은 코드를 작성하는 원칙 중 하나이다. 하지만 단순히 Integer로 상수를 만들어 사용하는 것만으로는 이러한 제약을 줄 수 없다. </p>
+<p>이럴 경우, Typedef 어노테이션을 사용하면 컴파일 시에 warning을 통해 이를 미리 확인할 수 있다.</p>
+<h2 id="Typedef-어노테이션"><a href="#Typedef-어노테이션" class="headerlink" title="Typedef 어노테이션"></a>Typedef 어노테이션</h2><p>어노테이션을 통해 특정 값의 유효성을 컴파일 시 확인할 수 있는 기능이다. @IntDef, @StringDef 등의 주석을 사용하면 정수 및 문자열 집합으로 구성된 열거형 주석을 만들어 다른 유형의 코드 참조의 유효성을 검사할 수 있다. </p>
+<p>Typedef 어노테이션은 특정 매개변수, 반환 값, 필드가 특정 상수 집합을 참조하도록 한다. 또한, 허용되는 상수를 자동으로 제공하도록 코드 완성을 사용 설정한다. </p>
+<p>Typedef 어노테이션은 자바에서는 <code>@interface</code>를, 코틀린에서는 <code>annotation class</code>를 사용해 새로운 열거형 어노테이션을 선언한다. @IntDef 및 @StringDef 어노테이션은 @Retention과 함께 새로운 어노테이션을 달 수 있고 열거 형식을 정의하기 위해 필요하다.</p>
+<p><strong>@Retention</strong></p>
+<ul>
+<li>Retention 어노테이션이 달린 값들이 유지되는 기간을 나타낸다. </li>
+<li>Retention 타입 선언에 별도의 선언을 하지 않는다면 기본 값은 RetentionPolicy.CLASS이다.</li>
+<li>Retention의 메타 어노테이션은 실제로 어노테이션이 직접적으로 사용되는 경우에만 영향을 끼친다. </li>
+</ul>
+<ol>
+<li>RetentionPolicy.CLASS</li>
+</ol>
+<p>이 어노테이션은 컴파일러에 의해 클래스 파일에 기록되지만, VM에 의해 유지될 필요는 없다. 이 값이 디폴트 값이다.</p>
+<ol start="2">
+<li>RetentionPolicy.RUNTIME</li>
+</ol>
+<p>이 어노테이션이 붙은 상수 혹은 값에 대해 유지되는 범위는 런타임 동안 유지된다. 그리고 컴파일러에 의해 클래스 파일에 기록되고 런타임에 VM에 의해 유지되므로 반영적으로 읽을 수 있다. </p>
+<ol start="3">
+<li>RetentionPolicy.SOURCE</li>
+</ol>
+<p>이 어노테이션이 붙은 상수 혹은 값에 대해 유지되는 범위는 소스 코드 내에서만 유지된다. 그 이후에는 컴파일러에 의해서 삭제된다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 상수 선언.</span></span><br><span class="line">cont <span class="keyword">val</span> NAVIGATION_MODE_STANDARD = <span class="number">0</span></span><br><span class="line">cont <span class="keyword">val</span> NAVIGATION_MODE_LIST = <span class="number">1</span></span><br><span class="line">cont <span class="keyword">val</span> NAVIGATION_MODE_TABS = <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// NavigationMode 어노테이션 선언와 받을 수 있는 상수 값에 대한 정의.</span></span><br><span class="line"><span class="meta">@Retention(AnnotationRetention.SOURCE)</span></span><br><span class="line"><span class="meta">@IntDef(NAVIGATION_MODE_STANDARD, NAVIGATION_MODE_LIST, NAVIGATION_MODE_TABS)</span></span><br><span class="line"><span class="keyword">annotation</span> <span class="class"><span class="keyword">class</span> <span class="title">NavigationMode</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ActionBar</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@get: NavigationMode</span></span><br><span class="line">    <span class="meta">@setParam</span>: NavigationMode</span><br><span class="line">    <span class="keyword">abstract</span> <span class="keyword">var</span> navigationMode: <span class="built_in">Int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위의 예제 코드는 공식 문서에 있는 부분을 발췌한 것이다. NavigationMode라는 Typedef 어노테이션을 생성한다. NavigationMode에는 @IntDef를 통해 정의한 상수만 들어올 수 있다. (NAVIGATION_MODE_STANDARD, NAVIGATION_MODE_LIST, NAVIGATION_MODE_TABS)</p>
+<p>그리고 해당 어노테이션이 유지되는 범위는 소스 코드 내로 한정 짓는다. 따라서 컴파일러가 .clss에 @NavigationMode의 데이터를 저장하지 않도록 한다. </p>
+<p>이제 NavigationMode는 함수의 반환값이나 인자, 객체의 필드에 사용될 수 있다. 코드에서 navigationMode이라는 변수에 get, set을 지정했는데 NAVIGATION_MODE_STANDARD, NAVIGATION_MODE_LIST, NAVIGATION_MODE_TABS외의 값이 들어가면 Warning이 발생한다. </p>
+<p>이렇게 생성한 Typedef 어노테이션은 안드로이드 스튜디오의 코드 완성에도 적용되어 간편하게 사용할 수 있다. @StringDef를 통해 문자열도 동일하게 사용이 가능하다. </p>
+<h2 id="Typedef-어노테이션-사용-시-주의점"><a href="#Typedef-어노테이션-사용-시-주의점" class="headerlink" title="Typedef 어노테이션 사용 시 주의점"></a>Typedef 어노테이션 사용 시 주의점</h2><p>Typedef 어노테이션을 사용한다 해도 빌드는 정상적으로 수행된다. 즉, Warning이 뜨더라도 정상 빌드가 된다. 따라서 IDE 자체에서 실시간으로 보여주는 warning을 확인하거나 Lint를 통해 경고를 확인하는 것이 중요하다.</p>
+<h2 id="마무리"><a href="#마무리" class="headerlink" title="마무리"></a>마무리</h2><p>Enum이 DEX의 크기를 증가시키는 문제는 있지만, Enum을 사용하면 코드의 가독성과 타입의 값에 대한 유효성이 좀 더 보장된다. </p>
+<p>이는 굉장한 장점이다. 따라서 가독성이나 안정성이 중요시되는 코드에는 Enum을 사용는게 좋으며 맞는 방법이기도 하다.</p>
+<p>Enum과 Typedef 어노테이션은 비슷하다. 각각의 장단점을 보고 필요한 곳에 잘 사용하는 것이 중요하다. 또한, Proguard를 사용하면 위의 최적화를 대부분 알아서 수행해준다. 어찌보면 굳이 Typedef를 사용할 필요가 없어보일지도 모른다.</p>
+<p>이런 관점에서 보면 안드로이드 플랫폼 코드에 Typedef 어노테이션을 권장하는 이유를 알 수 있다. 안드로이드 플랫폼 코드는 프로가드를 적용하지 않고 전체 코드의 크기가 굉장히 크기 때문에 Enum의 사용을 제한하지 않으면 플랫폼 코드가 대첵없이 커질 수 있으니 딱 Typedef 어노테이션을 사용하기 좋은 곳이다.</p>
+<p>그리고 Enum을 통해서 값을 관리해야 한다면, 그리고 관리하는 값의 범위가 많지 않다면 Enum보다는 Typedef를 통해서 관리하는 게 효율적이다. 범위가 크거나 많다면 이 때는 Enum을 통해서 관리하는 게 더 좋을 수도 있다.</p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
+<li><a href="http://anitoy.pe.kr/android-enum-typedef-annotation/" target="_blank" rel="noopener">안드로이드 ENUM과 Typedef 어노테이션(Annotation)</a></li>
+<li><a href="https://developer.android.com/studio/write/annotations.html#kotlin" target="_blank" rel="noopener">Typedef</a></li>
+<li><a href="https://developer.android.com/reference/android/support/annotation/IntDef" target="_blank" rel="noopener">IntDef</a></li>
+</ul>
 
         </div>
         <footer class="article-footer">
@@ -272,12 +324,12 @@
         "genre": "Android",
         "datePublished": "2019-11-11",
         "dateCreated": "2019-11-11",
-        "dateModified": "2019-11-11",
+        "dateModified": "2019-12-01",
         "url": "http://victorywoolee/victorywoolee.github.io/2019/11/11/Android-Enum/",
         "description": "최근에 앱 개발을 하면서 값을 관리해야 하고 간단한 값이기도 해서 Enum을 사용하려 했다. 두 개의 키 값을 관리했지만, 추후 확장성을 고려했을 때 Enum이 좋지 않을 수도 있다는 의견을 받아서 찾아본 내용을 바탕으로 정리하려 한다.
 이 글은 Enum 사용 시 주의할 점과 어노테이션을 통해 이러한 점을 보완할 수 있는 방법에 대해 정리했다.
 안드로이드 ",
-        "wordCount": 157
+        "wordCount": 962
     }
 </script>
 
