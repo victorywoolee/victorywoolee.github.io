@@ -6,26 +6,26 @@
     
 
     
-    <title>[ETC] Method 이름 | VictoryWoo</title>
+    <title>[Kotlin] 인라인 함수 | VictoryWoo</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="Method 이름,좋은 이름 짓기">
+        <meta name="keywords" content="Android,Kotlin,lambda">
     
     <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
-    <meta name="description" content="개발을 하면서 메소드 이름을 그냥 내가 이해하기 쉬운 방향으로 작성을 했던 경향이 있었다. 이렇게 하는 방식이 나쁘지는 않다. 왜냐하면 혼자 프로젝트를 할 때는 상관이 없기 때문이다. 하지만, 이 프로젝트를 유지보수 하거나 다른 사람과 함께 하는 경우에는 이야기가 달라진다.  최근에 회사에서 기능을 구현하면서 메소드를 작성하는데 필자의 이런 특성이 나왔다.">
-<meta name="keywords" content="Method 이름,좋은 이름 짓기">
+    <meta name="description" content="코틀린이 보통 람다를 무명 클래스로 컴파일하지만 그렇다고 람다 식을 사용할 때마다 새로운 클래스가 만들어지지는 않는다. 람다가 변수를 포획하면 람다가 생성되는 시점마다 새로운 무명 클래스 객체가 생긴다. 따라서 람다를 사용하는 구현은 똑같은 작업을 수행하는 일반 함수를 사용한 구현보다 효율적이지 못하다. 그렇다면 반복되는 코드를 별도의 라이브러리 함수로 빼">
+<meta name="keywords" content="Android,Kotlin,lambda">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[ETC] Method 이름">
-<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/10/19/Method-Name/index.html">
+<meta property="og:title" content="[Kotlin] 인라인 함수">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/12/06/Chap8-2/index.html">
 <meta property="og:site_name" content="VictoryWoo">
-<meta property="og:description" content="개발을 하면서 메소드 이름을 그냥 내가 이해하기 쉬운 방향으로 작성을 했던 경향이 있었다. 이렇게 하는 방식이 나쁘지는 않다. 왜냐하면 혼자 프로젝트를 할 때는 상관이 없기 때문이다. 하지만, 이 프로젝트를 유지보수 하거나 다른 사람과 함께 하는 경우에는 이야기가 달라진다.  최근에 회사에서 기능을 구현하면서 메소드를 작성하는데 필자의 이런 특성이 나왔다.">
+<meta property="og:description" content="코틀린이 보통 람다를 무명 클래스로 컴파일하지만 그렇다고 람다 식을 사용할 때마다 새로운 클래스가 만들어지지는 않는다. 람다가 변수를 포획하면 람다가 생성되는 시점마다 새로운 무명 클래스 객체가 생긴다. 따라서 람다를 사용하는 구현은 똑같은 작업을 수행하는 일반 함수를 사용한 구현보다 효율적이지 못하다. 그렇다면 반복되는 코드를 별도의 라이브러리 함수로 빼">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-19T04:51:52.489Z">
+<meta property="og:updated_time" content="2019-12-06T14:53:34.700Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[ETC] Method 이름">
-<meta name="twitter:description" content="개발을 하면서 메소드 이름을 그냥 내가 이해하기 쉬운 방향으로 작성을 했던 경향이 있었다. 이렇게 하는 방식이 나쁘지는 않다. 왜냐하면 혼자 프로젝트를 할 때는 상관이 없기 때문이다. 하지만, 이 프로젝트를 유지보수 하거나 다른 사람과 함께 하는 경우에는 이야기가 달라진다.  최근에 회사에서 기능을 구현하면서 메소드를 작성하는데 필자의 이런 특성이 나왔다.">
+<meta name="twitter:title" content="[Kotlin] 인라인 함수">
+<meta name="twitter:description" content="코틀린이 보통 람다를 무명 클래스로 컴파일하지만 그렇다고 람다 식을 사용할 때마다 새로운 클래스가 만들어지지는 않는다. 람다가 변수를 포획하면 람다가 생성되는 시점마다 새로운 무명 클래스 객체가 생긴다. 따라서 람다를 사용하는 구현은 똑같은 작업을 수행하는 일반 함수를 사용한 구현보다 효율적이지 못하다. 그렇다면 반복되는 코드를 별도의 라이브러리 함수로 빼">
     
 
     
@@ -138,19 +138,19 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/ETC/">ETC</a>
+    <a class="page-title-link" href="/categories/Kotlin/">Kotlin</a>
     </h1>
 </div>
 
                         <div class="main-body-content">
-                            <article id="post-Method-Name" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-Chap8-2" class="article article-single article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        [ETC] Method 이름
+        [Kotlin] 인라인 함수
         </h1>
     
 
@@ -160,8 +160,8 @@
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2019/10/19/Method-Name/" class="article-date">
-            <time datetime="2019-10-19T04:28:36.000Z" itemprop="datePublished">2019-10-19</time>
+        <a href="/2019/12/06/Chap8-2/" class="article-date">
+            <time datetime="2019-12-06T13:49:07.000Z" itemprop="datePublished">2019-12-06</time>
         </a>
     </div>
 
@@ -170,34 +170,38 @@
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Method-이름/">Method 이름</a>, <a class="tag-link" href="/tags/좋은-이름-짓기/">좋은 이름 짓기</a>
+        <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/Kotlin/">Kotlin</a>, <a class="tag-link" href="/tags/lambda/">lambda</a>
     </div>
 
             </div>
         
         
         <div class="article-entry" itemprop="articleBody">
-            <p>개발을 하면서 메소드 이름을 그냥 내가 이해하기 쉬운 방향으로 작성을 했던 경향이 있었다. 이렇게 하는 방식이 나쁘지는 않다. 왜냐하면 혼자 프로젝트를 할 때는 상관이 없기 때문이다. 하지만, 이 프로젝트를 유지보수 하거나 다른 사람과 함께 하는 경우에는 이야기가 달라진다. </p>
-<p>최근에 회사에서 기능을 구현하면서 메소드를 작성하는데 필자의 이런 특성이 나왔다. 그래서 다른 사람들이 함수가 무엇을 하는지 파악하기 힘들어했고, 네이밍을 보았을 때 함수는 한 가지 일을 하는데, 구현을 들여다보니 여러가지 일을 하는 경우도 많았다.</p>
-<p>그래서 최대한 생각을 해보고 작성하도록 노력하고 있으며, 도움이 될만한 글을 참고하고자 했다.</p>
-<h2 id="기초적인-메소드-이름-만드는-법"><a href="#기초적인-메소드-이름-만드는-법" class="headerlink" title="기초적인 메소드 이름 만드는 법"></a>기초적인 메소드 이름 만드는 법</h2><ul>
-<li>일반적으로 메소드 이름을 <code>동사 + 명사형</code> 이름으로 만들 것을 권장하고 있다. 다음과 같다.</li>
-<li>getData(), setData(), calculateData()</li>
-<li>하지만, 아래 내용을 이해한다면 이보다 더 나은 메소드 명을 작성할 수 있을 것이다.</li>
-</ul>
-<h2 id="객체는-수동적이다"><a href="#객체는-수동적이다" class="headerlink" title="객체는 수동적이다."></a>객체는 수동적이다.</h2><ul>
-<li>객체는 외부에서 메소드를 호출해주지 않으면 아무 일도 하지 않는다. 왜냐하면 객체는 수동적이기 때문이다.</li>
-<li>따라서 메소드 명칭은 수동적인 객체에게 무언가를 시키는 형태의 이름이 되어야 한다. 즉, 객체에게 명령하는 형식의 이름이어야 한다. </li>
-</ul>
-<h3 id="메소드-명칭-명령형-동사-목적어"><a href="#메소드-명칭-명령형-동사-목적어" class="headerlink" title="메소드 명칭 = 명령형 동사 + 목적어"></a>메소드 명칭 = 명령형 동사 + 목적어</h3><ul>
-<li>단순히 <code>동사 + 명사형</code>으로 생각하지 않는게 좋다. </li>
-<li>예를 들어, getData()라는 메소드의 명칭은 “데이터를 가지고 온다”라는 의미로 해석할 수도 있지만, 좀 더 명확하게는 “데이터를 내놔!”이다.</li>
-<li>이렇게 해석하는 것이 좋은 이유는 객체를 구현할 때 좀 더 구현을 정확하게 할 수 있기 때문이다. 객체를 구현할 때, getData() 메소드를 구현하면서 “데이터를 가지고 온다.”라고 해석하고 구현하기 시작하면 구현이 꼬이기 시작한다.</li>
-<li>반대로 객체가 “데이터를 내놔!”라는 명령을 받았을 때, 해야 할 일을 getData() 메소드에 구현하면 된다고 생각하고 구현을 시작하면 구현이 명료해진다.</li>
-</ul>
-<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
-<li><a href="https://effectiveprogramming.tistory.com/entry/%EC%A2%8B%EC%9D%80-%EB%A9%94%EC%86%8C%EB%93%9C-%EC%9D%B4%EB%A6%84-%EB%A7%8C%EB%93%9C%EB%8A%94-%EB%B2%95" target="_blank" rel="noopener">좋은 메소드 이름 만드는 법</a></li>
-</ul>
+            <p>코틀린이 보통 람다를 무명 클래스로 컴파일하지만 그렇다고 람다 식을 사용할 때마다 새로운 클래스가 만들어지지는 않는다. 람다가 변수를 포획하면 람다가 생성되는 시점마다 새로운 무명 클래스 객체가 생긴다. 따라서 람다를 사용하는 구현은 똑같은 작업을 수행하는 일반 함수를 사용한 구현보다 효율적이지 못하다.</p>
+<p>그렇다면 반복되는 코드를 별도의 라이브러리 함수로 빼내되 컴파일러가 자바의 일반 명령문만큼 효율적인 코드를 생성하게 만들수는 없을까?? 코틀린 컴파일러는 이러한 작업을 inline이라는 키워드를 통해서 해결한다. inline 변경자를 함수에 붙이면 컴파일러는 그 함수를 호출하는 모든 문장을 함수 본문에 해당하는 바이트코드로 바꿔치기 해준다. </p>
+<h2 id="인라이닝이-작동하는-방식"><a href="#인라이닝이-작동하는-방식" class="headerlink" title="인라이닝이 작동하는 방식"></a>인라이닝이 작동하는 방식</h2><p><strong>어떤 함수를 inline으로 선언하면 그 함수의 본문이 인라인된다.</strong> 다른 말로 하면 함수를 호출하는 코드를 호출하는 바이트코드 대신에 함수 본문을 번역한 바이트 코드로 컴파일한다는 뜻이다. 예제를 통해서 인라이닝을 한 코드가 어떻게 컴파일되는지 살펴보자.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">synchronized</span><span class="params">(lock: <span class="type">Lock</span>, action: () -&gt; <span class="type">T</span>)</span></span> : T &#123;</span><br><span class="line">    lock.lock()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> action()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">finally</span>&#123;</span><br><span class="line">        lock.unlock()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> l = Lock()</span><br><span class="line">synchronized(l)&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위의 코드가 어떤 코드인지는 간단하게만 알고 넘어가자. 다중 스레드 환경에서 어떤 공유 자원에 대한 동시 접근을 막기 위한 것이다. Lock 객체를 잠그고 주어진 코드 블록을 실행한 다음에 Lock 객체에 대한 잠금을 해제한다.</p>
+<p>위에서 synchronized 함수를 inline으로 선언했으므로 synchronized를 호출하는 코드 모두 자바의 synchronized문과 같아진다. synchronized()를 사용하는 다음 예를 확인해보자.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">(l: <span class="type">Lock</span>)</span></span>&#123;</span><br><span class="line">    println(<span class="string">"Before sync"</span>)</span><br><span class="line"></span><br><span class="line">    synchronized(l)&#123;</span><br><span class="line">        println(<span class="string">"Action"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    println(<span class="string">"After sync"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">(l: <span class="type">Lock</span>)</span></span>&#123;</span><br><span class="line">    println(<span class="string">"Before sync"</span>) <span class="comment">// synchronized 함수를 호출하는 foo 함수의 코드</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// synchronized 함수가 인라이닝된 코드</span></span><br><span class="line">    l.lock()</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        println(<span class="string">"Action"</span>) <span class="comment">// 람다 코드의 본문이 인라이닝된 코드</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">finally</span>&#123;</span><br><span class="line">        l.unlock()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    println(<span class="string">"After sync"</span>) <span class="comment">// synchronized 함수를 호출하는 foo 함수의 코드</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>synchronized 함수의 본문뿐 아니라 synchronized에 전달된 람다의 본문도 함께 인라이닝된다는 점에 유의하라. 람다의 본문에 의해 만들어지는 바이트코드는 그 람다를 호출하는 코드(synchronized) 정의의 일부분으로 간주되기 때문에 코틀린 컴파일러는 그 람다를 함수 인터페이스를 구현하는 무명 클래스로 감싸지 않는다.</p>
+<p>인라인 함수를 호출하면서 람다를 넘기는 대신에 함수 타입의 변수를 넘길 수도 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LockOwner</span></span>(<span class="keyword">val</span> lock: Lock)&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">runUnderLock</span><span class="params">(body: () -&gt; <span class="type">Unit</span>)</span></span>&#123;</span><br><span class="line">        synchronized(lock, body)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위의 코드는 람다 대신 함수 타입의 변수를 넘긴다. 이 경우 인라인 함수를 호출하는 코드 위치에서는 변수에 저장된 람다의 코드를 알 수 없다. 따라서 람다 본문은 인라이닝되지 않고 synchronized 함수의 본문만 인라이닝된다. 따라서 람다는 다른 일반적인 경우와 마찬가지로 호출된다. runUnderLock을 컴파일한 바이트 코드는 다음과 비슷할 것이다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LockOwner</span></span>(<span class="keyword">val</span> lock: Lock)&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">_runUnderLock_</span><span class="params">(body: () -&gt; <span class="type">Unit</span>)</span></span>&#123;</span><br><span class="line">        lock.lock()</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            body()</span><br><span class="line">            <span class="comment">// synchronized를 호출하는 부분에서 람다를 알 수 없으므로 본문은 인라이닝되지 않는다.</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">finally</span>&#123;</span><br><span class="line">            lock.unlock()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>하나의 인라인 함수를 두 곳에서 각각 다른 람다를 사용해 호출한다면 그 두 호출은 각각 따로 인라이닝된다. 인라인 함수의 본문 코드가 호출 지점에 복사되고 각 람다의 본문이 인라인 함수의 본문 코드에서 람다를 사용하는 위치에 복사된다.</p>
+<h2 id="인라인-함수의-한계"><a href="#인라인-함수의-한계" class="headerlink" title="인라인 함수의 한계"></a>인라인 함수의 한계</h2><p>일반적으로 인라인 함수의 본문에서 람다 식을 바로 호출하거나 람다 식을 인자로 전달받아 바로 호출하는 경우에는 그 람다를 인라이닝할 수 있다. 그런 경우가 아니라면 컴파일러는 에러 메시지를 보여준다.</p>
+<p>예를 들어, 시퀀스에 대해 동작하는 메소드 중에는 람다를 받아서 모든 시퀀스 원소에 그 람다를 적용한 새 시퀀스를 반환하는 함수가 많다. 그런 함수는 인자로 받은 람다를 시퀀스 객체 생성자의 인자로 넘기곤 한다. 다음은 Sequence.map을 정의하는 방법이다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T,R&gt;</span> Sequence<span class="type">&lt;T&gt;</span>.<span class="title">map</span><span class="params">(transform: (<span class="type">T</span>) -&gt; <span class="type">R</span>)</span></span> : Sequence&lt;R&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> TransformingSequence(<span class="keyword">this</span>, transform)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이 map 함수는 transform 파라미터로 전달받은 함수 값을 호출하지 않는 대신, TransformingSequence라는 클래스의 생성자에게 그 함수 값을 넘긴다. TransformingSequence 생성자는 전달받은 람다를 프로퍼티로 저장한다. 이런 기능을 지원하려면 map에 전달되는 transform 인자를 일반적인(즉, 인라이닝하지 않는) 함수 표현으로 만들 수 밖에 없다.  즉, 여기서는 transform을 함수 인터페이스를 구현하는 무명 클래스 인스턴스로 만들어야만 한다.</p>
+<p>또한, 둘 이상의 람다를 인자로 받는 함수에서 일부 람다만 인라이닝하고 싶을 때도 존재한다. 어떤 람다에 너무 많은 코드가 들어가거나 어떤 람다에 인라이닝을 하면 안되는 코드가 들어갈 가능성이 있다면 그런 람다를 인라이닝하면 안된다. 이런 식으로 인라이닝하면 안되는 람다를 파라미터로 받는다면 <code>noinline</code> 변경자를 파라미터 이름 앞에 붙여서 인라이닝을 금지할 수 있다.</p>
 
         </div>
         <footer class="article-footer">
@@ -205,7 +209,7 @@
 
 
 
-    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/10/19/Method-Name/" data-id="ck3u9rn860051ls3ra2llkden" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/12/06/Chap8-2/" data-id="ck3u9rn7j002wls3r760v59a4" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -275,17 +279,17 @@
             "@type": "Person",
             "name": "Victory Woo"
         },
-        "headline": "[ETC] Method 이름",
+        "headline": "[Kotlin] 인라인 함수",
         "image": "http://victorywoolee/victorywoolee.github.io",
-        "keywords": "Method 이름 좋은 이름 짓기",
-        "genre": "ETC",
-        "datePublished": "2019-10-19",
-        "dateCreated": "2019-10-19",
-        "dateModified": "2019-10-19",
-        "url": "http://victorywoolee/victorywoolee.github.io/2019/10/19/Method-Name/",
-        "description": "개발을 하면서 메소드 이름을 그냥 내가 이해하기 쉬운 방향으로 작성을 했던 경향이 있었다. 이렇게 하는 방식이 나쁘지는 않다. 왜냐하면 혼자 프로젝트를 할 때는 상관이 없기 때문이다. 하지만, 이 프로젝트를 유지보수 하거나 다른 사람과 함께 하는 경우에는 이야기가 달라진다. 
-최근에 회사에서 기능을 구현하면서 메소드를 작성하는데 필자의 이런 특성이 나왔다.",
-        "wordCount": 253
+        "keywords": "Android Kotlin lambda",
+        "genre": "Kotlin",
+        "datePublished": "2019-12-06",
+        "dateCreated": "2019-12-06",
+        "dateModified": "2019-12-06",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/12/06/Chap8-2/",
+        "description": "코틀린이 보통 람다를 무명 클래스로 컴파일하지만 그렇다고 람다 식을 사용할 때마다 새로운 클래스가 만들어지지는 않는다. 람다가 변수를 포획하면 람다가 생성되는 시점마다 새로운 무명 클래스 객체가 생긴다. 따라서 람다를 사용하는 구현은 똑같은 작업을 수행하는 일반 함수를 사용한 구현보다 효율적이지 못하다.
+그렇다면 반복되는 코드를 별도의 라이브러리 함수로 빼",
+        "wordCount": 959
     }
 </script>
 
@@ -349,20 +353,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2019/10/19/Chap6-1/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            [Kotlin] 타입 시스템 - 널 가능성
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2019/10/19/Android-TabLayout/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2019/12/01/Kotlin-NAN/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">[Android] TabLayout</p>
+        <p class="article-nav-title">[Kotlin] NaN?</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -485,7 +479,7 @@
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/10/19/Method-Name/';
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/12/06/Chap8-2/';
     
     (function() {
     var dsq = document.createElement('script');
