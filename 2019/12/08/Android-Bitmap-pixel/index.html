@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>[Android] Bitmap에서 Pixel | VictoryWoo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Android,Bitmap,Pixel">
+    
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
+    <meta name="description" content="Bitmap을 조금 다뤄보면서 Bitmap Config에 픽셀 포맷을 표시하는 부분이 있다. ALPHA_8, RGB_565, ARGB_4444, ARGB_8888 4가지가 있다. 주로 사용하는 RGB_565, ARGB_8888에 대해 알아보자. RGB_565 2byte로 1 pixel을 표현하는 방식이다. 16bit(2byte)를 쪼개서 R(5bit), G">
+<meta name="keywords" content="Android,Bitmap,Pixel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android] Bitmap에서 Pixel">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/12/08/Android-Bitmap-pixel/index.html">
+<meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="Bitmap을 조금 다뤄보면서 Bitmap Config에 픽셀 포맷을 표시하는 부분이 있다. ALPHA_8, RGB_565, ARGB_4444, ARGB_8888 4가지가 있다. 주로 사용하는 RGB_565, ARGB_8888에 대해 알아보자. RGB_565 2byte로 1 pixel을 표현하는 방식이다. 16bit(2byte)를 쪼개서 R(5bit), G">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-08T04:37:56.421Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android] Bitmap에서 Pixel">
+<meta name="twitter:description" content="Bitmap을 조금 다뤄보면서 Bitmap Config에 픽셀 포맷을 표시하는 부분이 있다. ALPHA_8, RGB_565, ARGB_4444, ARGB_8888 4가지가 있다. 주로 사용하는 RGB_565, ARGB_8888에 대해 알아보자. RGB_565 2byte로 1 pixel을 표현하는 방식이다. 16bit(2byte)를 쪼개서 R(5bit), G">
+    
+
+    
+        <link rel="alternate" href="/" title="VictoryWoo" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">VictoryWoo&#39;s Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Android/">Android</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clean-Code/">Clean Code</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ETC/">ETC</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Kotlin/">Kotlin</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Android/">Android</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Android-Bitmap-pixel" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [Android] Bitmap에서 Pixel
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/12/08/Android-Bitmap-pixel/" class="article-date">
+            <time datetime="2019-12-08T04:20:02.000Z" itemprop="datePublished">2019-12-08</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/Bitmap/">Bitmap</a>, <a class="tag-link" href="/tags/Pixel/">Pixel</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>Bitmap을 조금 다뤄보면서 Bitmap Config에 픽셀 포맷을 표시하는 부분이 있다. ALPHA_8, RGB_565, ARGB_4444, ARGB_8888 4가지가 있다. 주로 사용하는 RGB_565, ARGB_8888에 대해 알아보자.</p>
+<h2 id="RGB-565"><a href="#RGB-565" class="headerlink" title="RGB_565"></a>RGB_565</h2><ul>
+<li>2byte로 1 pixel을 표현하는 방식이다.</li>
+<li>16bit(2byte)를 쪼개서 R(5bit), G(6bit), B(5bit)로 표현하는 방식이다. </li>
+<li>2의 5승은 32이므로 Red, Blue는 32가지의 구분정밀도를 갖게되어 색 표현력은 적은 단점이 있다. 하지만, 용량이 작아지는 장점이 있다.</li>
+</ul>
+<h2 id="ARGB-8888"><a href="#ARGB-8888" class="headerlink" title="ARGB_8888"></a>ARGB_8888</h2><ul>
+<li>한 pixel을 4byte를 이용해서 우수한 색 표현을 하게 된다.</li>
+<li>모두 8bit(1byte)를 이용해서 색을 표현할 수 있다.</li>
+<li>2의 8승은 256이므로 256x256x256 = 16,777,216가지의 색 표현을 할 수 있다.</li>
+<li>각 색별로 1byte 씩 사용하고 있어 개발시에도 다루기 편하다.</li>
+</ul>
+<h2 id="기타"><a href="#기타" class="headerlink" title="기타"></a>기타</h2><p>다른 형식으로 RGBA_4444가 있는데 4bit씩 해서 16bit으로 색을 표현하는 방식인데, 현재는 deprecated 되어서 사용되지 않는다. Alpha 비트를 빼면 4096 색을 표현할 수 있다. (16x16x16)</p>
+<p>나머지 형식인 ALPHA_8은 한 pixel에 투명 정보(8bit)만 있는 형식인데, 투명 mask 같은 곳에 사용된다.</p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
+<li><a href="https://hanburn.tistory.com/140" target="_blank" rel="noopener">[graphic] RGB565와 RGBA8888에 대해서</a></li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/12/08/Android-Bitmap-pixel/" data-id="ck3wi17b60000313rvewragt1" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Victory Woo"
+        },
+        "headline": "[Android] Bitmap에서 Pixel",
+        "image": "http://victorywoolee/victorywoolee.github.io",
+        "keywords": "Android Bitmap Pixel",
+        "genre": "Android",
+        "datePublished": "2019-12-08",
+        "dateCreated": "2019-12-08",
+        "dateModified": "2019-12-08",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/12/08/Android-Bitmap-pixel/",
+        "description": "Bitmap을 조금 다뤄보면서 Bitmap Config에 픽셀 포맷을 표시하는 부분이 있다. ALPHA_8, RGB_565, ARGB_4444, ARGB_8888 4가지가 있다. 주로 사용하는 RGB_565, ARGB_8888에 대해 알아보자.
+RGB_565
+2byte로 1 pixel을 표현하는 방식이다.
+16bit(2byte)를 쪼개서 R(5bit), G",
+        "wordCount": 140
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/victorywoolee" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/12/08/Android-View/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[Android] View 그리는 과정 일부</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">21</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/12/08/Android-Bitmap-pixel/" class="title">[Android] Bitmap에서 Pixel</a></p>
+                            <p class="item-date"><time datetime="2019-12-08T04:20:02.000Z" itemprop="datePublished">2019-12-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/12/08/Android-View/" class="title">[Android] View 그리는 과정 일부</a></p>
+                            <p class="item-date"><time datetime="2019-12-08T04:08:30.000Z" itemprop="datePublished">2019-12-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/12/07/Chap8-3/" class="title">[Kotlin] 고차 함수</a></p>
+                            <p class="item-date"><time datetime="2019-12-07T09:55:49.000Z" itemprop="datePublished">2019-12-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/12/06/Chap8-2/" class="title">[Kotlin] 인라인 함수</a></p>
+                            <p class="item-date"><time datetime="2019-12-06T13:49:07.000Z" itemprop="datePublished">2019-12-06</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/12/01/Kotlin-NAN/" class="title">[Kotlin] NaN?</a></p>
+                            <p class="item-date"><time datetime="2019-12-01T04:09:55.000Z" itemprop="datePublished">2019-12-01</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Victory Woo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/12/08/Android-Bitmap-pixel/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
