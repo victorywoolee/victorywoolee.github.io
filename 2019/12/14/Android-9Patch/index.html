@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>[Android] 나인패치 | VictoryWoo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Android,나인패치">
+    
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
+    <meta name="description" content="안드로이드에서 이미지 사용은 필수적이다. 이미지를 사용하지 않는 앱은 거의 없을 정도이기 때문이다. 그 중에서도 가변적으로 크기가 늘어나거나 줄어드는 이미지를 사용해야 하는 경우가 있다. 그리고 해상도 별로 대응하기 위해서는 이미지의 크기가 다를 수도 있다. 그러면 이미지를 해상도 별로 준비할 수도 있지만, 이 때는 메모리와 관련해서 문제가 되기도 한다.">
+<meta name="keywords" content="Android,나인패치">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Android] 나인패치">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/12/14/Android-9Patch/index.html">
+<meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="안드로이드에서 이미지 사용은 필수적이다. 이미지를 사용하지 않는 앱은 거의 없을 정도이기 때문이다. 그 중에서도 가변적으로 크기가 늘어나거나 줄어드는 이미지를 사용해야 하는 경우가 있다. 그리고 해상도 별로 대응하기 위해서는 이미지의 크기가 다를 수도 있다. 그러면 이미지를 해상도 별로 준비할 수도 있지만, 이 때는 메모리와 관련해서 문제가 되기도 한다.">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://victorywoolee/image/9patch.png">
+<meta property="og:updated_time" content="2019-12-14T08:28:45.177Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Android] 나인패치">
+<meta name="twitter:description" content="안드로이드에서 이미지 사용은 필수적이다. 이미지를 사용하지 않는 앱은 거의 없을 정도이기 때문이다. 그 중에서도 가변적으로 크기가 늘어나거나 줄어드는 이미지를 사용해야 하는 경우가 있다. 그리고 해상도 별로 대응하기 위해서는 이미지의 크기가 다를 수도 있다. 그러면 이미지를 해상도 별로 준비할 수도 있지만, 이 때는 메모리와 관련해서 문제가 되기도 한다.">
+<meta name="twitter:image" content="http://victorywoolee/image/9patch.png">
+    
+
+    
+        <link rel="alternate" href="/" title="VictoryWoo" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">VictoryWoo&#39;s Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Android/">Android</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clean-Code/">Clean Code</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ETC/">ETC</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Kotlin/">Kotlin</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Android/">Android</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Android-9Patch" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [Android] 나인패치
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/12/14/Android-9Patch/" class="article-date">
+            <time datetime="2019-12-14T07:39:49.000Z" itemprop="datePublished">2019-12-14</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/나인패치/">나인패치</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>안드로이드에서 이미지 사용은 필수적이다. 이미지를 사용하지 않는 앱은 거의 없을 정도이기 때문이다. 그 중에서도 가변적으로 크기가 늘어나거나 줄어드는 이미지를 사용해야 하는 경우가 있다. 그리고 해상도 별로 대응하기 위해서는 이미지의 크기가 다를 수도 있다. 그러면 이미지를 해상도 별로 준비할 수도 있지만, 이 때는 메모리와 관련해서 문제가 되기도 한다. 이런 경우에 사용할 수 있는 방법 중 하나는 <code>나인패치</code>를 사용하는 것이다.</p>
+<h2 id="나인패치"><a href="#나인패치" class="headerlink" title="나인패치"></a>나인패치</h2><p>이미지의 특정 영역(주로 가장자리)은 원본 이미지 그대로 표시되도록 만들고, 그 외 이미지의 내용이 표시되는 영역을 버튼의 크기 혹은 텍스트의 길이에 따라 늘어나도록 만들면, 아래의 그림처럼 버튼의 크기가 늘어나더라도 깔끔한 형태의 이미지 버튼 모양을 표시할 수 있다.   </p>
+<img src="/image/9patch.png">
+
+<p>이렇게 이미지에서 <strong>늘어날 수 있는 영역과 원본 크기대로 표시되어야 할 영역을 구분하여, 이미지가 그려질 영역의 크기가 늘어나거나 줄어들더라도 원본 이미지 형태를 유지하도록 만들어진 이미지</strong>를 <code>나인 패치 이미지</code>라고 한다.</p>
+<img src="/image/9patch1.jpeg" width="300" height="500">
+
+<p>나인패치 이미지는 이런 형태로 만들어져 있다. 왼쪽과 위쪽에는 1px의 검은 점으로 늘어날 부분을 지정하고 오른쪽과 아래쪽에는 검정 라인으로 내용이 들어갈 부분을 지정해준다. 각 라인은 반드시 1px 라인으로 그려야 한다.</p>
+<p>그리고 안드로이드에서 나인 패치 이미지가 일반적인 이미지 파일과는 다르게 취급된다고 하더라도 나인 패치만의 특별한 파일 포맷으로 저장되는 것은 아니다. 일반적으로 사용되는 png 이미지 파일 형식과 확장자가 그대로 사용된다. </p>
+<p>단, 파일의 확장자를 포함한 이름의 마지막이 <code>*.9.png</code>로 끝나면, 안드로이드에서는 이를 나인패치 이미지 파일로 인식하여 처리한다. 그리고 늘어날 영역과 고정 영역 등에 대한 정보는 원본 이미지에 추가된 상하좌우 1 pixel 영역에 저장되기 때문에, 추가적으로 요구되는 파일도 없다. </p>
+<p>그리고 나인패치 이미지 파일이 *.9.png 형태로 저장된다고 하더라도 소스에서 참조될 때는 .9를 제외한 파일 이름만 리소스 이름으로 사용된다. 즉, “res/drawable/imag.9.png”로 저장된 파일을 xml에서 사용할 때는 “@drawable/image.9.png”가 아닌 “@drawable/image”로 참조하는 것이다. </p>
+<h2 id="나인패치-이미지의-영역-구분"><a href="#나인패치-이미지의-영역-구분" class="headerlink" title="나인패치 이미지의 영역 구분"></a>나인패치 이미지의 영역 구분</h2><p>위에서도 설명했지만, 나인패치 이미지는 크게 두 개의 영역으로 나뉜다. 하나는 뷰의 크기에 따라 늘어나야 할 이미지 영역이고, 다른 하나는 뷰의 크기과 관계 없이 원본 이미지 그대로 표시되는 영역이다. </p>
+<p>나인패치에서는 이 두가지 영역을 구분하기 위해, 기본적으로 이미지를 9개의 세부 영역으로 나눈다. 그런 다음, 4개의 모서리 영역은 원본 이미지를 그대로 그리고 나머지 5개 영역은 뷰의 크기에 따라 늘려서 그린다. <strong>이러한 특징 때문에 이름이 나인패치라고 붙은 것이다.</strong></p>
+<img src="/image/patch2.png">
+
+
+<p>나인패치의 세부 영역이 반드시 9개로 나뉘어야 하는 것은 아니다. 일부 모서리가 뷰의 크기에 따라 늘어나야 한다거나, 원본 크기대로 그려져야 하는 영역과 늘어나야 하는 영역이 섞여 있는 경우, 세부 영역을 다양한 갯수로 구분하여 사용할 수 있다. 즉, 크기가 늘어나는 영역의 갯수를 원하는 만큼 설정할 수 있다는 것이다.</p>
+<img src="/image/patch3.png">
+
+<h2 id="나인패치-이미지의-영역-정보"><a href="#나인패치-이미지의-영역-정보" class="headerlink" title="나인패치 이미지의 영역 정보"></a>나인패치 이미지의 영역 정보</h2><p>나인패치의 영역에 대해 확인했는데, 그렇다면 나인패치 이미지에서 늘어나야 할 영역의 정보는 어디에 저장되는 것일까? 원본 이미지의 위에 영역 정보를 표시하면 원본 이미지를 훼소하게 되어 이미지를 올바르게 표시할 수 없다.</p>
+<p>나인패치에서는 이미지가 늘어나야 할 영역에 대한 정보를 저장하기 위해 원본이미지(image.png) 크기에서 상하좌우 각각 1 pixel씩 늘린 이미지(image.9.png)를 새로 만든다. 그리고 위(Top) 1 pixel 라인에는 가로로 늘어날 영역을 기록하고 왼쪽(Left) 1 pixel 라인에는 세로로 늘어날 영역을 기록한다.</p>
+<p>이때, 늘어나야 할 영역은 <strong>BLACK(0xFF000000)</strong>으로 채우고, 그렇지 않은 영역은 <strong>WHITE(0xFFFFFFFF)</strong> 또는 <strong>TRANSPARENT(0x00XXXXXX)</strong>으로 채운다. </p>
+<p>아래 그림을 통해서 나인 패치의 설명을 함께 보면 이해가 쉬울 것이다.</p>
+<img src="/image/patch4.png">
+
+<p>나인패치 이미지의 세부 영역 구분에 대해 언급할 때, 다양한 형태의 나인 패치 영역에 대해 설명했는데 아래에 몇 가지 예시가 더 있다.</p>
+<img src="/image/patch5.png">
+
+
+<h2 id="나인패치의-컨텐츠-영역-지정"><a href="#나인패치의-컨텐츠-영역-지정" class="headerlink" title="나인패치의 컨텐츠 영역 지정"></a>나인패치의 컨텐츠 영역 지정</h2><p>위에서는 나인 패치 이미지가 그려지는 과정에 대해서 알아봤다. 버튼의 배경에 나인패치 이미지를 지정하고 버튼 텍스트를 표시할 수 있다. 버튼에 텍스트를 표시할 때는 가운데를 기준으로 표시하는게 일반적이지만, 여기서 설명하는 내용을 위해 특별하게 왼쪽 + 위쪽을 기준으로 표시되도록 만들었다.</p>
+<img src="/image/patch6.png">
+
+<p>텍스트가 왼쪽 위에 표시되지만, 이미지의 경계 영여긍ㄹ 침범하는 문제가 발생한다. 이미지의 형태에 따라 어느 정도 추가 공간(Padding)이 주어진다면 버튼의 텍스트가 이미지의 경계를 침범하는 문제가 발생하지 않을 것이다. 아래 그림처럼 말이다.</p>
+<img src="/image/patch7.png">
+
+<p>이렇게 나인패치 이미지가 뷰(View)의 배경으로 사용될 때, 컨텐츠가 표시될 영역을 지정해야 하는 경우가 있는데, 이때 나인패치 이미지의 오른쪽, 아래에 1 pixel 테두리를 사용해 지정할 수 있다. (참고로 컨텐츠 영역은 선택 사항이다. ^^)</p>
+<img src="/image/patch8.png">
+
+<p>컨텐츠 영역 지정은 이미지 영역 지정과 마찬가지로 BLACK으로 채운다. 그리고 그 외 영역은 WHITE나 TRANSPARENT로 채우면 된다.</p>
+<p>아래 그림은 컨텐츠 영역 지정에 따른 텍스트 표시 예를 나타낸다.</p>
+<img src="/image/patch9.png">
+
+
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
+<li><a href="https://recipes4dev.tistory.com/131?category=635576" target="_blank" rel="noopener">안드로이드 나인 패치(9-Patch) 이미지 버튼. (Android Nine-Patch Image Button)</a></li>
+<li><a href="https://nalrarydesigner.tistory.com/entry/%EB%82%98%EC%9D%B8%ED%8C%A8%EC%B9%989patch-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A5%BC-%EB%A7%8C%EB%93%A4%EC%96%B4-%EB%B3%B4%EC%9E%90" target="_blank" rel="noopener">안드로이드앱 디자인을 위한 나인패치(9patch) 이미지를 만들어 보자.</a></li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/12/14/Android-9Patch/" data-id="ck45ac2260000ps3r07shuu6w" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Victory Woo"
+        },
+        "headline": "[Android] 나인패치",
+        "image": "http://victorywoolee/victorywoolee.github.io/image/9patch.png",
+        "keywords": "Android 나인패치",
+        "genre": "Android",
+        "datePublished": "2019-12-14",
+        "dateCreated": "2019-12-14",
+        "dateModified": "2019-12-14",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/12/14/Android-9Patch/",
+        "description": "안드로이드에서 이미지 사용은 필수적이다. 이미지를 사용하지 않는 앱은 거의 없을 정도이기 때문이다. 그 중에서도 가변적으로 크기가 늘어나거나 줄어드는 이미지를 사용해야 하는 경우가 있다. 그리고 해상도 별로 대응하기 위해서는 이미지의 크기가 다를 수도 있다. 그러면 이미지를 해상도 별로 준비할 수도 있지만, 이 때는 메모리와 관련해서 문제가 되기도 한다. ",
+        "wordCount": 650
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/victorywoolee" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/12/14/Chap9-2/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[Kotlin] 제네릭 2</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">23</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/12/14/Android-9Patch/" class="title">[Android] 나인패치</a></p>
+                            <p class="item-date"><time datetime="2019-12-14T07:39:49.000Z" itemprop="datePublished">2019-12-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/12/14/Chap9-2/" class="title">[Kotlin] 제네릭 2</a></p>
+                            <p class="item-date"><time datetime="2019-12-14T04:21:34.000Z" itemprop="datePublished">2019-12-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/12/13/Chap9-1/" class="title">[Kotlin] 제네릭</a></p>
+                            <p class="item-date"><time datetime="2019-12-13T11:51:02.000Z" itemprop="datePublished">2019-12-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/12/08/Android-Bitmap-pixel/" class="title">[Android] Bitmap에서 Pixel</a></p>
+                            <p class="item-date"><time datetime="2019-12-08T04:20:02.000Z" itemprop="datePublished">2019-12-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/12/08/Android-View/" class="title">[Android] View 그리는 과정 일부</a></p>
+                            <p class="item-date"><time datetime="2019-12-08T04:08:30.000Z" itemprop="datePublished">2019-12-08</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Victory Woo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/12/14/Android-9Patch/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
