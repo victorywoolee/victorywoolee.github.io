@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>[Kotlin] 제네릭 2 | VictoryWoo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Android,Kotlin,제네릭">
+    
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
+    <meta name="description" content="제네릭 두 번째 파트다. JVM의 제네릭스는 보통 타입 소거를 사용해 구현된다. 이는 실행 시점에 제네릭 클래스의 인스턴스에 타입 인자 정보가 들어있지 않다는 뜻이다. 그러면 이런 점이 코틀린의 제네릭에는 어떤 영향을 미치는지 확인해보자. 실행 시점의 제네릭 : 타입 검사와 캐스트자바와 마찬가지로 코틀린 제네릭 타입 인자 정보를 런타임에 지워진다. 이는 제">
+<meta name="keywords" content="Android,Kotlin,제네릭">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Kotlin] 제네릭 2">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/12/14/Chap9-2/index.html">
+<meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="제네릭 두 번째 파트다. JVM의 제네릭스는 보통 타입 소거를 사용해 구현된다. 이는 실행 시점에 제네릭 클래스의 인스턴스에 타입 인자 정보가 들어있지 않다는 뜻이다. 그러면 이런 점이 코틀린의 제네릭에는 어떤 영향을 미치는지 확인해보자. 실행 시점의 제네릭 : 타입 검사와 캐스트자바와 마찬가지로 코틀린 제네릭 타입 인자 정보를 런타임에 지워진다. 이는 제">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-14T06:51:23.692Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Kotlin] 제네릭 2">
+<meta name="twitter:description" content="제네릭 두 번째 파트다. JVM의 제네릭스는 보통 타입 소거를 사용해 구현된다. 이는 실행 시점에 제네릭 클래스의 인스턴스에 타입 인자 정보가 들어있지 않다는 뜻이다. 그러면 이런 점이 코틀린의 제네릭에는 어떤 영향을 미치는지 확인해보자. 실행 시점의 제네릭 : 타입 검사와 캐스트자바와 마찬가지로 코틀린 제네릭 타입 인자 정보를 런타임에 지워진다. 이는 제">
+    
+
+    
+        <link rel="alternate" href="/" title="VictoryWoo" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">VictoryWoo&#39;s Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Android/">Android</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clean-Code/">Clean Code</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ETC/">ETC</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Kotlin/">Kotlin</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Kotlin/">Kotlin</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Chap9-2" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [Kotlin] 제네릭 2
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/12/14/Chap9-2/" class="article-date">
+            <time datetime="2019-12-14T04:21:34.000Z" itemprop="datePublished">2019-12-14</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/Kotlin/">Kotlin</a>, <a class="tag-link" href="/tags/제네릭/">제네릭</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>제네릭 두 번째 파트다. JVM의 제네릭스는 보통 <code>타입 소거</code>를 사용해 구현된다. 이는 실행 시점에 제네릭 클래스의 인스턴스에 타입 인자 정보가 들어있지 않다는 뜻이다. 그러면 이런 점이 코틀린의 제네릭에는 어떤 영향을 미치는지 확인해보자.</p>
+<h2 id="실행-시점의-제네릭-타입-검사와-캐스트"><a href="#실행-시점의-제네릭-타입-검사와-캐스트" class="headerlink" title="실행 시점의 제네릭 : 타입 검사와 캐스트"></a>실행 시점의 제네릭 : 타입 검사와 캐스트</h2><p>자바와 마찬가지로 코틀린 제네릭 타입 인자 정보를 런타임에 지워진다. 이는 제네릭스 클래스 인스턴스가 그 인스턴스를 생성할 때 쓰인 타입 인자에 대한 정보를 유지하지 않는다는 뜻이다. List<string> 객체를 만들고 그 안에 문자열을 여럿 넣더라도 실행 시점에는 그 객체를 오직 List로만 볼 수 있게 된다. 그 List 객체가 어떤 타입의 원소를 저장하는지 실행 시점에는 알 수 없다. </string></p>
+<p>이에 대해 조금 더 알아보자. 두 리스트가 있고, 이들이 코드를 실행할 때 어떻게 되는지 확인해보자.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> list1 : List&lt;String&gt; = listOf(<span class="string">"a"</span>,<span class="string">"b"</span>)</span><br><span class="line"><span class="keyword">val</span> list2 : List&lt;<span class="built_in">Int</span>&gt; = listOf(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<p>컴파일러는 두 리스트를 서로 다른 타입으로 인식하지만, 실행 시점에 이 둘은 완전히 같은 타입의 객체다. 그럼에도 불구하고 보통은 List<string>에는 문자열만 들어있고 List<int>에는 정수만 들어있다고 가정할 수 있는데, 이는 컴파일러가 타입 인자를 알고 올바른 타입의 값만 각 리스트에 넣도록 보장해주기 때문이다. </int></string></p>
+<p>타입 인자를 따로 저장하지 않기 때문에 실행 시점에 타입 인자를 검사할 수 없다. 그래서 어떤 리스트가 문자열로 이루어졌는지, 다른 객체로 이루어진 리스트인지를 실행 시점에 검사할 수 없다. 일반적으로 말하면 is 검사에서 타입 인자로 지정한 타입을 검사할 수는 없다. 아래 코드 컴파일 시 오류가 발생한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(value <span class="keyword">is</span> List&lt;String&gt;) &#123; ... &#125;</span><br><span class="line">ERROR : Cannot check <span class="keyword">for</span> instance of erased type</span><br></pre></td></tr></table></figure>
+
+<p>실행 시점에 어떤 값이 List인지 여부는 확실히 알아낼 수 있지만, 그 리스트가 String의 리스트인지, 혹은 다른 어떤 타입의 리스트인지는 알 수가 없다. 그런 정보는 지워진다. 다만 저장해야 하는 타입 정보의 크기가 줄어들어서 전반적인 메모리 사용량이 줄어든다는 제네릭 타입 소거 나름의 장점이 있다. </p>
+<p>코틀린에서는 타입 인자를 명시하지 않고 제네릭 타입을 사용할 수 없다. 그렇다면 어떤 값이 집합이나 맵이 아니라 리스트라는 사실을 어떻게 확인할 수 있을까? <code>스타 프로젝션</code>을 사용하면 된다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(value <span class="keyword">is</span> List&lt;*&gt;) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>스타 프로젝션은 인자를 알 수 없는 제네릭 타입을 표현할 때, 사용한다고 알고 있으면 된다. 추후에 이에 대해서 알아볼 예정이다. </p>
+<p>as, as? 캐스팅에도 제네릭 타입을 사용할 수 있다. 하지만, 기저 클래스는 같지만 타입 인자가 다른 타입으로 캐스팅해도 여전히 캐스팅에 성공한다는 점을 조심해야 한다. 이유는 실행 시점에 제네릭 타입의 타입 인자를 알 수 없으므로 캐스팅은 항상 성공하는 것이다. 이런 캐스팅을 사용하면 컴파일러가 경고 메시지를 준다. 하지만, 컴파일러는 단순히 경고만 하고 컴파일을 진행하므로 실행이 된다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printSum</span><span class="params">(c: <span class="type">Collection</span>&lt;*&gt;)</span></span>&#123;</span><br><span class="line">    <span class="comment">// Unchecked cast: List&lt;*&gt; to List&lt;Int&gt; 경고 메시지 발생. </span></span><br><span class="line">    <span class="keyword">val</span> intList = c <span class="keyword">as</span>? List&lt;<span class="built_in">Int</span>&gt; ?: <span class="keyword">throw</span> IllegalArgumentException(<span class="string">"List is expected"</span>)</span><br><span class="line">    println(intList.sum())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printSum(listOf(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line"><span class="comment">// 결과 : 6</span></span><br></pre></td></tr></table></figure>
+
+<p>경고 메시지를 띄워주긴 하지만, 모든 코드가 문제 없이 컴파일 된다. 정수 리스트나 정수 집합에 대해 이 함수를 호출하면 잘 작동한다. 리스트는 결과를 보여주고 집합일 경우에는 예외가 발생한다. 하지만, 잘못된 타입의 원소가 들어있는 리스트를 전달하면 실행 시점에 <strong>ClassCastException</strong>이 발생한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">printSum(listOf(<span class="string">"a"</span>,<span class="string">"b"</span>))</span><br><span class="line">ClassCastException : String Cannot be cast to Number</span><br></pre></td></tr></table></figure>
+
+<p>문자열 리스트를 printSum 함수에 전달하면 다른 예외가 발생한다. 어떤 값이 List<int>인지 검사할 수 없으므로 IllegalArgumentException이 발생하지는 않는다. 따라서 as? 캐스트가 성공하고 문자열 리스트에 대해 sum 함수가 호출된다. 이 sum 함수를 호출하려고 할 때, 예외가 발생한다.</int></p>
+<p>sum은 Number 타입의 값을 리스트에서 가져와 서로 더하려고 시도하지만, String을 Number로 사용하려고 하면 실행 시 ClassCastException이 발생한다. </p>
+<p>반면에, 코틀린 컴파일러는 컴파일 시점에 타입 정보가 주어진 경우에는 is 검사를 수행하게 할 수 있을 정도로 똑똑하다. 아래의 코드를 보자.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printSum</span><span class="params">(c: <span class="type">Collection</span>&lt;<span class="type">Int</span>&gt;)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(c <span class="keyword">is</span> List&lt;<span class="built_in">Int</span>&gt;)&#123;</span><br><span class="line">        println(c.sum())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printSum(listOf(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line"><span class="comment">// 결과 : 6</span></span><br></pre></td></tr></table></figure>
+
+<p>위의 코드에서는 컴파일 시점에 c 컬렉션이 Int 값을 저장한다는 사실을 알 수 있으므로 c가 List<int>인지 검사할 수 있다. </int></p>
+<h2 id="실체화한-타입-파리미터를-사용한-함수-선언"><a href="#실체화한-타입-파리미터를-사용한-함수-선언" class="headerlink" title="실체화한 타입 파리미터를 사용한 함수 선언"></a>실체화한 타입 파리미터를 사용한 함수 선언</h2><p>앞에서 다뤘지만, 꽤나 중요하기 때문에 한 번 더 설명한다. 코틀린 제네릭 타입의 타입 인자는 실행 시점에 지워진다. 따라서 제네릭 클래스의 인스턴스가 있어도 그 인스턴스를 만들 때, 사용한 타입 인자를 알아낼 수 없다. 제네릭 함수의 타입 인자도 마찬가지다. 제네릭 함수가 호출되어도 그 함수의 본문에서는 호출 시 쓰인 타입 인자를 알 수 없다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">isA</span><span class="params">(value: <span class="type">T</span>)</span></span> = value <span class="keyword">is</span> T</span><br><span class="line">Error : Cannot check <span class="keyword">for</span> instance of erased type: T</span><br></pre></td></tr></table></figure>
+
+<p>이는 일반적으로 사실이지만, 이런 제약을 피할 수 있는 경우가 하나 있다. 앞 장에서 살펴본 <strong>인라인 함수의 타입 파라미터는 실체화되므로 실행 시점에 인라인 함수의 타입 인자를 알 수 있다.</strong> </p>
+<p>어떤 함수에 inline 키워드를 붙이면 컴파일러는 그 함수를 호출한 식을 모두 함수 본문으로 바꾼다. 함수가 람다를 인자로 사용하는 경우 그 함수를 인라인 함수로 만들면 람다 코드도 함께 인라이닝되고, 그에 따라 무명 클래스와 객체가 생성되지 않아서 성능상 이점이 있다. </p>
+<p>isA 함수를 인라인 함수로 만들고 타입 파라미터를 <code>reified</code>로 지정하면 value의 타입이 T의 인스턴스인지를 실행 시점에 검사할 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T&gt;</span> <span class="title">isA</span><span class="params">(value: <span class="type">T</span>)</span></span> = value <span class="keyword">is</span> T</span><br><span class="line"></span><br><span class="line">println(isA&lt;String&gt;(<span class="string">"abc"</span>)) -&gt; <span class="literal">true</span></span><br><span class="line">println(isA&lt;String&gt;(<span class="number">123</span>)) -&gt; <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>표준 라이브러리 함수인 <code>filterIsInstance</code> 함수는 실체화한 타입 파라미터를 사용하는 예 중 하나이다. 이 함수는 인자로 받은 컬렉션의 원소 중에서 타입 인자로 지정한 클래스의 인스턴스만을 모아서 만든 리스트를 반환한다. </p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> items = listOf(<span class="string">"one"</span>,<span class="number">2</span>, <span class="string">"three"</span>)</span><br><span class="line">println(items.filterIsInstance&lt;String&gt;())</span><br><span class="line">결과 -&gt; [one, three]</span><br></pre></td></tr></table></figure>
+
+<p>filterIsInstance의 타입 인자로 String을 지정함으로써 문자열만 필요하다는 사실을 기술한다. 이 함수의 반환 타입은 List<string>이 된다. 여기서는 타입 인자를 실행 시점에 알 수 있고 filterIsInstance는 그 타입 인자를 사용해 리스트의 원소 중에 타입 인자와 타입이 일치하는 원소만을 추려낼 수 있다.  </string></p>
+<p>아래 코드는 filterIsInstance 함수 선언을 가져왔다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T&gt;</span> Iterable<span class="type">&lt;*&gt;</span>.<span class="title">filterIsInstance</span><span class="params">()</span></span>: List&lt;T&gt; &#123;</span><br><span class="line">    <span class="keyword">val</span> destination = mutableListOf&lt;T&gt;()</span><br><span class="line">    <span class="keyword">for</span> (element <span class="keyword">in</span> <span class="keyword">this</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (element <span class="keyword">is</span> T) &#123;</span><br><span class="line">            destination.add(element)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> destination</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>reified : 이 키워드가 붙은 타입 파라미터가 실행 시점에 지워지지 않음을 표시한다.</li>
+<li>그리고 각 원소가 타입 인자로 지정한 클래스의 인스턴스인지 검사할 수 있다.</li>
+</ul>
+<p><strong>인라인 함수에서만 실체화한 타입을 쓸 수 있는 이유?</strong></p>
+<ul>
+<li>이렇게 실체화한 타입 인자는 어떻게 동작하는 걸까? 왜 일반 함수에서는 element is T를 쓸 수 없고 인라인 함수에서만 쓸 수 있는 걸까??</li>
+</ul>
+<p>컴파일러는 인라인 함수의 본문을 구현한 바이트코드를 그 함수가 호출되는 모든 지점에 삽입한다. (이는 앞에서도 설명한 부분이다.) <strong>컴파일러는 실체화한 타입 인자를 사용해 인라인 함수를 호출하는 각 부분의 정확한 타입 인자를 알 수 있다.</strong> 따라서 컴파일러는 타입 인자로 쓰인 구체적인 클래스를 참조하는 바이트코드를 생성해 삽입할 수 있다. 아래의 코드는 filterIsInstance가 다음과 동등한 코드를 만들어 냄을 보여준다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(element <span class="keyword">in</span> <span class="keyword">this</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(element <span class="keyword">is</span> String)&#123; <span class="comment">// 특정 클래스 참조</span></span><br><span class="line">        destination.add(element)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>타입 파라미터가 아니라 구체적인 타입을 사용하므로 만들어진 바이트코드는 실행 시점에 벌어지는 타입 소거의 영향을 받지 않는다. </p>
+<p>자바 코드에서는 reified 타입 파라미터를 사용하는 inline 함수를 호출할 수 없다. 자바에서는 코틀린 인라인 함수를 다른 보통 함수처럼 호출한다. 그런 경우, 인라인 함수를 호출해도 실제로 인라이닝이 되지는 않는다. 실체화한 타입 파라미터가 있는 함수의 경우 타입 인자 값을 바이트 코드에 넣기 위해 일반 함수보다 더 많은 작업이 필요하고, 항상 인라이닝 되어야만 한다. 따라서 실체화한 타입 파라미터가 있는 인라이닝 함수를 일반 함수처럼 자바에서 호출할 수는 없다. </p>
+<h2 id="실체화한-타입-파라미터로-클래스-참조-대신"><a href="#실체화한-타입-파라미터로-클래스-참조-대신" class="headerlink" title="실체화한 타입 파라미터로 클래스 참조 대신"></a>실체화한 타입 파라미터로 클래스 참조 대신</h2><p>표준 자바 API인 ServiceLoader를 사용해 서비스를 읽어들이는 코드가 있다고 가정하자.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> serviceImpl = ServiceLoader.load(Service::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>::class.java 구문은 코틀린 클래스에 대응하는 java.lang.Class 참조를 얻는 방법을 보여준다. Service::class.java 코드와 Service.class 코드는 같다. 위 코드를 구체화한 타입 파라미터를 사용해 다시 작성하면 아래와 같다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T&gt;</span> <span class="title">loadService</span><span class="params">()</span></span> : ServiceLoader&lt;T&gt;? &#123;</span><br><span class="line">    <span class="keyword">return</span> ServiceLoader.load(T::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> serviceImpl = loadService&lt;Service&gt;()</span><br></pre></td></tr></table></figure>
+
+<p>타입 파라미터 T에 대해 reified 키워드를 붙임으로써 구체화한 타입 파라미터라는 것을 명시한다. 그리고 T::class로 타입 파라미터의 클래스를 가져온다.</p>
+<p>일반 클래스에 사용할 수 있는 ::class.java 구문을 이 경우에도 사용할 수 있다. 이를 통해 타입 파라미터로 지정된 클래스에 따른 java.lang.Class를 얻을 수 있고, 그렇게 얻은 클래스 참조를 보통 때와 마찬가지로 사용할 수 있다. </p>
+<p>안드로이드에서 사용하는 startActivity도 이런 형식으로 만들 수 있다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T: Activity&gt;</span> Context.<span class="title">startActivity</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>, T::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">    startActivity(intent)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">startActivity&lt;DetailActivity&gt;()</span><br></pre></td></tr></table></figure>
+
+<h2 id="실체화한-타입-파라미터의-제약"><a href="#실체화한-타입-파라미터의-제약" class="headerlink" title="실체화한 타입 파라미터의 제약"></a>실체화한 타입 파라미터의 제약</h2><p>실체화한 타입 파라미터는 유용한 도구이지만, 몇 가지 제약이 있다. 일부는 실체화의 개념으로 인해 생기는 제약이며, 나머지는 지금 코틀린이 실체화를 구현하는 방식에 의해 생기는 제약으로 향후 완화될 가능성이 있다.</p>
+<p>아래와 같은 경우에 실체화한 타입 파라미터를 사용할 수 있다.</p>
+<ul>
+<li>타입 검사와 캐스팅(as, as? is, !is)</li>
+<li>10장에서 설명할 코틀린 리플렉션 API</li>
+<li>코틀린 타입에 대응하는 java.lang.Class를 얻기</li>
+<li>다른 함수를 호출할 때, 타입 인자로 사용 </li>
+</ul>
+<p>하지만, 다음과 같은 일은 할 수 없다.</p>
+<ul>
+<li>타입 파라미터 클래스의 인스턴스 생성하기</li>
+<li>타입 파라미터 클래스의 동반 객체 메소드 호출하기</li>
+<li>실체화한 타입 파라미터를 요구하는 함수를 호출하면서 실체화하지 않은 타입 파라미터로 받은 타입을 타입 인자로 넘기기</li>
+<li>클래스, 프로퍼티, 인라인 함수가 아닌 함수의 타입 파라미터를 reified로 지정하기</li>
+</ul>
+<p>마지막 제약으로 인해 한 가지 흥미로운 파급 효과가 생긴다. <strong>실체화한 타입 파라미터를 인라인 함수에만 사용할 수 있으므로 실체화한 타입 파라미터를 사용하는 함수는 자신에게 전달되는 모든 람다와 함께 인라이닝된다.</strong> 람다 내부에서 타입 파라미터를 사용하는 방식에 따라서는 람다를 인라이닝할 수 없는 경우가 생기기도 하고 우리가 성능 문제로 람다를 인라이닝 하고 싶지 않을 수도 있다. 그런 경우에는 <code>noinline</code> 키워드를 함수 타입 파라미터에 붙여서 인라이닝을 금지할 수도 있다.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/12/14/Chap9-2/" data-id="ck4582eis002zhm3rieuypxq7" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Victory Woo"
+        },
+        "headline": "[Kotlin] 제네릭 2",
+        "image": "http://victorywoolee/victorywoolee.github.io",
+        "keywords": "Android Kotlin 제네릭",
+        "genre": "Kotlin",
+        "datePublished": "2019-12-14",
+        "dateCreated": "2019-12-14",
+        "dateModified": "2019-12-14",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/12/14/Chap9-2/",
+        "description": "제네릭 두 번째 파트다. JVM의 제네릭스는 보통 타입 소거를 사용해 구현된다. 이는 실행 시점에 제네릭 클래스의 인스턴스에 타입 인자 정보가 들어있지 않다는 뜻이다. 그러면 이런 점이 코틀린의 제네릭에는 어떤 영향을 미치는지 확인해보자.
+실행 시점의 제네릭 : 타입 검사와 캐스트자바와 마찬가지로 코틀린 제네릭 타입 인자 정보를 런타임에 지워진다. 이는 제",
+        "wordCount": 1676
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/victorywoolee" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/12/13/Chap9-1/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[Kotlin] 제네릭</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">23</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/12/14/Chap9-2/" class="title">[Kotlin] 제네릭 2</a></p>
+                            <p class="item-date"><time datetime="2019-12-14T04:21:34.000Z" itemprop="datePublished">2019-12-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/12/13/Chap9-1/" class="title">[Kotlin] 제네릭</a></p>
+                            <p class="item-date"><time datetime="2019-12-13T11:51:02.000Z" itemprop="datePublished">2019-12-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/12/08/Android-Bitmap-pixel/" class="title">[Android] Bitmap에서 Pixel</a></p>
+                            <p class="item-date"><time datetime="2019-12-08T04:20:02.000Z" itemprop="datePublished">2019-12-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/12/08/Android-View/" class="title">[Android] View 그리는 과정 일부</a></p>
+                            <p class="item-date"><time datetime="2019-12-08T04:08:30.000Z" itemprop="datePublished">2019-12-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/12/07/Chap8-3/" class="title">[Kotlin] 고차 함수</a></p>
+                            <p class="item-date"><time datetime="2019-12-07T09:55:49.000Z" itemprop="datePublished">2019-12-07</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Victory Woo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/12/14/Chap9-2/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
