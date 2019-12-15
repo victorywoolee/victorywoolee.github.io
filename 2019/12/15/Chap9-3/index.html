@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>[Kotlin] 제네릭 3 | VictoryWoo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Android,Kotlin,제네릭">
+    
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
+    <meta name="description" content="변성이라는 개념은 List, List와 같이 기저 타입이 같고 타입 인자가 다른 여러 타입이 서로 어떤 관계가 있는지 설명하는 개념이다. 이번에는 이 개념에 대해서 알아보도록 하자. 변성이 있는 이유 : 인자를 함수에 넘기기List 타입의 파라미터를 받는 함수에 List을 넘기면 안전할까? String 클래스는 Any 클래스를 확장하므로 Any 타입의 값을">
+<meta name="keywords" content="Android,Kotlin,제네릭">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Kotlin] 제네릭 3">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/12/15/Chap9-3/index.html">
+<meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="변성이라는 개념은 List, List와 같이 기저 타입이 같고 타입 인자가 다른 여러 타입이 서로 어떤 관계가 있는지 설명하는 개념이다. 이번에는 이 개념에 대해서 알아보도록 하자. 변성이 있는 이유 : 인자를 함수에 넘기기List 타입의 파라미터를 받는 함수에 List을 넘기면 안전할까? String 클래스는 Any 클래스를 확장하므로 Any 타입의 값을">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-15T07:44:01.377Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Kotlin] 제네릭 3">
+<meta name="twitter:description" content="변성이라는 개념은 List, List와 같이 기저 타입이 같고 타입 인자가 다른 여러 타입이 서로 어떤 관계가 있는지 설명하는 개념이다. 이번에는 이 개념에 대해서 알아보도록 하자. 변성이 있는 이유 : 인자를 함수에 넘기기List 타입의 파라미터를 받는 함수에 List을 넘기면 안전할까? String 클래스는 Any 클래스를 확장하므로 Any 타입의 값을">
+    
+
+    
+        <link rel="alternate" href="/" title="VictoryWoo" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">VictoryWoo&#39;s Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Android/">Android</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clean-Code/">Clean Code</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ETC/">ETC</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Kotlin/">Kotlin</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Kotlin/">Kotlin</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Chap9-3" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [Kotlin] 제네릭 3
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/12/15/Chap9-3/" class="article-date">
+            <time datetime="2019-12-15T06:19:24.000Z" itemprop="datePublished">2019-12-15</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/Kotlin/">Kotlin</a>, <a class="tag-link" href="/tags/제네릭/">제네릭</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><code>변성</code>이라는 개념은 List<string>, List<any>와 같이 기저 타입이 같고 타입 인자가 다른 여러 타입이 서로 어떤 관계가 있는지 설명하는 개념이다. 이번에는 이 개념에 대해서 알아보도록 하자.</any></string></p>
+<h2 id="변성이-있는-이유-인자를-함수에-넘기기"><a href="#변성이-있는-이유-인자를-함수에-넘기기" class="headerlink" title="변성이 있는 이유 : 인자를 함수에 넘기기"></a>변성이 있는 이유 : 인자를 함수에 넘기기</h2><p>List<any> 타입의 파라미터를 받는 함수에 List<string>을 넘기면 안전할까? String 클래스는 Any 클래스를 확장하므로 Any 타입의 값을 파라미터로 받는 함수에 String 값을 넘겨도 절대로 안전하다. 하지만, Any와 String이 List 인터페이스의 타입 인자로 들어가는 경우, 안전성에 대해 자신있게 말할 수 없다. (이렇게 말한 이유는 상황에 따라 조금 다르기 때문이다.)</string></any></p>
+<p>다음의 경우는 안전한 경우다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printConent</span><span class="params">(list: <span class="type">List</span>&lt;<span class="type">Any</span>&gt;)</span></span>&#123;</span><br><span class="line">    println(list.joinToString())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printContent(listOf(<span class="string">"abc"</span>,<span class="string">"bac"</span>))</span><br><span class="line">결과 : abc, bac</span><br></pre></td></tr></table></figure>
+
+<p>문자열 리스트도 잘 동작한다. 위의 함수는 각 원소를 Any로 취급하며, 모든 문자열은 Any 타입이기도 하므로 완전히 안전하다. </p>
+<p>다음에는 이 리스트를 변경하는 다른 함수를 살펴보자. 코틀린에서는 List 타입이 읽기 전용이기 때문에 MutableList를 사용해야 한다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">addAnswer</span><span class="params">(list: <span class="type">MutableList</span>&lt;<span class="type">Any</span>&gt;)</span></span>&#123;</span><br><span class="line">    list.add(<span class="number">42</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> strings = mutableListOf(<span class="string">"abc"</span>, <span class="string">"bac"</span>)</span><br><span class="line">addAnswer(strings) <span class="comment">// 이 줄이 컴파일된다면</span></span><br><span class="line">println(string.maxBy &#123;it.length&#125;) <span class="comment">// 실행 시점(런타임)에 예외가 발생할 것이다.</span></span><br><span class="line"></span><br><span class="line">ClassCastException: Integer cannot be cast to String</span><br></pre></td></tr></table></figure>
+
+<p>컴파일러가 이 식을 받아들인다면 정수를 문자열 리스트 뒤에 추가할 수 있다. 따라서 이 함수 호출은 컴파일 될 수 없다. 위의 코드에서 알 수 있는 점은 MutableList<any>가 필요한 곳에 MutableList<string>을 넘기면 안된다는 사실을 보여준다. 코틀린 컴파일러는 실제 이런 함수 호출을 금지한다. </string></any></p>
+<p>“어떤 함수가 리스트의 원소를 추가하거나 변경한다면 타입 불일치가 생길 수 있어서 List<any> 대신 List<string>을 넘길 수 없다. 하지만, 원소의 추가나 변경이 없는 경우에는 List<string>을 List<any> 대신 넘겨도 안전하다.” 라고 말할 수 있다.</any></string></string></any></p>
+<p>코틀린에서는 리스트의 변경 가능성에 따라 적절한 인터페이스를 선택하면 안전하지 못한 함수 호출을 막을 수 있다. 함수가 읽기 전용 리스트를 받는다면 더 구체적인 타입의 원소를 갖는 리스트를 그 함수의 인자로 넘길 수 있다. 하지만, 리스트가 변경 가능하다면 그럴 수 없다.</p>
+<h2 id="클래스-타입-하위-타입"><a href="#클래스-타입-하위-타입" class="headerlink" title="클래스, 타입, 하위 타입"></a>클래스, 타입, 하위 타입</h2><p>타입과 클래스의 차이에 대해서 알아보자. 제네릭 클래스가 아닌 클래스에서는 클래스 이름을 바로 타입으로 쓸 수 있다. var x: String은 String 클래스의 인스턴스를 저장하는 변수를 정의할 수 있다. 하지만, var x: String?처럼 같은 클래스 이름을 널이 될 수 있는 타입에도 쓸 수 있다. 이는 모든 코틀린 클래스가 적어도 둘 이상의 타입을 구성할 수 있다는 뜻이다.</p>
+<p>제네릭 클래스에서는 상황이 더 복잡하다. 올바른 타입을 얻으려면 제네릭 타입의 타입 파라미터를 구체적인 타입 인자로 바꿔줘야 한다. 예를 들어 List는 타입이 아니다. 하지만, 타입 인자를 치환한 List<int>, List&lt;String?&gt;, List<string> 등은 모두 제대로 된 타입이다. 각각의 제네릭 클래스는 무수히 많은 타입을 만들어낼 수 있다. </string></int></p>
+<p>이제 타입 사이의 관계를 알기 위해서 <code>하위 타입</code>이라는 개념을 알아보자. 어떤 타입 A의 값이 필요한 모든 장소에 어떤 타입 B의 값을 넣어도 아무 문제가 없다면 B는 A의 하위 타입이다. 예를 들어, Int는 Number의 하위 타입이지만, String의 하위 타입은 아니다.  <code>상위 타입</code>은 하위 타입의 반대다. A 타입이 B 타입의 하위 타입이라면 B는 A의 상위 타입이다. </p>
+<p><strong>A가 필요한 모든 곳에 B를 사용할 수 있으면 B는 A의 하위 타입이다.</strong></p>
+<p>한 타입이 다른 타입의 하위 타입인지가 왜 중요할까? 컴파일러는 변수 대입이나 함수 인자 전달 시 하위 타입 검사를 매번 수행한다.  </p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">test</span><span class="params">(i: <span class="type">Int</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> n: Number = i</span><br><span class="line">    <span class="comment">// Int가 Number의 하위 타입이어서 컴파일 된다.</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">f</span><span class="params">(s: <span class="type">String</span>)</span></span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    f(i)</span><br><span class="line">    <span class="comment">// Int가 String의 하위 타입이 아니어서 컴파일되지 않는다.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>어떤 값의 타입이 변수 타입의 하위 타입인 경우에만 값을 변수에 대입하게 허용한다. 함수에 전달하는 식의 타입이(위의 경우에는 i(Int)) 함수 파라미터 타입(s(String)의 하위 타입인 경우에만 함수 호출이 허용된다. 이 예제에서 i 인자의 타입인 Int는 파라미터 타입인 String의 하위 타입이 아니다. 따라서 f 함수 호출은 컴파일 되지 않는다.</p>
+<p><strong>간단한 경우, 하위 타입은 하위 클래스와 근본적으로 같다.</strong> Int 클래스는 Number의 하위 클래스이므로 Int는 Number의 하위 타입이다. String은 CharSequence의 하위 타입인 것처럼 어떤 인터페이스를 구현하는 클래스의 타입은 그 인터페이스의 하위 타입이다. </p>
+<p>널이 될 수 없는 타입은 널이 될 수 있는 타입의 하위 타입이다. 하지만, 두 타입 모두 같은 클래스에 해당한다. 항상 널이 될 수 없는 타입의 값을 널이 될 수 있는 타입의 변수에 저장할 수 있지만, 거꾸로 널이 될 수 있는 타입의 값을 널이 될 수 없는 타입의 변수에 저장할 수는 없다. -&gt; null을 널이 될 수 없는 변수에 대입할 수 없으므로 이는 당연하다.</p>
+<p>제네릭 타입을 인스턴스화할 때 타입 인자로 서로 다른 타입이 들어가면 인스턴스 타입 사이의 하위 타입 관계가 성립하지 않으면 그 제네릭 타입을 <code>무공변(invariant)</code>이라고 한다. MutableList를 예로 들면 A와 B가 서로 다르기만 하면 MutableList<a>는 항상 MutableList<b>의 하위 타입이 아니다. </b></a></p>
+<p>A가 B의 하위 타입이면 List<a>는 List<b>의 하위 타입이다. 이런 클래스나 인터페이스를 <strong>공변적</strong>이라고 말한다. </b></a></p>
+<h2 id="공변성-하위-타입-관계를-유지"><a href="#공변성-하위-타입-관계를-유지" class="headerlink" title="공변성 : 하위 타입 관계를 유지"></a>공변성 : 하위 타입 관계를 유지</h2>
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/12/15/Chap9-3/" data-id="ck46pdy1y003dp73rsob9ewdk" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Victory Woo"
+        },
+        "headline": "[Kotlin] 제네릭 3",
+        "image": "http://victorywoolee/victorywoolee.github.io",
+        "keywords": "Android Kotlin 제네릭",
+        "genre": "Kotlin",
+        "datePublished": "2019-12-15",
+        "dateCreated": "2019-12-15",
+        "dateModified": "2019-12-15",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/12/15/Chap9-3/",
+        "description": "변성이라는 개념은 List, List와 같이 기저 타입이 같고 타입 인자가 다른 여러 타입이 서로 어떤 관계가 있는지 설명하는 개념이다. 이번에는 이 개념에 대해서 알아보도록 하자.
+변성이 있는 이유 : 인자를 함수에 넘기기List 타입의 파라미터를 받는 함수에 List을 넘기면 안전할까? String 클래스는 Any 클래스를 확장하므로 Any 타입의 값을",
+        "wordCount": 812
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/victorywoolee" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/12/14/Android-9Patch/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[Android] 나인패치</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">24</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/12/15/Chap9-3/" class="title">[Kotlin] 제네릭 3</a></p>
+                            <p class="item-date"><time datetime="2019-12-15T06:19:24.000Z" itemprop="datePublished">2019-12-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/12/14/Android-9Patch/" class="title">[Android] 나인패치</a></p>
+                            <p class="item-date"><time datetime="2019-12-14T07:39:49.000Z" itemprop="datePublished">2019-12-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/12/14/Chap9-2/" class="title">[Kotlin] 제네릭 2</a></p>
+                            <p class="item-date"><time datetime="2019-12-14T04:21:34.000Z" itemprop="datePublished">2019-12-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/12/13/Chap9-1/" class="title">[Kotlin] 제네릭</a></p>
+                            <p class="item-date"><time datetime="2019-12-13T11:51:02.000Z" itemprop="datePublished">2019-12-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/12/08/Android-Bitmap-pixel/" class="title">[Android] Bitmap에서 Pixel</a></p>
+                            <p class="item-date"><time datetime="2019-12-08T04:20:02.000Z" itemprop="datePublished">2019-12-08</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Victory Woo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/12/15/Chap9-3/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
