@@ -10,22 +10,22 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="Android,ADB">
+        <meta name="keywords" content="Android,ADB,디버깅,딥링크">
     
     <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
-    <meta name="description" content="ADB 즉, Android 디버그 브리지에 대해서 설명하려고 한다. 이게 언제 쓰일 수 있나? 라고 생각할 수 있지만, 생각보다 괜찮은 기능이다.  가장 대표적인 예로는 현재 딥링크를 테스트하고 있는데, ADB Shell 명령어를 입력하여 간단하게 딥링크를 테스트해 볼 수 있어서 좋다. 이를 설정하는 방법과 활용 방안에 대해서 알아보려고 한다.">
-<meta name="keywords" content="Android,ADB">
+    <meta name="description" content="ADB 즉, Android 디버그 브리지에 대해서 설명하려고 한다. 이게 언제 쓰일 수 있나? 라고 생각할 수 있지만, 생각보다 괜찮은 기능이다.  가장 대표적인 예로는 현재 딥링크를 테스트하고 있는데, ADB Shell 명령어를 입력하여 간단하게 딥링크를 테스트해 볼 수 있어서 좋다. 이를 설정하는 방법과 활용 방안에 대해서 알아보려고 한다.  딥링크이">
+<meta name="keywords" content="Android,ADB,디버깅,딥링크">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Android] ADB Shell 명령어로 디버깅">
 <meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/12/17/Android-ADB/index.html">
 <meta property="og:site_name" content="VictoryWoo">
-<meta property="og:description" content="ADB 즉, Android 디버그 브리지에 대해서 설명하려고 한다. 이게 언제 쓰일 수 있나? 라고 생각할 수 있지만, 생각보다 괜찮은 기능이다.  가장 대표적인 예로는 현재 딥링크를 테스트하고 있는데, ADB Shell 명령어를 입력하여 간단하게 딥링크를 테스트해 볼 수 있어서 좋다. 이를 설정하는 방법과 활용 방안에 대해서 알아보려고 한다.">
+<meta property="og:description" content="ADB 즉, Android 디버그 브리지에 대해서 설명하려고 한다. 이게 언제 쓰일 수 있나? 라고 생각할 수 있지만, 생각보다 괜찮은 기능이다.  가장 대표적인 예로는 현재 딥링크를 테스트하고 있는데, ADB Shell 명령어를 입력하여 간단하게 딥링크를 테스트해 볼 수 있어서 좋다. 이를 설정하는 방법과 활용 방안에 대해서 알아보려고 한다.  딥링크이">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-17T16:12:23.402Z">
+<meta property="og:updated_time" content="2019-12-22T06:38:11.448Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Android] ADB Shell 명령어로 디버깅">
-<meta name="twitter:description" content="ADB 즉, Android 디버그 브리지에 대해서 설명하려고 한다. 이게 언제 쓰일 수 있나? 라고 생각할 수 있지만, 생각보다 괜찮은 기능이다.  가장 대표적인 예로는 현재 딥링크를 테스트하고 있는데, ADB Shell 명령어를 입력하여 간단하게 딥링크를 테스트해 볼 수 있어서 좋다. 이를 설정하는 방법과 활용 방안에 대해서 알아보려고 한다.">
+<meta name="twitter:description" content="ADB 즉, Android 디버그 브리지에 대해서 설명하려고 한다. 이게 언제 쓰일 수 있나? 라고 생각할 수 있지만, 생각보다 괜찮은 기능이다.  가장 대표적인 예로는 현재 딥링크를 테스트하고 있는데, ADB Shell 명령어를 입력하여 간단하게 딥링크를 테스트해 볼 수 있어서 좋다. 이를 설정하는 방법과 활용 방안에 대해서 알아보려고 한다.  딥링크이">
     
 
     
@@ -170,7 +170,7 @@
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/ADB/">ADB</a>, <a class="tag-link" href="/tags/Android/">Android</a>
+        <a class="tag-link" href="/tags/ADB/">ADB</a>, <a class="tag-link" href="/tags/Android/">Android</a>, <a class="tag-link" href="/tags/디버깅/">디버깅</a>, <a class="tag-link" href="/tags/딥링크/">딥링크</a>
     </div>
 
             </div>
@@ -179,6 +179,60 @@
         <div class="article-entry" itemprop="articleBody">
             <p>ADB 즉, Android 디버그 브리지에 대해서 설명하려고 한다. 이게 언제 쓰일 수 있나? 라고 생각할 수 있지만, 생각보다 괜찮은 기능이다. </p>
 <p>가장 대표적인 예로는 현재 딥링크를 테스트하고 있는데, ADB Shell 명령어를 입력하여 간단하게 딥링크를 테스트해 볼 수 있어서 좋다. 이를 설정하는 방법과 활용 방안에 대해서 알아보려고 한다. </p>
+<h2 id="딥링크"><a href="#딥링크" class="headerlink" title="딥링크"></a>딥링크</h2><p>이 글은 딥링크에 대한 개념을 설명하는 글이 아닌 딥링크를 테스트하기 위한 방법을 설명하는 글이다. 딥링크에 대해 알고싶다면 <a href="https://developer.android.com/training/app-links/deep-linking?hl=ko" target="_blank" rel="noopener">여기</a>를 참고하길 바란다. <a href="https://developer.android.com/training/app-links?hl=ko" target="_blank" rel="noopener">이 부분</a>도 참고하면 좋다.</p>
+<p>딥링크는 개인 프로젝트나 개인 개발 시에는 많이 사용할 일이 없는 것 같다. 물론 이건 개인적인 생각이다. 하지만, 회사의 프로덕트나 서비스를 개발하다보면 딥링크는 뗄레야 뗄 수 없는 존재가 된다. </p>
+<p>딥링크는 시스템적인 부분이 어느 정도 포함된다. 어떤 메일을 받았는데, 해당 메일에 회사 프로덕트의 딥링크를 포함하고 있다면, 이 딥링크는 어떤 버튼에 할당될 것이다. 이제 그 버튼을 누르면 안드로이드 시스템에서 해당 딥링크의 scheme와 같은 부분을 가지고 있는 앱을 찾아 실행할 것이다. 없다면 플레이 스토어로 이동하게 될 것이다.</p>
+<p>같은 scheme을 갖고 있는 앱을 찾았다면 앱을 실행시키고 그 딥링크의 path를 통해서 앱의 어떤 특정한 부분을 실행하고 그 페이지로 이동할 것이다. 그럼 이를 개발 단계에서 테스트하려면 어떻게 할 수 있을까? <strong>정답은 문서에 있다.</strong></p>
+<p>딥링크를 받을 수 있도록 매니페스트 파일에서 선언하는 것과 데이터를 코드 단에서 받는 부분은 생략하겠다. 이는 문서에 잘 설명되어 있으니 참고하길 바란다. <a href="https://developer.android.com/training/app-links/deep-linking" target="_blank" rel="noopener">문서</a></p>
+<h2 id="딥링크-테스트하기"><a href="#딥링크-테스트하기" class="headerlink" title="딥링크 테스트하기"></a>딥링크 테스트하기</h2><p><code>Android 디버그 브리지</code>를 <strong>activity manager(am)</strong> 도구와 함께 사용하여 딥링크용으로 지정한 인텐트 필터 URI가 올바른 앱 활동으로 확인되는지 테스트할 수 있다.</p>
+<ul>
+<li>Android 디버그 브리지(adb)</li>
+</ul>
+<p>adb는 기기와 통신할 수 있는 다목적 명령줄 도구이다. adb 명령어는 앱의 설치 및 디버깅과 같은 다양한 기기 작업에 도움이 되며, 기기에서 다양한 명령어를 실행하는 데 사용할 수 있는 Unix 셸에 관한 액세스를 제공한다. 이 도구는 다음과 같은 세 가지 구성요소를 포함하는 클라이언트-서버 프로그램이다. </p>
+<ol>
+<li>명령어를 전송하는 <strong>클라이언트</strong>. 클라이언트는 개발용 컴퓨터에서 실행된다. adb 명령어를 실행하여 명령줄 터미널에서 클라이언트를 호출할 수 있다.</li>
+<li>기기에서 명령어를 실행하는 <strong>데몬</strong>. 데몬은 각 기기에서 백그라운드 프로세스로 실행된다.</li>
+<li>클라이언트와 데몬 간의 통신을 관리하는 <strong>서버</strong>. 서버는 개발용 컴퓨터에서 백그라운드 프로세스로 실행된다.</li>
+</ol>
+<p>그럼 adb에 대해서 간략하게만 알아봤고, 이를 통해서 딥링크 테스트를 해보자. 더 자세한 내용은 문서를 참고하자~</p>
+<ul>
+<li>bash 쉘에서 사용자의 환경 설정을 저장하는 .bash_profile 파일이 있는지 확인하자.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l -a .bash_profile</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>.bash_profile이 없다면 새로 생성</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch -c .bash_profile</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>.bash_profile이 있다면 수정</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open -e .bash_profile</span><br></pre></td></tr></table></figure>
+
+<p>export 문을 .bash_profile에 추가</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/Users/username/prebuilts/fullsdk-darwin/platform-tools</span><br></pre></td></tr></table></figure>
+
+<p>platform-tools이 존재하는 경로를 추가하면 된다. 보통 Android/sdk 밑에 존재하는데, 필자는 위와 같은 경로에 존재해서 위의 경로를 추가했다.</p>
+<p>즉, adb 파일이 있는 경로를 입력해야 한다. adb 파일이 있는 경로 확인을 위해서 Android Studio -&gt; File -&gt; Project Structure -&gt; SDK Location을 확인하면 경로를 알아낼 수 있다.</p>
+<ul>
+<li>이제 reload .bash_profile 하자.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source .bash_profile</span><br></pre></td></tr></table></figure>
+
+<p>이후에는 adb를 사용할 준비가 되었는지 확인해보자.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">adb version</span><br><span class="line"></span><br><span class="line">Android Debug Bridge version 1.0.40</span><br><span class="line">Version 4986621</span><br></pre></td></tr></table></figure>
+
+<p>이제 딥링크를 테스트해보자.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell am start -d mrt://reservations/flight</span><br></pre></td></tr></table></figure>
+
+<p>잘 실행된다. 이제 로컬에서 딥링크 테스트를 간편하게 할 수 있다.</p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><ul>
+<li><a href="http://help.igaworks.com/hc/ko/3_3/content/Article/how-to-set-deeplink" target="_blank" rel="noopener">딥링크 설정하기</a></li>
+<li><a href="https://m.blog.naver.com/PostView.nhn?blogId=acs0290&logNo=220423170792&proxyReferer=https%3A%2F%2Fwww.google.com%2F" target="_blank" rel="noopener">Android SDK 경로 확인 및 변경</a></li>
+<li><a href="https://developer.android.com/studio/command-line/adb" target="_blank" rel="noopener">Android 디버그 브리지(adb)</a></li>
+<li><a href="https://developer.android.com/training/app-links/deep-linking" target="_blank" rel="noopener">앱 콘텐츠 딥 링크 만들기</a> </li>
+</ul>
 
         </div>
         <footer class="article-footer">
@@ -258,16 +312,16 @@
         },
         "headline": "[Android] ADB Shell 명령어로 디버깅",
         "image": "http://victorywoolee/victorywoolee.github.io",
-        "keywords": "Android ADB",
+        "keywords": "Android ADB 디버깅 딥링크",
         "genre": "Android",
         "datePublished": "2019-12-17",
         "dateCreated": "2019-12-17",
-        "dateModified": "2019-12-18",
+        "dateModified": "2019-12-22",
         "url": "http://victorywoolee/victorywoolee.github.io/2019/12/17/Android-ADB/",
         "description": "ADB 즉, Android 디버그 브리지에 대해서 설명하려고 한다. 이게 언제 쓰일 수 있나? 라고 생각할 수 있지만, 생각보다 괜찮은 기능이다. 
 가장 대표적인 예로는 현재 딥링크를 테스트하고 있는데, ADB Shell 명령어를 입력하여 간단하게 딥링크를 테스트해 볼 수 있어서 좋다. 이를 설정하는 방법과 활용 방안에 대해서 알아보려고 한다. 
-",
-        "wordCount": 47
+딥링크이 ",
+        "wordCount": 503
     }
 </script>
 
