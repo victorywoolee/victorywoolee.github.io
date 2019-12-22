@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>[피드백] 1. | VictoryWoo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="피드백,나만의 공간">
+    
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
+    <meta name="description" content="코드, 나에 대한 피드백을 정리하는 공간이다.   예외 상황, 불가피한 상황을 고려해야 한다.   어떤 상황에서도 앱에서 Null을 보여주는 것이 앱이 예상치 못하게 종료되는 것보다 낫다. 데이터 클래스의 프로퍼티를 선언할 때, 필자는 NonNull로 선언을 했다. 널이 들어오지 않을 것이라 생각했고, 서버의 API 스펙을 확인했을 경우에도 데이터 타입이">
+<meta name="keywords" content="피드백,나만의 공간">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[피드백] 1.">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/12/22/Feedback1/index.html">
+<meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="코드, 나에 대한 피드백을 정리하는 공간이다.   예외 상황, 불가피한 상황을 고려해야 한다.   어떤 상황에서도 앱에서 Null을 보여주는 것이 앱이 예상치 못하게 종료되는 것보다 낫다. 데이터 클래스의 프로퍼티를 선언할 때, 필자는 NonNull로 선언을 했다. 널이 들어오지 않을 것이라 생각했고, 서버의 API 스펙을 확인했을 경우에도 데이터 타입이">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-22T05:55:51.858Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[피드백] 1.">
+<meta name="twitter:description" content="코드, 나에 대한 피드백을 정리하는 공간이다.   예외 상황, 불가피한 상황을 고려해야 한다.   어떤 상황에서도 앱에서 Null을 보여주는 것이 앱이 예상치 못하게 종료되는 것보다 낫다. 데이터 클래스의 프로퍼티를 선언할 때, 필자는 NonNull로 선언을 했다. 널이 들어오지 않을 것이라 생각했고, 서버의 API 스펙을 확인했을 경우에도 데이터 타입이">
+    
+
+    
+        <link rel="alternate" href="/" title="VictoryWoo" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">VictoryWoo&#39;s Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Android/">Android</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clean-Code/">Clean Code</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ETC/">ETC</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Feedback/">Feedback</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Kotlin/">Kotlin</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Programmer/">Programmer</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Feedback/">Feedback</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Feedback1" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [피드백] 1.
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/12/22/Feedback1/" class="article-date">
+            <time datetime="2019-12-22T05:25:07.000Z" itemprop="datePublished">2019-12-22</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/나만의-공간/">나만의 공간</a>, <a class="tag-link" href="/tags/피드백/">피드백</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>코드, 나에 대한 피드백을 정리하는 공간이다. </p>
+<ul>
+<li><p>예외 상황, 불가피한 상황을 고려해야 한다. </p>
+</li>
+<li><p>어떤 상황에서도 앱에서 Null을 보여주는 것이 앱이 예상치 못하게 종료되는 것보다 낫다. 데이터 클래스의 프로퍼티를 선언할 때, 필자는 NonNull로 선언을 했다. 널이 들어오지 않을 것이라 생각했고, 서버의 API 스펙을 확인했을 경우에도 데이터 타입이 NonNull이었기 때문에 이렇게 선언을 했다. </p>
+<ul>
+<li>하지만, 이렇게 선언한 경우에 서버에서 데이터를 잘못 입력해 Null이 들어올 수 있다고 생각해보자. 그렇다면 클라이언트에서는 널을 받지 못하기 때문에 앱을 바로 종료된다. 사용자 입장에서는 이렇게 바로 종료되는 앱에 대해서 좋지 못한 경험을 하게 될 것이다. </li>
+<li>어떤 경우가 됐든 클라이언트 입장에서는 사용자가 쓰는 앱이 종료되지 않는게 중요하다. 잘못된 데이터를 보여주더라도 앱이 종료되지 않는게 더 중요한 것이다. 그래서 데이터 클래스의 프로퍼티를 선언할 때는 Nullable 하게 선언해야 한다. 그래야 앱이 예상치 못하게 종료되는 것을 막을 수 있다. </li>
+<li>여기서 하나의 개념을 알고 넘어가자면 Nullable한 타입이 NonNull 타입을 포함할 수 있다고 생각하면 된다. Nullable 한 타입에 NonNull 변수를 할당할 수 있지만, NonNull 타입에 Nullable 변수를 대입할 수 없는 것을 생각하면 간단하다.</li>
+</ul>
+</li>
+<li><p>해당 화면에서 사용되는 상수 값을 지역 변수로 사용해도 무방하다. 또한, 지역 변수로 사용한다하더라도 변수를 할당해서 사용하지 않고 리터럴한 상수를 쓰자. 아래에 간단한 코드에서 확인해보자. </p>
+<ul>
+<li>아래는 어떤 숫자가 상수로 정의된 numberOne 즉, 1과 같은지 비교하는 함수다. numberOne은 MainActivity 내에서 <code>checkNumber()</code>라는 함수에서만 사용된다. 그런데, 이렇게 비교한다면 이 상수에 대해서 할당된 메모리를 낭비하는 일이라고 봐도 된다. 이 변수 하나에 대해서는 큰 낭비가 없지만, 이런 경우처럼 한 번만 사용되는 데 상수로 선언해서 사용한다면 큰 낭비가 될 수 있다.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> numberOne = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState : <span class="type">Bundle</span>?)</span></span>&#123;</span><br><span class="line">        checkNumber(<span class="number">2</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">checkNumber</span><span class="params">(number: <span class="type">Int</span>)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(number == numberOne)&#123;</span><br><span class="line">            println(<span class="string">"Same Number!"</span>)</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            println(<span class="string">"Not Same Number!"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>그러면 조금 더 수정해서 아래는 어떨까?</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState : <span class="type">Bundle</span>?)</span></span>&#123;</span><br><span class="line">        checkNumber(<span class="number">2</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">checkNumber</span><span class="params">(number: <span class="type">Int</span>)</span></span>&#123;</span><br><span class="line">        <span class="keyword">val</span> numberOne = <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span>(number == numberOne)&#123;</span><br><span class="line">            println(<span class="string">"Same Number!"</span>)</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            println(<span class="string">"Not Same Number!"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>그래도 이전보다는 낫다. 하지만, 이 함수 내에서도 한 번만 사용되는 값이기 때문에 지역 변수에 할당하는 것보다는 한번만 쓰이고 버리는 값이기 때문에 리터럴로 사용하는 편이 낫다.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState : <span class="type">Bundle</span>?)</span></span>&#123;</span><br><span class="line">        checkNumber(<span class="number">2</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">checkNumber</span><span class="params">(number: <span class="type">Int</span>)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(number == <span class="number">1</span>)&#123;</span><br><span class="line">            println(<span class="string">"Same Number!"</span>)</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            println(<span class="string">"Not Same Number!"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이게 좀 더 깔끔한 방법이다. 이처럼 사소한 부분을 별 생각없이 작성한다면 추후에는 큰 오류가 될 가능성이 있다. 실용주의 프로그래머의 한 부분에서 이런 말이 있다. 유리창이 깨진 차가 그대로 방치된다면, 몇일 뒤에 그 차는 산산조각 날 것이라는 이야기가 있다. 이는 부패되고 썩은 코드를 그대로 방치하면 이는 점점 커져 프로젝트를 잡아먹을 만한 악의 축이 될 수 있다는 것이다. 그렇기 때문에 이런 코드를 발견하면 즉시 리팩토링을 통해 조치를 취해야 한다.</p>
+<ul>
+<li>어떤 타입에 대해 캐스팅을 할 때, 먼저 그 타입이 맞는지 확인하는 과정을 거치자. 이 부분도 클라이언트 입장에서는 그 타입일 거라고 확실하게 생각하고 코딩을 하지만, 서버에서 어떤 이유로 타입을 잘못해서 내려줄 경우에 클라이언트에서 이를 대처하지 못한다면 앱을 바로 종료된다.<ul>
+<li>나는 서버에서 내려온 데이터를 받아서 이를 바로 캐스팅하는 습관이 있다. 왜냐하면 서버의 API 스펙상으로는 확실한 타입을 알기 때문에 그 타입이 맞을 것이라고 확신을 한다. 하지만, 위에서 말했던 이유로 서버 상에서 어떠한 이유로 그 타입의 값을 내려주지 못할 때, 앱을 종료된다. 이런 상황을 막기 위해서는 앱에서 캐스팅을 하기 전에 해당 타입이 맞는지 먼저 확인하는 작업이 필요하다. 그리고 해당 타입이 맞을 경우에만 캐스팅을 하도록 안전하게 한다면 앱이 예상치 못하게 종료되는 상황을 방지할 수 있다.</li>
+</ul>
+</li>
+</ul>
+<p>이번 피드백은 크로스셀 관련 작업을 할 때 나온 피드백들이다. 이 피드백 말고도 페이징을 할 때, 페이징에 대해서 1 페이지와 2 페이지일 때, 경우를 다르게 처리해야 하는 부분이 있는데 이번 피드백에서는 다루지 않고 다음에 다룰 예정이다.</p>
+<p>이번에 느낀 점은 앱이 어떤 상황에서든 서버 상의 어떤 이유로, 혹은 어떤 에러로 인해서 값이 제대로 내려오지 않은 경우에 대해서도 클라이언트 입장에서는 대비를 해야 한다는 것을 깨달았다. 이전까지 하나의 상황, 바로 눈 앞에 주어진 상황에 대해서만 생각해서 코딩을 했고 예외를 고려하지 못한 경우가 많았다. 하지만, 실제 운영중인 프로덕트 서비스에 기능을 추가해야 하는 개발에 대해서는 언제, 어떻게 앱이 종료될 지 모르기 때문에 클라이언트 측에서 방어할 수 있는 부분은 최대한 방어해야 한다. 그렇지 않으면 사용자에게 좋지 못한 경험을 남길 수 있다.</p>
+<ul>
+<li>교훈 : 클라이언트에서 방어할 수 있는 부분은 최대한 방어하자.</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/12/22/Feedback1/" data-id="ck4gllujn0051jg3rbmew2vl1" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Victory Woo"
+        },
+        "headline": "[피드백] 1.",
+        "image": "http://victorywoolee/victorywoolee.github.io",
+        "keywords": "피드백 나만의 공간",
+        "genre": "Feedback",
+        "datePublished": "2019-12-22",
+        "dateCreated": "2019-12-22",
+        "dateModified": "2019-12-22",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/12/22/Feedback1/",
+        "description": "코드, 나에 대한 피드백을 정리하는 공간이다. 
+
+예외 상황, 불가피한 상황을 고려해야 한다. 
+
+어떤 상황에서도 앱에서 Null을 보여주는 것이 앱이 예상치 못하게 종료되는 것보다 낫다. 데이터 클래스의 프로퍼티를 선언할 때, 필자는 NonNull로 선언을 했다. 널이 들어오지 않을 것이라 생각했고, 서버의 API 스펙을 확인했을 경우에도 데이터 타입이 ",
+        "wordCount": 992
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/victorywoolee" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/12/22/Programmer-13/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[실용주의 프로그래머] 13.</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">27</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feedback/">Feedback</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programmer/">Programmer</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Feedback/">Feedback</a></p>
+                            <p class="item-title"><a href="/2019/12/22/Feedback1/" class="title">[피드백] 1.</a></p>
+                            <p class="item-date"><time datetime="2019-12-22T05:25:07.000Z" itemprop="datePublished">2019-12-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Programmer/">Programmer</a></p>
+                            <p class="item-title"><a href="/2019/12/22/Programmer-13/" class="title">[실용주의 프로그래머] 13.</a></p>
+                            <p class="item-date"><time datetime="2019-12-22T04:10:45.000Z" itemprop="datePublished">2019-12-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/12/17/Android-ADB/" class="title">[Android] ADB Shell 명령어로 디버깅</a></p>
+                            <p class="item-date"><time datetime="2019-12-17T13:57:22.000Z" itemprop="datePublished">2019-12-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/12/15/Chap9-3/" class="title">[Kotlin] 제네릭 3</a></p>
+                            <p class="item-date"><time datetime="2019-12-15T06:19:24.000Z" itemprop="datePublished">2019-12-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/12/14/Android-9Patch/" class="title">[Android] 나인패치</a></p>
+                            <p class="item-date"><time datetime="2019-12-14T07:39:49.000Z" itemprop="datePublished">2019-12-14</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Victory Woo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/12/22/Feedback1/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
