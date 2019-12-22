@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>[실용주의 프로그래머] 13. | VictoryWoo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="실용주의 프로그래머,추정">
+    
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theeluwin/NotoSansKR-Hestia@master/stylesheets/NotoSansKR-Hestia.css">
+    <meta name="description" content="실용주의 프로그래머 책은 읽으면서 이렇게 기록하지는 않았다. 기록하면서 읽기에는 다소 예시를 들어서 설명하는 부분이 많기 때문에 적절하지 않다고 생각한다. 대신에, 괜찮거나 좋은 부분이 있으면 이에 대해서 기록하려 한다.  이번에는 이 책 중 13 - 추정에서 나온 마지막 부분에 대해서 적어보려 한다. 이에 대한 설명은 주관적이며, 잘못되었을 수도 있다.">
+<meta name="keywords" content="실용주의 프로그래머,추정">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[실용주의 프로그래머] 13.">
+<meta property="og:url" content="http://victorywoolee/victorywoolee.github.io/2019/12/22/Programmer-13/index.html">
+<meta property="og:site_name" content="VictoryWoo">
+<meta property="og:description" content="실용주의 프로그래머 책은 읽으면서 이렇게 기록하지는 않았다. 기록하면서 읽기에는 다소 예시를 들어서 설명하는 부분이 많기 때문에 적절하지 않다고 생각한다. 대신에, 괜찮거나 좋은 부분이 있으면 이에 대해서 기록하려 한다.  이번에는 이 책 중 13 - 추정에서 나온 마지막 부분에 대해서 적어보려 한다. 이에 대한 설명은 주관적이며, 잘못되었을 수도 있다.">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-22T04:47:48.915Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[실용주의 프로그래머] 13.">
+<meta name="twitter:description" content="실용주의 프로그래머 책은 읽으면서 이렇게 기록하지는 않았다. 기록하면서 읽기에는 다소 예시를 들어서 설명하는 부분이 많기 때문에 적절하지 않다고 생각한다. 대신에, 괜찮거나 좋은 부분이 있으면 이에 대해서 기록하려 한다.  이번에는 이 책 중 13 - 추정에서 나온 마지막 부분에 대해서 적어보려 한다. 이에 대한 설명은 주관적이며, 잘못되었을 수도 있다.">
+    
+
+    
+        <link rel="alternate" href="/" title="VictoryWoo" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">VictoryWoo&#39;s Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Android/">Android</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clean-Code/">Clean Code</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ETC/">ETC</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Kotlin/">Kotlin</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Programmer/">Programmer</a></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Programmer/">Programmer</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Programmer-13" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [실용주의 프로그래머] 13.
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/12/22/Programmer-13/" class="article-date">
+            <time datetime="2019-12-22T04:10:45.000Z" itemprop="datePublished">2019-12-22</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/실용주의-프로그래머/">실용주의 프로그래머</a>, <a class="tag-link" href="/tags/추정/">추정</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>실용주의 프로그래머 책은 읽으면서 이렇게 기록하지는 않았다. 기록하면서 읽기에는 다소 예시를 들어서 설명하는 부분이 많기 때문에 적절하지 않다고 생각한다. 대신에, 괜찮거나 좋은 부분이 있으면 이에 대해서 기록하려 한다. </p>
+<p>이번에는 이 책 중 <code>13 - 추정</code>에서 나온 마지막 부분에 대해서 적어보려 한다. 이에 대한 설명은 주관적이며, 잘못되었을 수도 있다. 그리고 이 글은 직접 책을 구매해서 작성하는 부분임을 알린다.</p>
+<h2 id="프로젝트-일정-추정하기"><a href="#프로젝트-일정-추정하기" class="headerlink" title="프로젝트 일정 추정하기"></a>프로젝트 일정 추정하기</h2><p>프로젝트에서 일정을 추정하는 것은 어렵다. 쉬운 일이 아니다. 더구나 필자는 너무 어려웠다. 회사 생활이 처음이기도 했고, 실제 운영중인 서비스에 추가될 기능을 개발하기 위해서 이에 대한 일정을 추정한다는 게 부담스럽기도 하고 계산이 되지 않았다. 그러면서 여러번 부딪히고 깨지는 과정을 반복하면서 어느 정도는 알게 되었지만, 아직도 어렵고 혼나기도 한다.</p>
+<p>그러던 와중에 <strong>실용주의 프로그래머</strong> 책을 읽던 와중에 프로젝트 일정 추정에 대한 글이 있어 정리해본다.</p>
+<p>추정에 대한 일반 법칙은 변화하는 애플리케이션의 복잡성과 변덕스러움 앞에 와해되기 쉽다. 프로젝트의 일정을 정할 수 있는 유일한 방법은 진행하는 해당 프로젝트를 경험하는 것뿐이란 사실을 알게 된다. 이는 정말 맞는 말인 것 같다. 경험하지 않고서는 이에 대해서 어떤 답을 내릴 수 없다. 모순이라고? 다음과 같은 단계를 반복하는 점증적 개발을 연습한다면 꼭 그런 것만은 아니다.</p>
+<ul>
+<li>요구사항 체크하기</li>
+<li>위험 분석하기</li>
+<li>설계, 구현, 통합</li>
+<li>사용자와 함께 검증하기</li>
+</ul>
+<p>프로젝트 초기에는 얼마나 많은 반복이 필요할지에 대해 막연히 생각할 수 밖에 없을 것이다. 어떤 방법론은 반복 횟수를 초기 계획의 일부로 포함시킨다. 하지만, 소규모 프로젝트가 아니라면 이는 오히려 실수가 될 수 있다. 전에 같은 팀원에 같은 기술을 사용해 비슷한 애플리케이션을 만들어본 경험이 없다면 단순한 추측에 불과하다.</p>
+<p>그러므로 초기 기능의 구현과 테스트를 마친 후, 이를 첫 번째 반복의 끝으로 삼아라. 이 경험에 기반해 반복의 횟수와 각 반복에서 무엇을 할지에 대한 초기 추측을 다듬을 수 있다. 이런 정제는 각 반복이 끝날 때마다 나아질 것이고 일정에 대한 확신도 이와 함께 증가할 것이다.</p>
+<p>이런 방법은 경영자들에게는 별로 인기가 없다. 경영자들은 보통 프로젝트가 시작되기도 전에 하나의 정확한 숫자를 원하기 때문이다. 여러분은 그들이 팀, 팀의 생산성 그리고 환경이 일정을 결정한다는 사실을 이해하도록 도와야 한다. 이를 공식화하고 일정 정제를 각 반복 과정의 일부로 삼았을 때, 그들에게 여러분이 할 수 있는 가장 정확한 일정 추정치를 건네줄 수 있을 것이다. </p>
+<h2 id="누군가-추정에-대해-물으면-무엇이라-대답해야-할까"><a href="#누군가-추정에-대해-물으면-무엇이라-대답해야-할까" class="headerlink" title="누군가 추정에 대해 물으면 무엇이라 대답해야 할까/"></a>누군가 추정에 대해 물으면 무엇이라 대답해야 할까/</h2><p>책의 저자는 “나중에 전화드릴께요.”라 말한 것이라 한다. 프로젝트 도중 숨을 고르고, 잠시 시간을 내어 이번 항목에서 기술한 단계를 밟아나간다면 더 정확한 추정치를 알려줄 수 있다. 자판기 앞에서 말한 추정치는 커피와 마찬가지로 여러분에게 해를 끼칠 것이다. </p>
+<p>우리는 우리가 계산한 추정치에 대한 기록을 남겨봐야 한다. 그리고 각 추정치가 얼마나 정확했는지 역시 기록으로 남기자. 만약 오차가 50% 이상이라면 잘못된 추정치를 내게 된 원인이 무엇인지 생각해볼 필요가 있다. </p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://victorywoolee/victorywoolee.github.io/2019/12/22/Programmer-13/" data-id="ck4gj6abi005qyy3rxgrvygx2" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Victory Woo"
+        },
+        "headline": "[실용주의 프로그래머] 13.",
+        "image": "http://victorywoolee/victorywoolee.github.io",
+        "keywords": "실용주의 프로그래머 추정",
+        "genre": "Programmer",
+        "datePublished": "2019-12-22",
+        "dateCreated": "2019-12-22",
+        "dateModified": "2019-12-22",
+        "url": "http://victorywoolee/victorywoolee.github.io/2019/12/22/Programmer-13/",
+        "description": "실용주의 프로그래머 책은 읽으면서 이렇게 기록하지는 않았다. 기록하면서 읽기에는 다소 예시를 들어서 설명하는 부분이 많기 때문에 적절하지 않다고 생각한다. 대신에, 괜찮거나 좋은 부분이 있으면 이에 대해서 기록하려 한다. 
+이번에는 이 책 중 13 - 추정에서 나온 마지막 부분에 대해서 적어보려 한다. 이에 대한 설명은 주관적이며, 잘못되었을 수도 있다. ",
+        "wordCount": 400
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/victorywoolee" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/12/17/Android-ADB/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[Android] ADB Shell 명령어로 디버깅</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">27</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Clean-Code/">Clean Code</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ETC/">ETC</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kotlin/">Kotlin</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Programmer/">Programmer</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Programmer/">Programmer</a></p>
+                            <p class="item-title"><a href="/2019/12/22/Programmer-13/" class="title">[실용주의 프로그래머] 13.</a></p>
+                            <p class="item-date"><time datetime="2019-12-22T04:10:45.000Z" itemprop="datePublished">2019-12-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/12/17/Android-ADB/" class="title">[Android] ADB Shell 명령어로 디버깅</a></p>
+                            <p class="item-date"><time datetime="2019-12-17T13:57:22.000Z" itemprop="datePublished">2019-12-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/12/15/Chap9-3/" class="title">[Kotlin] 제네릭 3</a></p>
+                            <p class="item-date"><time datetime="2019-12-15T06:19:24.000Z" itemprop="datePublished">2019-12-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2019/12/14/Android-9Patch/" class="title">[Android] 나인패치</a></p>
+                            <p class="item-date"><time datetime="2019-12-14T07:39:49.000Z" itemprop="datePublished">2019-12-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kotlin/">Kotlin</a></p>
+                            <p class="item-title"><a href="/2019/12/14/Chap9-2/" class="title">[Kotlin] 제네릭 2</a></p>
+                            <p class="item-date"><time datetime="2019-12-14T04:21:34.000Z" itemprop="datePublished">2019-12-14</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">19</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Victory Woo</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://victorywoolee/victorywoolee.github.io/2019/12/22/Programmer-13/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
